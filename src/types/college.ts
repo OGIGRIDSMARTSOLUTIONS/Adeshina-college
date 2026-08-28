@@ -1,3 +1,9 @@
+export interface CollegeFeature {
+  title: string;
+  description: string;
+  iconName?: string;
+}
+
 export interface College {
   id: string;
   name: string;
@@ -6,7 +12,7 @@ export interface College {
   tagline: string;
   description: string;
   heroImage?: string;
-  establishedYear?: number;
-  departmentsCount?: number;
-  programmesCount?: number;
+  accentColor?: string;
+  features?: CollegeFeature[];
+  trainingFoci?: string[];
 }

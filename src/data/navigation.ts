@@ -31,6 +31,7 @@ export const footerSections: FooterSection[] = [
       { label: 'About Us', path: '/about' },
       { label: 'All Programmes', path: '/programmes' },
       { label: 'Admissions', path: '/admissions' },
+      { label: 'Student Portal', path: '/portal' },
       { label: 'News & Updates', path: '/news' },
       { label: 'Contact & Campus', path: '/contact' },
     ],

@@ -1,5 +1,7 @@
 export type StudyMode = 'Full-Time' | 'Part-Time' | 'Weekend' | 'Distance Learning';
 
+export type VerificationStatus = 'verified' | 'research-found';
+
 export interface Programme {
   id: string;
   name: string;
@@ -11,4 +13,5 @@ export interface Programme {
   description?: string;
   entryRequirements?: string[];
   careerOpportunities?: string[];
+  verificationStatus?: VerificationStatus;
 }
