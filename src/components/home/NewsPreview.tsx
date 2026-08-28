@@ -5,17 +5,20 @@ import { newsArticles } from '@/data/news';
 
 export function NewsPreview() {
   return (
-    <section className="py-20 lg:py-28 bg-[#f4f7fb] border-b border-slate-200/80" aria-labelledby="news-updates-heading">
+    <section className="py-20 lg:py-28 bg-[#e2e8f0] border-b border-slate-300/80" aria-labelledby="news-updates-heading">
       <Container size="wide">
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
           <div>
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
-              LATEST UPDATES
-            </span>
+            <div className="inline-flex items-center gap-2 mb-2">
+              <span className="w-5 h-0.5 bg-[#B3A369]" aria-hidden="true" />
+              <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-[#8c7b44]">
+                LATEST UPDATES
+              </span>
+            </div>
             <h2
               id="news-updates-heading"
-              className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-navy leading-tight"
+              className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-[#001730] leading-tight"
             >
               Latest News & Bulletins
             </h2>
@@ -23,33 +26,33 @@ export function NewsPreview() {
 
           <Link
             to="/news"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-navy hover:text-adeshina-blue transition-colors group"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#001730] hover:text-[#8c7b44] transition-colors group"
           >
             <span>View All Bulletins</span>
-            <ArrowRight className="w-4 h-4 text-adeshina-blue group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-[#B3A369] group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        {/* 3-Column News Card Grid Matching Reference */}
+        {/* 3-Column News Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {newsArticles.map((article) => (
             <article
               key={article.id}
-              className="flex flex-col justify-between bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.04)] hover:shadow-lg hover:border-adeshina-blue/40 transition-all duration-200 group"
+              className="flex flex-col justify-between bg-white p-6 sm:p-7 rounded-2xl border border-slate-300 shadow-[0_3px_12px_-2px_rgba(0,23,48,0.06)] hover:shadow-xl transition-all duration-200 group border-t-4 border-t-[#001730]"
             >
               <div>
                 {/* Category Badge & Date */}
                 <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="text-[11px] uppercase tracking-wider font-bold text-adeshina-blue bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-md">
+                  <span className="text-[11px] uppercase tracking-wider font-bold text-[#001730] bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md">
                     {article.category}
                   </span>
-                  <time className="text-xs text-slate-400 font-medium">
+                  <time className="text-xs text-slate-500 font-medium">
                     {article.date}
                   </time>
                 </div>
 
                 {/* Article Headline */}
-                <h3 className="text-lg font-serif font-bold text-navy leading-snug group-hover:text-adeshina-blue transition-colors">
+                <h3 className="text-lg font-serif font-bold text-[#001730] leading-snug group-hover:text-[#8c7b44] transition-colors">
                   <Link to={`/news#${article.slug}`}>
                     {article.title}
                   </Link>
@@ -64,10 +67,10 @@ export function NewsPreview() {
               <div className="mt-6 pt-4 border-t border-slate-100">
                 <Link
                   to={`/news#${article.slug}`}
-                  className="text-xs font-bold text-navy group-hover:text-adeshina-blue inline-flex items-center gap-1 transition-colors"
+                  className="text-xs font-bold text-[#001730] group-hover:text-[#8c7b44] inline-flex items-center gap-1 transition-colors"
                 >
                   <span>Read Notice</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-adeshina-blue group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#B3A369] group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </article>

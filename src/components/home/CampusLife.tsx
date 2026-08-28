@@ -18,7 +18,7 @@ const galleryCards = [
     subtitle: 'Interactive learning spaces designed to nurture pedagogical delivery and classroom leadership.',
     image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
     icon: BookOpen,
-    tagColor: 'bg-blue-50 text-adeshina-blue border-blue-200/80',
+    tagColor: 'bg-blue-50 text-navy border-blue-200/80',
   },
   {
     category: 'Campus Environment',
@@ -26,7 +26,7 @@ const galleryCards = [
     subtitle: 'A peaceful, disciplined campus setting in Kwara State that fosters intellectual growth and character.',
     image: '/images/education/campus-gate.jpg',
     icon: MapPin,
-    tagColor: 'bg-amber-50 text-accent-gold border-amber-200/80',
+    tagColor: 'bg-amber-50 text-[#8c7b44] border-amber-200/80',
   },
 ];
 
@@ -34,20 +34,24 @@ export function CampusLife() {
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
 
   return (
-    <section className="py-20 lg:py-28 bg-[#f8fafc] border-b border-slate-200/80" aria-labelledby="campus-life-heading">
+    <section className="py-20 lg:py-28 bg-[#edf1f6] border-b border-slate-300/80" aria-labelledby="campus-life-heading">
       <Container size="wide">
-        {/* Centered Editorial Header */}
+        {/* Centered Editorial Header with Tech Gold Accent */}
         <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
-          <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
-            CAMPUS LIFE & FACILITIES
-          </span>
+          <div className="inline-flex items-center gap-2 mb-2">
+            <span className="w-6 h-0.5 bg-[#B3A369]" aria-hidden="true" />
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-[#8c7b44]">
+              CAMPUS LIFE & FACILITIES
+            </span>
+            <span className="w-6 h-0.5 bg-[#B3A369]" aria-hidden="true" />
+          </div>
           <h2
             id="campus-life-heading"
-            className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-navy leading-tight"
+            className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-[#001730] leading-tight"
           >
             Learn. Practise. Excel.
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-slate-600">
+          <p className="mt-2.5 text-sm sm:text-base text-slate-600 leading-relaxed">
             A vibrant, disciplined academic community with specialised laboratories, lecture suites, and dedicated faculty.
           </p>
         </div>
@@ -59,7 +63,7 @@ export function CampusLife() {
             return (
               <div
                 key={card.title}
-                className="relative aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden bg-navy shadow-md hover:shadow-2xl transition-all duration-300 group border border-slate-200/80 flex flex-col justify-between p-6"
+                className="relative aspect-[3/4] sm:aspect-[4/5] rounded-2xl overflow-hidden bg-[#001730] shadow-md hover:shadow-2xl transition-all duration-300 group border border-slate-300 flex flex-col justify-between p-6"
               >
                 {/* Background Photography with Zoom Hover */}
                 <img
@@ -72,21 +76,21 @@ export function CampusLife() {
                 />
 
                 {/* Dark Gradient Overlay for optimal legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#081426] via-[#081426]/50 via-40% to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#001730] via-[#001730]/50 via-40% to-transparent pointer-events-none" />
 
                 {/* Top Floating Badge */}
                 <div className="relative z-10 self-start">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-white/95 text-navy shadow-sm border border-white/40 backdrop-blur-xs`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-white/95 text-[#001730] shadow-sm border border-white/40 backdrop-blur-xs"
                   >
-                    <Icon className="w-3.5 h-3.5 text-accent-gold" />
+                    <Icon className="w-3.5 h-3.5 text-[#B3A369]" />
                     <span>{card.category}</span>
                   </span>
                 </div>
 
                 {/* Bottom Card Copy */}
                 <div className="relative z-10 text-white pt-6">
-                  <h3 className="text-lg sm:text-xl font-serif font-bold text-white mb-2 leading-snug group-hover:text-blue-100 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-serif font-bold text-white mb-2 leading-snug group-hover:text-[#E5D7A3] transition-colors">
                     {card.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-200 font-normal leading-relaxed line-clamp-3">
@@ -102,10 +106,10 @@ export function CampusLife() {
         <div className="mt-12 text-center">
           <Link
             to="/programmes"
-            className="inline-flex items-center gap-2 text-sm font-extrabold text-navy hover:text-adeshina-blue transition-colors py-3 px-7 rounded-xl bg-white border border-slate-200/90 hover:border-adeshina-blue shadow-xs"
+            className="inline-flex items-center gap-2 text-sm font-extrabold text-[#001730] hover:text-white hover:bg-[#001730] transition-all py-3 px-8 rounded-xl bg-white border border-slate-300 shadow-sm"
           >
             <span>Explore Campus Programmes & Requirements</span>
-            <ArrowRight className="w-4 h-4 text-adeshina-blue" />
+            <ArrowRight className="w-4 h-4 text-[#B3A369]" />
           </Link>
         </div>
       </Container>
