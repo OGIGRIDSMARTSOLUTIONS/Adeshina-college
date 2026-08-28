@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, ChevronDown, ChevronUp, MapPin, ShieldCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ChevronDown, ChevronUp, MapPin, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { admissionInfo } from '@/data/admissions';
 import { Container } from '@/components/common/Container';
 
@@ -27,6 +27,17 @@ export function AdmissionsPage() {
 
         <Container size="wide" className="relative z-20">
           <div className="max-w-3xl">
+            {/* Back to Home Breadcrumb */}
+            <div className="mb-4">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <span>Back to Home</span>
+              </Link>
+            </div>
+
             {/* Session Open Badge */}
             <div className="mb-4">
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">

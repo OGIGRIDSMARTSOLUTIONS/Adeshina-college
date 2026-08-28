@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   CheckCircle2, 
   Phone, 
@@ -48,6 +48,7 @@ const COMMON_SUBJECTS = [
 const GRADE_OPTIONS = ['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9', 'Awaiting Result (AR)'];
 
 export function ApplyPage() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   // Step 1: Personal Info
@@ -285,7 +286,27 @@ export function ApplyPage() {
           /* ============================================================ */
           /* 5-STEP APPLICATION WIZARD (Matching Reference Layout)        */
           /* ============================================================ */
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+          <div className="space-y-4">
+            {/* Top Back Navigation Bar */}
+            <div className="flex items-center justify-between pb-2">
+              <button
+                type="button"
+                onClick={() => (currentStep > 1 ? handlePrevStep() : navigate('/admissions'))}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-200/70 hover:bg-slate-300/80 text-navy text-xs font-bold transition-all shadow-2xs"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>{currentStep > 1 ? 'Go to Previous Step' : 'Back to Admissions'}</span>
+              </button>
+
+              <Link
+                to="/"
+                className="text-xs font-bold text-slate-500 hover:text-navy transition-colors"
+              >
+                Return to Home &rarr;
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
             {/* Left Column: Active Form Step */}
             <div className="lg:col-span-8">
               {/* Header Title & Progress Counter */}
@@ -845,8 +866,8 @@ export function ApplyPage() {
                       </label>
                     </div>
 
-                    {/* Submit Button */}
-                    <div className="pt-2">
+                    {/* Submit Button & Go Back */}
+                    <div className="pt-2 flex flex-col items-center">
                       <button
                         type="submit"
                         disabled={isSubmitting || !termsAccepted}
@@ -861,33 +882,36 @@ export function ApplyPage() {
                           </>
                         )}
                       </button>
+
+                      <button
+                        type="button"
+                        onClick={handlePrevStep}
+                        className="mt-3 text-xs sm:text-sm font-semibold text-slate-500 hover:text-navy hover:underline transition-colors py-1"
+                      >
+                        Go Back to Previous Step
+                      </button>
                     </div>
                   </form>
                 )}
 
-                {/* Bottom Stepper Action Buttons */}
+                {/* Bottom Stepper Action Buttons (Matching Reference Design) */}
                 {currentStep < 5 && (
-                  <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
-                    {currentStep > 1 ? (
-                      <button
-                        type="button"
-                        onClick={handlePrevStep}
-                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors"
-                      >
-                        <ArrowLeft className="w-3.5 h-3.5" />
-                        <span>Go Back</span>
-                      </button>
-                    ) : (
-                      <div />
-                    )}
-
+                  <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col items-center">
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-adeshina-blue hover:bg-navy text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
+                      className="w-full py-3.5 px-6 rounded-xl bg-adeshina-blue hover:bg-navy text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
                     >
                       <span>Save & Continue</span>
                       <ArrowRight className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => (currentStep > 1 ? handlePrevStep() : navigate('/admissions'))}
+                      className="mt-3 text-xs sm:text-sm font-semibold text-slate-500 hover:text-navy hover:underline transition-colors py-1"
+                    >
+                      Go Back
                     </button>
                   </div>
                 )}
@@ -984,6 +1008,7 @@ export function ApplyPage() {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         )}
       </Container>

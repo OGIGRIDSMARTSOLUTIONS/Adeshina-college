@@ -9,7 +9,8 @@ import {
   FileCheck2, 
   BookOpen, 
   ReceiptText, 
-  AlertCircle 
+  AlertCircle,
+  ArrowLeft
 } from 'lucide-react';
 import { Container } from '@/components/common/Container';
 
@@ -45,8 +46,19 @@ export function PortalPage() {
   };
 
   return (
-    <div className="bg-[#f8fafc] min-h-[calc(100vh-80px)] py-12 sm:py-16">
+    <div className="bg-[#f8fafc] min-h-[calc(100vh-80px)] py-10 sm:py-14">
       <Container size="default">
+        {/* Back Link */}
+        <div className="mb-6 max-w-md mx-auto">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200/70 hover:bg-slate-300/80 text-navy text-xs font-bold transition-all shadow-2xs"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to Home</span>
+          </Link>
+        </div>
+
         {/* Header Title */}
         <div className="text-center max-w-xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#081426] text-white mb-4 shadow-md">

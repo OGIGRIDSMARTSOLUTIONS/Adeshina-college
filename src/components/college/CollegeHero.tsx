@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Stethoscope, Compass } from 'lucide-react';
+import { ArrowRight, ArrowLeft, BookOpen, Stethoscope, Compass } from 'lucide-react';
 import { College } from '@/types/college';
 import { Container } from '@/components/common/Container';
 
@@ -44,6 +44,17 @@ export function CollegeHero({ college }: CollegeHeroProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[480px] sm:min-h-[520px] lg:min-h-[560px] py-12 sm:py-16 lg:py-20">
           {/* Left Column Content (Takes 7 cols on desktop) */}
           <div className="lg:col-span-7 xl:col-span-7 max-w-2xl pt-2 sm:pt-4">
+            {/* Back Breadcrumb */}
+            <div className="mb-3">
+              <Link
+                to="/colleges"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <span>Back to All Colleges</span>
+              </Link>
+            </div>
+
             {/* Eyebrow Label */}
             <div className="mb-4 sm:mb-5">
               <span

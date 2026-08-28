@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Stethoscope, CheckCircle2, Building2 } from 'lucide-react';
+import { ArrowRight, ArrowLeft, BookOpen, Stethoscope, CheckCircle2, Building2 } from 'lucide-react';
 import { colleges } from '@/data/colleges';
 import { programmes } from '@/data/programmes';
 import { Container } from '@/components/common/Container';
@@ -17,6 +17,17 @@ export function CollegesPage() {
       <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
         <Container size="wide">
           <div className="max-w-3xl">
+            {/* Back Breadcrumb */}
+            <div className="mb-3">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-navy transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <span>Back to Home</span>
+              </Link>
+            </div>
+
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
               ACADEMIC DIVISIONS
             </span>

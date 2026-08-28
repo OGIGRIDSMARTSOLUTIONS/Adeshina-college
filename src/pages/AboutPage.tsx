@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Compass, ShieldCheck, Award, Users, Microscope, CheckCircle2, Landmark } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Compass, ShieldCheck, Award, Users, Microscope, CheckCircle2, Landmark } from 'lucide-react';
 import { Container } from '@/components/common/Container';
 
 export function AboutPage() {
@@ -59,6 +59,17 @@ export function AboutPage() {
 
         <Container size="wide" className="relative z-20">
           <div className="max-w-3xl">
+            {/* Back Breadcrumb */}
+            <div className="mb-3">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <span>Back to Home</span>
+              </Link>
+            </div>
+
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
               ABOUT ADESHINA GROUP OF COLLEGES
             </span>
