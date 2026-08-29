@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
-  CheckCircle2, 
   Phone, 
   Mail, 
   Upload, 
@@ -12,7 +11,6 @@ import {
   ShieldCheck, 
   Printer, 
   Check,
-  Sparkles,
   X
 } from 'lucide-react';
 import { programmes } from '@/data/programmes';
