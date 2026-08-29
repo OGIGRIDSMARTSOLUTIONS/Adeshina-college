@@ -18,22 +18,32 @@ export function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <PageLayout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/colleges" element={<CollegesPage />} />
-          <Route path="/colleges/health-technology" element={<HealthTechnologyPage />} />
-          <Route path="/colleges/education" element={<EducationPage />} />
-          <Route path="/programmes" element={<ProgrammesPage />} />
-          <Route path="/admissions" element={<AdmissionsPage />} />
-          <Route path="/apply" element={<ApplyPage />} />
-          <Route path="/news" element={<NewsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/portal" element={<PortalPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </PageLayout>
+      <Routes>
+        {/* Dedicated Full-Screen Portal (Standalone: No Main Website Header/Footer) */}
+        <Route path="/portal" element={<PortalPage />} />
+
+        {/* Public Website Routes (Rendered inside Global Header & Footer) */}
+        <Route
+          path="/*"
+          element={
+            <PageLayout>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/colleges" element={<CollegesPage />} />
+                <Route path="/colleges/health-technology" element={<HealthTechnologyPage />} />
+                <Route path="/colleges/education" element={<EducationPage />} />
+                <Route path="/programmes" element={<ProgrammesPage />} />
+                <Route path="/admissions" element={<AdmissionsPage />} />
+                <Route path="/apply" element={<ApplyPage />} />
+                <Route path="/news" element={<NewsPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </PageLayout>
+          }
+        />
+      </Routes>
     </BrowserRouter>
   );
 }

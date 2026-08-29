@@ -7,7 +7,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#121926] text-white mt-auto border-t border-slate-800">
+    <footer className="bg-[#05264c] text-white mt-auto border-t border-sky-900/50">
       {/* Upper Main Footer Content */}
       <Container size="wide" className="py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
@@ -32,29 +32,29 @@ export function Footer() {
                 </div>
               )}
               <div className="flex flex-col leading-tight">
-                <span className="font-extrabold text-lg tracking-tight text-white group-hover:text-slate-200 transition-colors">
+                <span className="font-extrabold text-lg tracking-tight text-white group-hover:text-sky-200 transition-colors">
                   {siteConfig.institutionName}
                 </span>
-                <span className="text-xs uppercase tracking-widest text-slate-400 font-semibold">
+                <span className="text-xs uppercase tracking-widest text-sky-200/80 font-semibold">
                   {siteConfig.location}
                 </span>
               </div>
             </Link>
 
-            <p className="text-sm text-slate-400 leading-relaxed max-w-sm pt-1">
+            <p className="text-sm text-sky-100/90 leading-relaxed max-w-sm pt-1">
               {siteConfig.shortDescription}
             </p>
 
-                <div className="pt-2 text-xs text-slate-400 space-y-1">
+                <div className="pt-2 text-xs text-sky-200/80 space-y-1">
                   <p>{siteConfig.contact.campusAddress}, {siteConfig.contact.stateCountry}</p>
-                  <p>Inquiries: <a href="tel:08135131503" className="text-slate-300 hover:text-white font-medium">0813 513 1503</a> · <a href={`mailto:${siteConfig.contact.email}`} className="text-slate-300 hover:text-white font-medium">{siteConfig.contact.email}</a></p>
+                  <p>Inquiries: <a href="tel:08135131503" className="text-white hover:text-sky-300 font-medium">0813 513 1503</a> · <a href={`mailto:${siteConfig.contact.email}`} className="text-white hover:text-sky-300 font-medium">{siteConfig.contact.email}</a></p>
                 </div>
           </div>
 
           {/* Navigation Columns (3-4 cols each) */}
           {footerSections.map((section) => (
             <div key={section.title} className="lg:col-span-3 sm:col-span-1">
-              <h3 className="text-xs font-bold tracking-widest uppercase text-slate-300 mb-4">
+              <h3 className="text-xs font-bold tracking-widest uppercase text-sky-300 mb-4">
                 {section.title}
               </h3>
               <ul className="space-y-3">
@@ -62,7 +62,7 @@ export function Footer() {
                   <li key={item.path}>
                     <Link
                       to={item.path}
-                      className="text-sm text-slate-400 hover:text-white transition-colors block"
+                      className="text-sm text-sky-100/80 hover:text-white transition-colors block"
                     >
                       {item.label}
                     </Link>
@@ -75,19 +75,19 @@ export function Footer() {
       </Container>
 
       {/* Sub-Footer / Copyright & Designer Credit */}
-      <div className="bg-[#0b101b] py-6 border-t border-slate-800/80">
-        <Container size="wide" className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+      <div className="bg-[#031933] py-6 border-t border-sky-900/40">
+        <Container size="wide" className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-sky-200/70">
           <p className="text-center sm:text-left">
             &copy; {currentYear} {siteConfig.institutionName}. All rights reserved.
           </p>
 
-          <p className="font-semibold tracking-wide text-center sm:text-right text-slate-400">
+          <p className="font-semibold tracking-wide text-center sm:text-right text-sky-200/80">
             {siteConfig.designerUrl ? (
               <a
                 href={siteConfig.designerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-400 hover:text-white transition-colors duration-200 underline-offset-4 hover:underline"
+                className="text-sky-300 hover:text-white transition-colors duration-200 underline-offset-4 hover:underline"
               >
                 {siteConfig.designerCredit}
               </a>

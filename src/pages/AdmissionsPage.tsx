@@ -13,11 +13,11 @@ export function AdmissionsPage() {
     : admissionInfo.requirements.filter((r) => r.collegeId === selectedCollegeReq);
 
   return (
-    <div className="bg-[#f8fafc] min-h-screen">
-      {/* Deep Navy Page Hero Banner */}
-      <section className="bg-[#081426] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081426] via-[#081426]/90 to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-20 pointer-events-none">
+    <div className="bg-[#f8fbff] min-h-screen">
+      {/* Light Sky Blue / Navy Page Hero Banner */}
+      <section className="bg-[#05264c] text-white py-16 sm:py-20 border-b border-sky-900/50 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#052042] via-[#073663]/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-30 pointer-events-none">
           <img
             src="/images/education/campus-gate.jpg"
             alt="Adeshina Campus Gate"
@@ -31,9 +31,9 @@ export function AdmissionsPage() {
             <div className="mb-4">
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
-                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
                 <span>Back to Home</span>
               </Link>
             </div>
@@ -50,7 +50,7 @@ export function AdmissionsPage() {
               Admissions at Adeshina Group of Colleges
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+            <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
               Complete entry benchmarks, application workflow, and academic guidelines for candidates applying to Adeshina College of Health Technology and Adeshina College of Education.
             </p>
 
@@ -58,7 +58,7 @@ export function AdmissionsPage() {
             <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Link
                 to="/apply"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-adeshina-blue hover:bg-navy text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-[#052042] text-sm font-extrabold uppercase tracking-wider shadow-lg shadow-sky-500/20 transition-all duration-200"
               >
                 <span>Apply Now (Online Form)</span>
                 <ArrowRight className="w-4 h-4" />
@@ -66,7 +66,7 @@ export function AdmissionsPage() {
 
               <a
                 href="#application-steps"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-[#081426] text-sm font-bold hover:bg-slate-100 transition-all shadow-md"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-[#05264c] text-sm font-bold hover:bg-sky-50 transition-all shadow-md"
               >
                 <span>Application Steps</span>
               </a>

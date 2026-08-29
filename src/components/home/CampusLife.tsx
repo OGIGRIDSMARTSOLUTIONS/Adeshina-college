@@ -34,20 +34,20 @@ export function CampusLife() {
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
 
   return (
-    <section className="py-20 lg:py-28 bg-[#edf1f6] border-b border-slate-300/80" aria-labelledby="campus-life-heading">
+    <section className="py-20 lg:py-28 bg-[#f0f7ff] border-b border-sky-100" aria-labelledby="campus-life-heading">
       <Container size="wide">
-        {/* Centered Editorial Header with Tech Gold Accent */}
+        {/* Centered Editorial Header with Light Blue Accent */}
         <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
           <div className="inline-flex items-center gap-2 mb-2">
-            <span className="w-6 h-0.5 bg-[#B3A369]" aria-hidden="true" />
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-[#8c7b44]">
+            <span className="w-6 h-0.5 bg-sky-500" aria-hidden="true" />
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-700">
               CAMPUS LIFE & FACILITIES
             </span>
-            <span className="w-6 h-0.5 bg-[#B3A369]" aria-hidden="true" />
+            <span className="w-6 h-0.5 bg-sky-500" aria-hidden="true" />
           </div>
           <h2
             id="campus-life-heading"
-            className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-[#001730] leading-tight"
+            className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-[#05264c] leading-tight"
           >
             Learn. Practise. Excel.
           </h2>
@@ -76,24 +76,24 @@ export function CampusLife() {
                 />
 
                 {/* Dark Gradient Overlay for optimal legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#001730] via-[#001730]/50 via-40% to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#05264c] via-[#05264c]/50 via-40% to-transparent pointer-events-none" />
 
                 {/* Top Floating Badge */}
                 <div className="relative z-10 self-start">
                   <span
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-white/95 text-[#001730] shadow-sm border border-white/40 backdrop-blur-xs"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-white/95 text-[#05264c] shadow-sm border border-white/40 backdrop-blur-xs"
                   >
-                    <Icon className="w-3.5 h-3.5 text-[#B3A369]" />
+                    <Icon className="w-3.5 h-3.5 text-sky-600" />
                     <span>{card.category}</span>
                   </span>
                 </div>
 
                 {/* Bottom Card Copy */}
                 <div className="relative z-10 text-white pt-6">
-                  <h3 className="text-lg sm:text-xl font-serif font-bold text-white mb-2 leading-snug group-hover:text-[#E5D7A3] transition-colors">
+                  <h3 className="text-lg sm:text-xl font-serif font-bold text-white mb-2 leading-snug group-hover:text-sky-200 transition-colors">
                     {card.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-200 font-normal leading-relaxed line-clamp-3">
+                  <p className="text-xs sm:text-sm text-sky-100 font-normal leading-relaxed line-clamp-3">
                     {card.subtitle}
                   </p>
                 </div>
@@ -106,10 +106,10 @@ export function CampusLife() {
         <div className="mt-12 text-center">
           <Link
             to="/programmes"
-            className="inline-flex items-center gap-2 text-sm font-extrabold text-[#001730] hover:text-white hover:bg-[#001730] transition-all py-3 px-8 rounded-xl bg-white border border-slate-300 shadow-sm"
+            className="inline-flex items-center gap-2 text-sm font-extrabold text-[#05264c] hover:text-white hover:bg-[#05264c] transition-all py-3.5 px-8 rounded-xl bg-white border border-sky-200 shadow-sm hover:shadow-md"
           >
             <span>Explore Campus Programmes & Requirements</span>
-            <ArrowRight className="w-4 h-4 text-[#B3A369]" />
+            <ArrowRight className="w-4 h-4 text-sky-500" />
           </Link>
         </div>
       </Container>

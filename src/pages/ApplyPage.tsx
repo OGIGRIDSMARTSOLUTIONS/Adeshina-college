@@ -6,14 +6,14 @@ import {
   Mail, 
   Upload, 
   FileText, 
-  Trash2, 
   Plus, 
   ArrowRight, 
   ArrowLeft, 
   ShieldCheck, 
   Printer, 
   Check,
-  Sparkles
+  Sparkles,
+  X
 } from 'lucide-react';
 import { programmes } from '@/data/programmes';
 import { siteConfig } from '@/data/siteConfig';
@@ -45,7 +45,7 @@ const COMMON_SUBJECTS = [
   'Health Science'
 ];
 
-const GRADE_OPTIONS = ['A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9', 'Awaiting Result (AR)'];
+const GRADE_OPTIONS = ['Grade', 'A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9', 'AR (Awaiting Result)'];
 
 export function ApplyPage() {
   const navigate = useNavigate();
@@ -94,7 +94,7 @@ export function ApplyPage() {
     const nextId = String(Date.now());
     setSubjects((prev) => [
       ...prev,
-      { id: nextId, subject: 'Select subject', grade: 'C5' }
+      { id: nextId, subject: '', grade: 'Grade' }
     ]);
   };
 
@@ -182,103 +182,211 @@ export function ApplyPage() {
       <Container size="wide">
         {submittedRef ? (
           /* ============================================================ */
-          /* SUCCESS / PRINTABLE SLIP VIEW                                */
+          /* OFFICIAL INSTITUTIONAL PRINTABLE SLIP VIEW                   */
           /* ============================================================ */
-          <div className="max-w-3xl mx-auto bg-white rounded-2xl border border-slate-200/90 shadow-xl overflow-hidden p-6 sm:p-10">
-            <div className="text-center pb-6 border-b border-slate-200">
-              <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="w-9 h-9" />
-              </div>
-              <span className="text-xs uppercase font-bold tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full inline-block mb-2">
-                APPLICATION SUBMITTED SUCCESSFULLY
-              </span>
-              <h1 className="text-2xl sm:text-3xl font-serif font-black text-navy">
-                Provisional Application Registration Slip
-              </h1>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                {siteConfig.institutionName} · {siteConfig.location}, Kwara State
-              </p>
-            </div>
-
-            {/* Slip Reference Block */}
-            <div className="my-6 p-5 rounded-xl bg-slate-50 border border-slate-200/90 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
-                  Official Application Reference Code
-                </span>
-                <span className="text-2xl sm:text-3xl font-mono font-black text-adeshina-blue tracking-wider block mt-0.5">
-                  {submittedRef}
+          <div className="max-w-3xl mx-auto space-y-6">
+            {/* Top Action Bar (hidden in print) */}
+            <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm print:hidden">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs font-bold text-slate-700">
+                  Application Slip Generated Successfully
                 </span>
               </div>
-              <button
-                type="button"
-                onClick={() => window.print()}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy text-white text-xs font-bold hover:bg-adeshina-blue transition-colors shadow-xs"
-              >
-                <Printer className="w-4 h-4" />
-                <span>Print Application Slip</span>
-              </button>
-            </div>
-
-            {/* Applicant Summary */}
-            <div className="space-y-4 text-xs sm:text-sm text-slate-700">
-              <h2 className="font-serif font-bold text-navy text-base pb-2 border-b border-slate-100">
-                Summary of Applicant Credentials
-              </h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="p-3 bg-slate-50/70 rounded-lg">
-                  <span className="text-slate-400 block text-[11px]">Full Name:</span>
-                  <span className="font-bold text-navy">{firstName} {lastName}</span>
-                </div>
-                <div className="p-3 bg-slate-50/70 rounded-lg">
-                  <span className="text-slate-400 block text-[11px]">Contact Phone / Email:</span>
-                  <span className="font-bold text-navy">{phone} {email && `· ${email}`}</span>
-                </div>
-                <div className="p-3 bg-slate-50/70 rounded-lg">
-                  <span className="text-slate-400 block text-[11px]">Selected College:</span>
-                  <span className="font-bold text-navy">
-                    {selectedCollege === 'health-technology' ? 'Adeshina College of Health Technology' : 'Adeshina College of Education'}
-                  </span>
-                </div>
-                <div className="p-3 bg-slate-50/70 rounded-lg">
-                  <span className="text-slate-400 block text-[11px]">Programme of Study:</span>
-                  <span className="font-bold text-navy">{selectedProgramme} (Full-time)</span>
-                </div>
-                <div className="p-3 bg-slate-50/70 rounded-lg">
-                  <span className="text-slate-400 block text-[11px]">Target Session:</span>
-                  <span className="font-bold text-navy">{intakePeriod}</span>
-                </div>
-                <div className="p-3 bg-slate-50/70 rounded-lg">
-                  <span className="text-slate-400 block text-[11px]">Examination Type & Sittings:</span>
-                  <span className="font-bold text-navy">{examType} · {sittings}</span>
-                </div>
-              </div>
-
-              {/* Next Steps Card */}
-              <div className="p-5 rounded-xl bg-blue-50/80 border border-blue-100 mt-6 space-y-2 text-xs sm:text-sm">
-                <h3 className="font-bold text-navy flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-accent-gold" />
-                  Next Steps for Physical Verification at Share Campus:
-                </h3>
-                <p>1. Present this reference code (<span className="font-mono font-bold text-navy">{submittedRef}</span>) at the Admissions Registry.</p>
-                <p>2. Bring photocopies and original copies of your SSCE/WAEC/NECO result slips and two (2) passport photographs.</p>
-                <p>3. Registry Telephone: <a href="tel:08135131503" className="font-bold text-adeshina-blue underline">0813 513 1503</a></p>
-              </div>
-
-              <div className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <div className="flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy hover:bg-adeshina-blue text-white text-xs font-bold transition-all shadow-sm"
+                >
+                  <Printer className="w-4 h-4" />
+                  <span>Print Official Slip</span>
+                </button>
                 <Link
                   to="/"
-                  className="px-6 py-2.5 rounded-xl bg-navy text-white text-xs font-bold hover:bg-adeshina-blue transition-all"
+                  className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all"
                 >
                   Return to Home
                 </Link>
-                <Link
-                  to="/contact"
-                  className="px-6 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-xs font-bold hover:bg-slate-50 transition-all"
-                >
-                  Campus Travel Directions
-                </Link>
+              </div>
+            </div>
+
+            {/* Official Institutional Slip Paper */}
+            <div className="bg-white rounded-2xl border-2 border-slate-300/80 shadow-xl p-6 sm:p-10 space-y-6 relative overflow-hidden print:border-none print:shadow-none print:p-0">
+              {/* Decorative Corner Watermark */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-bl-full pointer-events-none -z-0 opacity-60" />
+
+              {/* Institutional Header with Official Emblem */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b-2 border-slate-800 relative z-10 text-center sm:text-left">
+                <div className="flex items-center gap-4">
+                  {siteConfig.brand.logoUrl ? (
+                    <img
+                      src={siteConfig.brand.logoUrl}
+                      alt={siteConfig.institutionName}
+                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-xl border border-slate-200 p-1 bg-white shadow-xs"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-xl bg-navy text-white font-serif font-black text-2xl flex items-center justify-center">
+                      A
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold text-sky-700 block">
+                      OFFICIAL ADMISSION REGISTRY
+                    </span>
+                    <h1 className="text-xl sm:text-2xl font-serif font-black text-navy tracking-tight leading-tight">
+                      {siteConfig.institutionName}
+                    </h1>
+                    <p className="text-xs text-slate-600 mt-0.5">
+                      Share Campus, Ifelodun LGA, Kwara State · {siteConfig.contact.email}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Passport Box (Top Right) */}
+                <div className="w-24 h-28 sm:w-28 sm:h-32 rounded-lg border-2 border-dashed border-slate-400 bg-slate-50 flex flex-col items-center justify-center text-center p-2 shrink-0">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase leading-tight">
+                    APPLICANT PASSPORT
+                  </span>
+                  <span className="text-[9px] text-slate-400 mt-1">
+                    {passportFileName ? 'Uploaded' : 'Affix Photo'}
+                  </span>
+                </div>
+              </div>
+
+              {/* Slip Title & Verification Metadata */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-3 px-4 rounded-xl bg-sky-50/70 border border-sky-100">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-sky-800 block">
+                    DOCUMENT TYPE
+                  </span>
+                  <span className="text-sm font-serif font-bold text-navy">
+                    Provisional Online Application Registration Slip
+                  </span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
+                    APPLICATION REFERENCE ID
+                  </span>
+                  <span className="font-mono text-base sm:text-lg font-black text-sky-700 tracking-widest">
+                    {submittedRef}
+                  </span>
+                </div>
+              </div>
+
+              {/* Section 1: Candidate Personal Details */}
+              <div className="space-y-3">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-navy bg-slate-100 py-1.5 px-3 rounded-md">
+                  1. Candidate Personal Information
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Full Name:</span>
+                    <span className="font-bold text-navy">{firstName} {lastName}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Phone Number:</span>
+                    <span className="font-bold text-navy">{phone}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Email Address:</span>
+                    <span className="font-bold text-navy">{email || 'N/A'}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Gender:</span>
+                    <span className="font-bold text-navy">{gender}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">State of Origin:</span>
+                    <span className="font-bold text-navy">{stateOfOrigin || 'N/A'}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Submission Date:</span>
+                    <span className="font-bold text-navy">Sat Aug 29, 2026</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 2: Programme Selection */}
+              <div className="space-y-3">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-navy bg-slate-100 py-1.5 px-3 rounded-md">
+                  2. Academic Choice & College Information
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Chosen College:</span>
+                    <span className="font-bold text-navy">
+                      {selectedCollege === 'health-technology' ? 'Adeshina College of Health Technology' : 'Adeshina College of Education'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Programme Applied:</span>
+                    <span className="font-bold text-navy">{selectedProgramme}</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Mode / Session:</span>
+                    <span className="font-bold text-navy">Full-Time · {intakePeriod}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 3: O'Level Academic Qualifications */}
+              <div className="space-y-3">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-navy bg-slate-100 py-1.5 px-3 rounded-md">
+                  3. O'Level Academic Credentials
+                </h2>
+                <div className="text-xs mb-2">
+                  <span className="text-slate-500">Examination Body & Sittings: </span>
+                  <strong className="text-navy">{examType} ({sittings})</strong>
+                  {schoolName && <span className="text-slate-500"> · School: <strong className="text-navy">{schoolName}</strong></span>}
+                </div>
+
+                <div className="border border-slate-200 rounded-lg overflow-hidden">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+                      <tr>
+                        <th className="px-3 py-2 w-12 text-center">S/N</th>
+                        <th className="px-3 py-2">Subject</th>
+                        <th className="px-3 py-2 w-28 text-center">Grade Awarded</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {subjects.map((sub, idx) => (
+                        <tr key={sub.id} className="hover:bg-slate-50/50">
+                          <td className="px-3 py-2 text-center font-mono text-slate-400">{idx + 1}</td>
+                          <td className="px-3 py-2 font-medium text-navy">{sub.subject || 'Not Specified'}</td>
+                          <td className="px-3 py-2 text-center font-bold font-mono text-sky-800">{sub.grade}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Registry Verification & Instructions */}
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
+                <div className="flex items-center gap-2 font-bold text-navy">
+                  <ShieldCheck className="w-4 h-4 text-sky-600" />
+                  <span>Important Instructions for Physical Verification & Screening</span>
+                </div>
+                <p className="text-slate-600 leading-relaxed">
+                  1. Print two (2) colored copies of this registration slip and bring them along with your original O'Level certificate/statement of result and birth certificate.
+                </p>
+                <p className="text-slate-600 leading-relaxed">
+                  2. Screening venue: Admissions Registry, Adeshina Group of Colleges, Layout B, Plot 1, Share-Okeode Road, Share, Kwara State.
+                </p>
+              </div>
+
+              {/* Signature Blocks */}
+              <div className="grid grid-cols-2 gap-8 pt-6 border-t border-slate-200 text-xs">
+                <div className="space-y-10">
+                  <div className="border-b border-slate-400 w-48" />
+                  <span className="font-bold text-slate-700 block">Candidate Signature & Date</span>
+                </div>
+                <div className="space-y-10 text-right">
+                  <div className="border-b border-slate-400 w-48 ml-auto" />
+                  <span className="font-bold text-slate-700 block">Admissions Officer Stamp & Date</span>
+                </div>
               </div>
             </div>
           </div>
@@ -654,26 +762,26 @@ export function ApplyPage() {
                         </span>
                       </div>
 
-                      <div className="space-y-2.5 mt-3">
+                      <div className="space-y-2 mt-3">
                         {subjects.map((item, index) => {
                           const isMandatory = index < 2;
                           return (
-                            <div key={item.id} className="flex items-center gap-2">
+                            <div key={item.id} className="flex items-center gap-2.5">
                               <div className="flex-grow">
                                 {isMandatory ? (
                                   <input
                                     type="text"
                                     disabled
                                     value={item.subject}
-                                    className="w-full px-3.5 py-2 rounded-xl bg-slate-100 border border-slate-300 text-navy text-xs sm:text-sm font-semibold"
+                                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 border border-slate-300 text-slate-700 text-xs sm:text-sm font-medium shadow-2xs"
                                   />
                                 ) : (
                                   <select
                                     value={item.subject}
                                     onChange={(e) => handleSubjectChange(item.id, 'subject', e.target.value)}
-                                    className="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-navy text-xs sm:text-sm focus:ring-2 focus:ring-adeshina-blue outline-none"
+                                    className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-navy text-xs sm:text-sm font-medium focus:ring-2 focus:ring-adeshina-blue focus:border-adeshina-blue outline-none transition-all shadow-2xs"
                                   >
-                                    <option value="Select subject">Select Subject...</option>
+                                    <option value="">Select Subject...</option>
                                     {COMMON_SUBJECTS.map((sub) => (
                                       <option key={sub} value={sub}>{sub}</option>
                                     ))}
@@ -681,11 +789,13 @@ export function ApplyPage() {
                                 )}
                               </div>
 
-                              <div className="w-32 sm:w-40 shrink-0">
+                              <div className="w-28 sm:w-36 shrink-0">
                                 <select
                                   value={item.grade}
                                   onChange={(e) => handleSubjectChange(item.id, 'grade', e.target.value)}
-                                  className="w-full px-3 py-2 rounded-xl bg-white border border-slate-300 text-navy text-xs sm:text-sm font-bold focus:ring-2 focus:ring-adeshina-blue outline-none"
+                                  className={`w-full px-3 py-2.5 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-adeshina-blue focus:border-adeshina-blue outline-none transition-all shadow-2xs ${
+                                    item.grade === 'Grade' || !item.grade ? 'text-slate-400 font-normal' : 'text-navy'
+                                  }`}
                                 >
                                   {GRADE_OPTIONS.map((gr) => (
                                     <option key={gr} value={gr}>{gr}</option>
@@ -693,16 +803,21 @@ export function ApplyPage() {
                                 </select>
                               </div>
 
-                              {!isMandatory && (
-                                <button
-                                  type="button"
-                                  onClick={() => handleRemoveSubject(item.id)}
-                                  className="p-2 text-slate-400 hover:text-red-500 transition-colors"
-                                  aria-label="Remove subject"
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              )}
+                              <div className="w-8 shrink-0 flex items-center justify-center">
+                                {!isMandatory ? (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleRemoveSubject(item.id)}
+                                    className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
+                                    title="Remove subject"
+                                    aria-label="Remove subject"
+                                  >
+                                    <X className="w-4 h-4 stroke-[2.5]" />
+                                  </button>
+                                ) : (
+                                  <span className="w-4" />
+                                )}
+                              </div>
                             </div>
                           );
                         })}
@@ -711,10 +826,10 @@ export function ApplyPage() {
                       <button
                         type="button"
                         onClick={handleAddSubject}
-                        className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-adeshina-blue hover:text-navy transition-colors py-1 px-2 rounded-md hover:bg-blue-50"
+                        className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-bold text-adeshina-blue hover:text-navy transition-colors py-1.5 px-3 rounded-lg border border-dashed border-slate-300 hover:border-adeshina-blue hover:bg-blue-50/60"
                       >
-                        <Plus className="w-4 h-4" />
-                        <span>Add another subject</span>
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>Add Subject</span>
                       </button>
                     </div>
                   </div>

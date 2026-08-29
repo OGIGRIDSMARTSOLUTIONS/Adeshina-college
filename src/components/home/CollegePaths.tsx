@@ -12,20 +12,20 @@ export function CollegePaths() {
   const eduCollege = colleges.find((c) => c.id === 'education') || colleges[1];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#edf1f6] border-b border-slate-300/80" aria-labelledby="academic-paths-heading">
+    <section className="py-20 lg:py-28 bg-[#f0f7ff] border-b border-sky-100" aria-labelledby="academic-paths-heading">
       <Container size="wide">
-        {/* Centered Editorial Header with Tech Gold Accent */}
+        {/* Centered Editorial Header with Light Blue / Gold Accent */}
         <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
           <div className="inline-flex items-center gap-2 mb-2.5">
-            <span className="w-6 h-0.5 bg-[#B3A369]" aria-hidden="true" />
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-[#8c7b44]">
+            <span className="w-6 h-0.5 bg-sky-500" aria-hidden="true" />
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-700">
               THE ACADEMIC PATHS
             </span>
-            <span className="w-6 h-0.5 bg-[#B3A369]" aria-hidden="true" />
+            <span className="w-6 h-0.5 bg-sky-500" aria-hidden="true" />
           </div>
           <h2
             id="academic-paths-heading"
-            className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-[#001730] leading-tight"
+            className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-[#05264c] leading-tight"
           >
             Two Colleges. One Direction.
           </h2>
@@ -37,9 +37,9 @@ export function CollegePaths() {
         {/* 2 Symmetrical Large Editorial Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
           {/* COLLEGE 01 - Health Technology */}
-          <div className="flex flex-col bg-white rounded-2xl border border-slate-300/90 shadow-[0_4px_20px_-4px_rgba(0,23,48,0.06)] hover:shadow-[0_12px_36px_-8px_rgba(0,23,48,0.15)] transition-all duration-300 overflow-hidden group">
+          <div className="flex flex-col bg-white rounded-2xl border border-sky-100 shadow-[0_4px_24px_-4px_rgba(2,132,199,0.08)] hover:shadow-[0_12px_36px_-8px_rgba(2,132,199,0.18)] hover:border-emerald-200 transition-all duration-300 overflow-hidden group">
             {/* Image Container */}
-            <div className="relative aspect-[16/9] sm:aspect-[16/10] w-full bg-[#001730] overflow-hidden">
+            <div className="relative aspect-[16/9] sm:aspect-[16/10] w-full bg-[#05264c] overflow-hidden">
               {!healthImgError && healthCollege?.heroImage ? (
                 <img
                   src={healthCollege.heroImage}
@@ -48,7 +48,7 @@ export function CollegePaths() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#001730] via-[#002244] to-[#0f3a47] flex items-center justify-center p-8 relative overflow-hidden">
+                <div className="w-full h-full bg-gradient-to-br from-[#05264c] via-[#073663] to-[#0b6b54] flex items-center justify-center p-8 relative overflow-hidden">
                   <div className="text-center z-10 flex flex-col items-center">
                     <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-white mb-2 border border-white/20">
                       <Stethoscope className="w-7 h-7 text-emerald-300" />
@@ -61,7 +61,7 @@ export function CollegePaths() {
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-4 left-6">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-white bg-[#0b6b54] px-3 py-1 rounded-md inline-block shadow-sm">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-white bg-emerald-600 px-3 py-1 rounded-md inline-block shadow-sm">
                   College 01 · Health Sciences
                 </span>
               </div>
@@ -70,7 +70,7 @@ export function CollegePaths() {
             {/* Content Body */}
             <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow">
               <div>
-                <h3 className="text-2xl font-serif font-bold text-[#001730] group-hover:text-adeshina-blue transition-colors">
+                <h3 className="text-2xl font-serif font-bold text-[#05264c] group-hover:text-sky-700 transition-colors">
                   {healthCollege.name}
                 </h3>
                 <p className="mt-3 text-sm text-slate-600 leading-relaxed">
@@ -81,14 +81,14 @@ export function CollegePaths() {
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                 <Link
                   to={healthCollege.slug}
-                  className="inline-flex items-center gap-2 text-sm font-bold text-[#001730] hover:text-adeshina-blue group-hover:translate-x-1 transition-all"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:text-sky-900 group-hover:translate-x-1 transition-all"
                 >
                   <span>Explore Health Tech</span>
-                  <ArrowRight className="w-4 h-4 text-[#0b6b54]" />
+                  <ArrowRight className="w-4 h-4 text-emerald-600" />
                 </Link>
                 <Link
                   to="/apply"
-                  className="text-xs font-extrabold uppercase tracking-wider text-[#0b6b54] hover:underline"
+                  className="text-xs font-extrabold uppercase tracking-wider text-emerald-600 hover:underline"
                 >
                   Apply Now &rarr;
                 </Link>
@@ -97,9 +97,9 @@ export function CollegePaths() {
           </div>
 
           {/* COLLEGE 02 - Education */}
-          <div className="flex flex-col bg-white rounded-2xl border border-slate-300/90 shadow-[0_4px_20px_-4px_rgba(0,23,48,0.06)] hover:shadow-[0_12px_36px_-8px_rgba(0,23,48,0.15)] transition-all duration-300 overflow-hidden group">
+          <div className="flex flex-col bg-white rounded-2xl border border-sky-100 shadow-[0_4px_24px_-4px_rgba(2,132,199,0.08)] hover:shadow-[0_12px_36px_-8px_rgba(2,132,199,0.18)] hover:border-sky-300 transition-all duration-300 overflow-hidden group">
             {/* Image Container */}
-            <div className="relative aspect-[16/9] sm:aspect-[16/10] w-full bg-[#001730] overflow-hidden">
+            <div className="relative aspect-[16/9] sm:aspect-[16/10] w-full bg-[#05264c] overflow-hidden">
               {!eduImgError && eduCollege?.heroImage ? (
                 <img
                   src={eduCollege.heroImage}
@@ -108,12 +108,12 @@ export function CollegePaths() {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#001730] via-[#002244] to-[#003366] flex items-center justify-center p-8 relative overflow-hidden">
+                <div className="w-full h-full bg-gradient-to-br from-[#05264c] via-[#073663] to-[#0284c7] flex items-center justify-center p-8 relative overflow-hidden">
                   <div className="text-center z-10 flex flex-col items-center">
                     <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center text-white mb-2 border border-white/20">
-                      <GraduationCap className="w-7 h-7 text-[#E5D7A3]" />
+                      <GraduationCap className="w-7 h-7 text-sky-300" />
                     </div>
-                    <span className="text-xs uppercase font-bold tracking-widest text-[#E5D7A3]">
+                    <span className="text-xs uppercase font-bold tracking-widest text-sky-200">
                       Teacher Training & Pedagogy
                     </span>
                   </div>
@@ -121,7 +121,7 @@ export function CollegePaths() {
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-4 left-6">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-white bg-[#002244] px-3 py-1 rounded-md inline-block shadow-sm">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-white bg-sky-700 px-3 py-1 rounded-md inline-block shadow-sm">
                   College 02 · Educator Training
                 </span>
               </div>
@@ -130,7 +130,7 @@ export function CollegePaths() {
             {/* Content Body */}
             <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow">
               <div>
-                <h3 className="text-2xl font-serif font-bold text-[#001730] group-hover:text-adeshina-blue transition-colors">
+                <h3 className="text-2xl font-serif font-bold text-[#05264c] group-hover:text-sky-700 transition-colors">
                   {eduCollege.name}
                 </h3>
                 <p className="mt-3 text-sm text-slate-600 leading-relaxed">
@@ -141,14 +141,14 @@ export function CollegePaths() {
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
                 <Link
                   to={eduCollege.slug}
-                  className="inline-flex items-center gap-2 text-sm font-bold text-[#001730] hover:text-adeshina-blue group-hover:translate-x-1 transition-all"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-sky-700 hover:text-sky-900 group-hover:translate-x-1 transition-all"
                 >
                   <span>Explore Education</span>
-                  <ArrowRight className="w-4 h-4 text-[#B3A369]" />
+                  <ArrowRight className="w-4 h-4 text-sky-500" />
                 </Link>
                 <Link
                   to="/apply"
-                  className="text-xs font-extrabold uppercase tracking-wider text-[#001730] hover:underline"
+                  className="text-xs font-extrabold uppercase tracking-wider text-sky-700 hover:underline"
                 >
                   Apply Now &rarr;
                 </Link>

@@ -12,29 +12,29 @@ export function CollegesPage() {
   const eduProgs = programmes.filter((p) => p.collegeId === 'education');
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#f8fbff]">
       {/* Header Banner */}
-      <section className="py-16 sm:py-20 bg-white border-b border-slate-200/80">
+      <section className="py-16 sm:py-20 bg-[#05264c] text-white border-b border-sky-900/50">
         <Container size="wide">
           <div className="max-w-3xl">
             {/* Back Breadcrumb */}
             <div className="mb-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-navy transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
-                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
                 <span>Back to Home</span>
               </Link>
             </div>
 
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-300 block mb-2">
               ACADEMIC DIVISIONS
             </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-navy leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
               Colleges of Adeshina Group
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+            <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
               Two specialized institutions sharing one serene campus in Share, Kwara State — preparing dedicated professionals in healthcare sciences and education.
             </p>
           </div>

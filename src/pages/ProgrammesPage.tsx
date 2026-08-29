@@ -55,11 +55,11 @@ export function ProgrammesPage() {
   }, [selectedCollege, selectedLevel, searchQuery]);
 
   return (
-    <div className="bg-[#f8fafc] min-h-screen">
-      {/* Deep Navy Page Hero Banner */}
-      <section className="bg-[#081426] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081426] via-[#081426]/90 to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-20 pointer-events-none">
+    <div className="bg-[#f8fbff] min-h-screen">
+      {/* Light Sky Blue / Navy Page Hero Banner */}
+      <section className="bg-[#05264c] text-white py-16 sm:py-20 border-b border-sky-900/50 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#052042] via-[#073663]/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-30 pointer-events-none">
           <img
             src="/images/education/campus-gate.jpg"
             alt="Adeshina Campus"
@@ -73,25 +73,25 @@ export function ProgrammesPage() {
             <div className="mb-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
-                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
                 <span>Back to Home</span>
               </Link>
             </div>
 
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-300 block mb-2">
               ACADEMIC PROGRAMMES DIRECTORY
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
               Explore Professional Qualifications
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+            <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
               Discover accredited Diploma, NCE, and Certificate programmes offered across Adeshina College of Health Technology and Adeshina College of Education in Share, Kwara State.
             </p>
 
             {/* Quick Metrics */}
-            <div className="mt-8 flex flex-wrap gap-6 pt-6 border-t border-slate-800/80 text-xs text-slate-300">
+            <div className="mt-8 flex flex-wrap gap-6 pt-6 border-t border-white/15 text-xs text-sky-100">
               <div>
                 <span className="font-bold text-white text-base block">{programmes.length}</span>
                 <span>Offered Programmes</span>
@@ -367,32 +367,35 @@ export function ProgrammesPage() {
         </Container>
       </section>
 
-      {/* Programme Details Modal */}
+      {/* Programme Details & Curriculum Modal */}
       {activeProgramme && (
         <div
-          className="fixed inset-0 z-50 bg-navy/60 backdrop-blur-xs flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-[#05264c]/70 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={() => setActiveProgramme(null)}
           role="dialog"
           aria-modal="true"
         >
           <div
-            className="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-sky-100 max-h-[90vh] overflow-y-auto space-y-6"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className="flex items-start justify-between gap-4 pb-4 border-b border-slate-100">
               <div>
-                <span className="text-[11px] uppercase tracking-wider font-bold text-adeshina-blue">
-                  {activeProgramme.level} · {activeProgramme.duration}
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[11px] uppercase tracking-wider font-bold bg-sky-50 text-sky-800 border border-sky-200">
+                  {activeProgramme.collegeId === 'health-technology' ? 'Health Technology' : 'College of Education'} · {activeProgramme.level}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-serif font-bold text-navy mt-1">
+                <h3 className="text-xl sm:text-2xl font-serif font-bold text-[#05264c] mt-2">
                   {activeProgramme.name}
                 </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Duration: <strong className="text-slate-800">{activeProgramme.duration}</strong> · Study Mode: <strong className="text-slate-800">{activeProgramme.mode.join(', ')}</strong> · Location: <strong className="text-slate-800">Share Campus, Kwara State</strong>
+                </p>
               </div>
               <button
                 type="button"
                 onClick={() => setActiveProgramme(null)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-navy hover:bg-slate-100"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100"
                 aria-label="Close details"
               >
                 <X className="w-5 h-5" />
@@ -401,27 +404,45 @@ export function ProgrammesPage() {
 
             {/* Description */}
             {activeProgramme.description && (
-              <div className="py-4">
+              <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
-                  Programme Description
+                  Curriculum Overview & Scope
                 </h4>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                   {activeProgramme.description}
                 </p>
               </div>
             )}
 
+            {/* Sample Curriculum Modules Breakdown */}
+            <div className="py-3 border-t border-slate-100">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#05264c] mb-2.5 flex items-center gap-1.5">
+                <BookOpen className="w-4 h-4 text-sky-600" />
+                <span>Key Curriculum Modules & Practical Areas</span>
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+                  <span className="font-bold text-slate-800 block mb-0.5">Foundation & Theory (Part I)</span>
+                  <span className="text-slate-500">Core disciplinary theory, anatomy/pedagogy principles, and foundational ICT skills.</span>
+                </div>
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80">
+                  <span className="font-bold text-slate-800 block mb-0.5">Clinical / Teaching Practicum (Part II)</span>
+                  <span className="text-slate-500">Hands-on hospital clinical postings, laboratory diagnosis, or supervised classroom teaching practice.</span>
+                </div>
+              </div>
+            </div>
+
             {/* Entry Requirements */}
             {activeProgramme.entryRequirements && activeProgramme.entryRequirements.length > 0 && (
               <div className="py-3 border-t border-slate-100">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-navy mb-2 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#10a37f]" />
-                  <span>Entry Requirements (O'Level)</span>
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#05264c] mb-2 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>Entry Requirements (O'Level Credits)</span>
                 </h4>
-                <ul className="space-y-2 text-xs sm:text-sm text-slate-600">
+                <ul className="space-y-1.5 text-xs text-slate-600">
                   {activeProgramme.entryRequirements.map((req, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-navy mt-2 shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-600 mt-1.5 shrink-0" />
                       <span className="leading-relaxed">{req}</span>
                     </li>
                   ))}
@@ -432,15 +453,15 @@ export function ProgrammesPage() {
             {/* Career Opportunities */}
             {activeProgramme.careerOpportunities && activeProgramme.careerOpportunities.length > 0 && (
               <div className="py-3 border-t border-slate-100">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-navy mb-2 flex items-center gap-1.5">
-                  <Briefcase className="w-4 h-4 text-accent-gold" />
+                <h4 className="text-xs font-bold uppercase tracking-wider text-[#05264c] mb-2 flex items-center gap-1.5">
+                  <Briefcase className="w-4 h-4 text-sky-600" />
                   <span>Direct Career Opportunities</span>
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {activeProgramme.careerOpportunities.map((career, i) => (
                     <span
                       key={i}
-                      className="px-2.5 py-1 rounded-md text-xs bg-slate-50 border border-slate-200 text-slate-700"
+                      className="px-2.5 py-1 rounded-md text-xs bg-sky-50 border border-sky-200 text-sky-900 font-medium"
                     >
                       {career}
                     </span>
@@ -450,20 +471,20 @@ export function ProgrammesPage() {
             )}
 
             {/* Modal Actions */}
-            <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setActiveProgramme(null)}
-                className="px-4 py-2 text-xs font-bold text-slate-600 hover:text-navy"
+                className="px-4 py-2.5 text-xs font-bold text-slate-600 hover:text-slate-900"
               >
                 Close
               </button>
 
               <Link
                 to="/apply"
-                className="px-5 py-2.5 rounded-xl bg-navy text-white text-xs font-bold hover:bg-adeshina-blue active:bg-adeshina-blue-dark transition-all duration-200 shadow-xs hover:shadow-md"
+                className="px-6 py-2.5 rounded-xl bg-[#05264c] text-white text-xs font-bold hover:bg-sky-600 transition-all duration-200 shadow-sm"
               >
-                Apply for this Programme
+                Apply for this Programme &rarr;
               </Link>
             </div>
           </div>

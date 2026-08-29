@@ -21,7 +21,7 @@ export function CollegeHero({ college }: CollegeHeroProps) {
     : 'Join dedicated student teachers mastering instructional pedagogy and classroom leadership at our Share campus.';
 
   return (
-    <section className="relative bg-[#081426] text-white overflow-hidden border-b border-slate-800" aria-label={`${college.name} Introduction`}>
+    <section className="relative bg-[#05264c] text-white overflow-hidden border-b border-sky-900/50" aria-label={`${college.name} Introduction`}>
       {/* Right Column Full-Height Photography Background */}
       <div className="absolute right-0 top-0 w-full lg:w-[50%] h-[320px] sm:h-[400px] lg:h-full z-0 overflow-hidden select-none">
         <img
@@ -34,9 +34,9 @@ export function CollegeHero({ college }: CollegeHeroProps) {
         />
 
         {/* Soft Left and Bottom Gradient Fades for seamless blend */}
-        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#081426] via-[#081426]/70 via-20% to-transparent to-55%" />
-        <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-[#081426] via-[#081426]/75 via-40% to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#081426] via-transparent to-transparent lg:hidden" />
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#05264c] via-[#05264c]/70 via-20% to-transparent to-55%" />
+        <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-[#05264c] via-[#05264c]/75 via-40% to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#05264c] via-transparent to-transparent lg:hidden" />
       </div>
 
       {/* Main Grid Content Container */}
@@ -48,9 +48,9 @@ export function CollegeHero({ college }: CollegeHeroProps) {
             <div className="mb-3">
               <Link
                 to="/colleges"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
-                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
                 <span>Back to All Colleges</span>
               </Link>
             </div>

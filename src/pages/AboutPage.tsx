@@ -45,11 +45,11 @@ export function AboutPage() {
   ];
 
   return (
-    <div className="bg-[#f8fafc] min-h-screen">
-      {/* Deep Navy Page Hero Banner */}
-      <section className="bg-[#081426] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081426] via-[#081426]/90 to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-20 pointer-events-none">
+    <div className="bg-[#f8fbff] min-h-screen">
+      {/* Light Sky Blue / Navy Page Hero Banner */}
+      <section className="bg-[#05264c] text-white py-16 sm:py-20 border-b border-sky-900/50 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#052042] via-[#073663]/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-30 pointer-events-none">
           <img
             src="/images/education/campus-gate.jpg"
             alt="Adeshina Campus Gate in Share"
@@ -63,25 +63,25 @@ export function AboutPage() {
             <div className="mb-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
-                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
                 <span>Back to Home</span>
               </Link>
             </div>
 
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-300 block mb-2">
               ABOUT ADESHINA GROUP OF COLLEGES
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
               A Centre of Excellence in Healthcare & Educator Development
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+            <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
               Located in the serene town of Share, Kwara State, Adeshina brings two dedicated institutions together on one campus to forge ethical, highly skilled professionals.
             </p>
 
             {/* Quick Metrics */}
-            <div className="mt-8 flex flex-wrap gap-6 pt-6 border-t border-slate-800/80 text-xs text-slate-300">
+            <div className="mt-8 flex flex-wrap gap-6 pt-6 border-t border-white/15 text-xs text-sky-100">
               <div>
                 <span className="font-bold text-white text-base block">Est. 2011</span>
                 <span>Foundational Legacy</span>

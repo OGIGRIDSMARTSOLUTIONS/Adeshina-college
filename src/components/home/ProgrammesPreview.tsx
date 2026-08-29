@@ -33,20 +33,20 @@ export function ProgrammesPreview() {
   }, [activeFilter]);
 
   return (
-    <section className="py-20 lg:py-28 bg-[#e2e8f0] border-b border-slate-300/80" aria-labelledby="programmes-preview-heading">
+    <section className="py-20 lg:py-28 bg-[#f8fbff] border-b border-sky-100" aria-labelledby="programmes-preview-heading">
       <Container size="wide">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-14">
           <div>
             <div className="inline-flex items-center gap-2 mb-2">
-              <span className="w-5 h-0.5 bg-[#B3A369]" aria-hidden="true" />
-              <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-[#8c7b44]">
+              <span className="w-5 h-0.5 bg-sky-500" aria-hidden="true" />
+              <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-700">
                 ACADEMIC PROGRAMMES
               </span>
             </div>
             <h2
               id="programmes-preview-heading"
-              className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-[#001730] leading-tight"
+              className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-[#05264c] leading-tight"
             >
               Confirmed Academic Programmes
             </h2>
@@ -55,15 +55,15 @@ export function ProgrammesPreview() {
             </p>
           </div>
 
-          {/* Academic Selector Filter (Collegiate Pill Style) */}
-          <div className="flex items-center bg-white p-1 rounded-xl border border-slate-300 shadow-sm shrink-0 self-start md:self-auto">
+          {/* Academic Selector Filter (Light Sky Blue Pill Style) */}
+          <div className="flex items-center bg-white p-1 rounded-xl border border-sky-200 shadow-xs shrink-0 self-start md:self-auto">
             <button
               type="button"
               onClick={() => setActiveFilter('all')}
               className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all ${
                 activeFilter === 'all'
-                  ? 'bg-[#001730] text-[#E5D7A3] shadow-sm'
-                  : 'text-slate-600 hover:text-[#001730] hover:bg-slate-50'
+                  ? 'bg-[#05264c] text-sky-200 shadow-sm'
+                  : 'text-slate-600 hover:text-sky-900 hover:bg-sky-50'
               }`}
             >
               All Programmes
@@ -74,8 +74,8 @@ export function ProgrammesPreview() {
               onClick={() => setActiveFilter('health-technology')}
               className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all ${
                 activeFilter === 'health-technology'
-                  ? 'bg-[#0b6b54] text-white shadow-sm'
-                  : 'text-slate-600 hover:text-[#001730] hover:bg-slate-50'
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-emerald-700 hover:bg-emerald-50'
               }`}
             >
               Health Technology
@@ -86,8 +86,8 @@ export function ProgrammesPreview() {
               onClick={() => setActiveFilter('education')}
               className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all ${
                 activeFilter === 'education'
-                  ? 'bg-[#002244] text-[#E5D7A3] shadow-sm'
-                  : 'text-slate-600 hover:text-[#001730] hover:bg-slate-50'
+                  ? 'bg-sky-700 text-white shadow-sm'
+                  : 'text-slate-600 hover:text-sky-900 hover:bg-sky-50'
               }`}
             >
               Education
@@ -104,8 +104,8 @@ export function ProgrammesPreview() {
             return (
               <div
                 key={prog.id}
-                className={`bg-white rounded-xl p-6 sm:p-7 border border-slate-300/90 shadow-[0_3px_12px_-2px_rgba(0,23,48,0.06)] hover:shadow-xl transition-all duration-200 flex flex-col justify-between group border-t-4 ${
-                  isHealth ? 'border-t-[#0b6b54]' : 'border-t-[#B3A369]'
+                className={`bg-white rounded-xl p-6 sm:p-7 border border-sky-100 shadow-[0_3px_14px_-2px_rgba(2,132,199,0.06)] hover:shadow-xl hover:border-sky-200 transition-all duration-200 flex flex-col justify-between group border-t-4 ${
+                  isHealth ? 'border-t-emerald-500' : 'border-t-sky-500'
                 }`}
               >
                 <div>
@@ -114,19 +114,34 @@ export function ProgrammesPreview() {
                     <span
                       className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider ${
                         isHealth
-                          ? 'bg-emerald-50 text-[#0b6b54] border border-emerald-200/80'
-                          : 'bg-amber-50 text-[#8c7b44] border border-amber-200/80'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/80'
+                          : 'bg-sky-50 text-sky-800 border border-sky-200/80'
                       }`}
                     >
-                      {isHealth ? <Stethoscope className="w-3 h-3" /> : <BookOpen className="w-3 h-3" />}
-                      {college?.shortName || prog.collegeId}
+                      {isHealth ? (
+                        <Stethoscope className="w-3 h-3 text-emerald-600" />
+                      ) : (
+                        <BookOpen className="w-3 h-3 text-sky-600" />
+                      )}
+                      <span>{isHealth ? 'Health Tech' : 'Education (NCE)'}</span>
+                    </span>
+
+                    <span className="text-[10px] uppercase font-bold text-slate-400 bg-slate-50 px-2 py-0.5 rounded">
+                      {prog.level}
                     </span>
                   </div>
 
-                  {/* Programme Title */}
-                  <h3 className="text-lg font-serif font-bold text-[#001730] leading-snug group-hover:text-adeshina-blue transition-colors">
-                    {prog.name}
+                  {/* Programme Name */}
+                  <h3 className="text-base sm:text-lg font-serif font-bold text-[#05264c] group-hover:text-sky-700 transition-colors leading-snug">
+                    <Link to={`/programmes?college=${prog.collegeId}`}>
+                      {prog.name}
+                    </Link>
                   </h3>
+
+                  {/* Faculty Meta */}
+                  <p className="mt-1 text-xs text-slate-500 font-medium">
+                    {college?.name}
+                  </p>
 
                   {/* Summary / Description */}
                   {prog.description && (
@@ -139,15 +154,15 @@ export function ProgrammesPreview() {
                   <div className="mt-4 pt-4 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
                     <div className="flex items-center justify-between">
                       <span className="text-slate-400 font-medium">Award:</span>
-                      <span className="font-semibold text-[#001730]">{prog.level}</span>
+                      <span className="font-semibold text-[#05264c]">{prog.level}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-slate-400 font-medium">Study mode:</span>
-                      <span className="font-semibold text-[#001730]">{prog.mode.join(', ')}</span>
+                      <span className="font-semibold text-[#05264c]">{prog.mode.join(', ')}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-slate-400 font-medium">Duration:</span>
-                      <span className="font-semibold text-[#001730]">{prog.duration}</span>
+                      <span className="font-semibold text-[#05264c]">{prog.duration}</span>
                     </div>
                   </div>
                 </div>
@@ -156,14 +171,14 @@ export function ProgrammesPreview() {
                 <div className="mt-6 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2.5">
                   <Link
                     to={`/programmes?college=${prog.collegeId}`}
-                    className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-[#001730] bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-300 transition-colors text-center"
+                    className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-sky-800 bg-sky-50/70 hover:bg-sky-100/80 rounded-lg border border-sky-200 transition-colors text-center"
                   >
                     View Details
                   </Link>
 
                   <Link
                     to="/apply"
-                    className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-[#001730] hover:bg-[#B3A369] hover:text-[#001730] rounded-lg shadow-xs hover:shadow-md transition-all duration-200 text-center"
+                    className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-[#05264c] hover:bg-sky-500 hover:text-[#05264c] rounded-lg shadow-xs hover:shadow-md transition-all duration-200 text-center"
                   >
                     Apply Now
                   </Link>
@@ -177,10 +192,10 @@ export function ProgrammesPreview() {
         <div className="mt-12 text-center">
           <Link
             to="/programmes"
-            className="inline-flex items-center gap-2 text-sm font-extrabold text-[#001730] hover:text-white hover:bg-[#001730] transition-all py-3 px-8 rounded-xl bg-white border border-slate-300 shadow-sm"
+            className="inline-flex items-center gap-2 text-sm font-extrabold text-[#05264c] hover:text-white hover:bg-[#05264c] transition-all py-3.5 px-8 rounded-xl bg-white border border-sky-200 shadow-sm hover:shadow-md"
           >
             <span>View Full Programmes Directory</span>
-            <ArrowRight className="w-4 h-4 text-[#B3A369]" />
+            <ArrowRight className="w-4 h-4 text-sky-500" />
           </Link>
         </div>
       </Container>

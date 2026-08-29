@@ -22,11 +22,11 @@ export function ContactPage() {
   };
 
   return (
-    <div className="bg-[#f8fafc] min-h-screen">
-      {/* Deep Navy Page Hero Banner */}
-      <section className="bg-[#081426] text-white py-16 sm:py-20 border-b border-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#081426] via-[#081426]/90 to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-20 pointer-events-none">
+    <div className="bg-[#f8fbff] min-h-screen">
+      {/* Light Sky Blue / Navy Page Hero Banner */}
+      <section className="bg-[#05264c] text-white py-16 sm:py-20 border-b border-sky-900/50 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#052042] via-[#073663]/90 to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-30 pointer-events-none">
           <img
             src="/images/education/campus-gate.jpg"
             alt="Adeshina Campus Gate in Share"
@@ -40,20 +40,20 @@ export function ContactPage() {
             <div className="mb-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
-                <ArrowLeft className="w-3.5 h-3.5 text-accent-gold" />
+                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
                 <span>Back to Home</span>
               </Link>
             </div>
 
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
+            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-300 block mb-2">
               GET IN TOUCH
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
               Contact Adeshina Group of Colleges
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
+            <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
               Have questions regarding admissions, programme requirements, or campus visits? Reach out to our central registry or visit our campus in Share, Kwara State.
             </p>
           </div>

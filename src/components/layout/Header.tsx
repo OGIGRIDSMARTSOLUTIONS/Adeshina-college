@@ -63,37 +63,37 @@ export function Header() {
       }`}
     >
       {/* Institutional Top Notification & Utility Bar */}
-      <div className="bg-[#081426] text-white text-[11px] sm:text-xs py-2 px-4 hidden lg:block border-b border-slate-800/80">
+      <div className="bg-[#05264c] text-white text-[11px] sm:text-xs py-2 px-4 hidden lg:block border-b border-sky-900/50">
         <Container size="wide" className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold text-[10px] uppercase tracking-wider border border-emerald-500/30">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Admissions Open
             </span>
-            <span className="text-slate-300">
+            <span className="text-sky-100/90">
               {siteConfig.institutionName} · Share, Kwara State
             </span>
-            <span className="text-slate-600">•</span>
+            <span className="text-sky-400/60">•</span>
             <a
               href="tel:08135131503"
-              className="text-slate-300 hover:text-white transition-colors flex items-center gap-1"
+              className="text-sky-100/90 hover:text-white transition-colors flex items-center gap-1"
             >
-              <Phone className="w-3 h-3 text-accent-gold" />
+              <Phone className="w-3 h-3 text-sky-300" />
               <span>Admissions Desk: <strong className="text-white font-semibold">0813 513 1503</strong></span>
             </a>
           </div>
 
-          <div className="flex items-center gap-6 text-slate-300 font-medium">
+          <div className="flex items-center gap-6 text-sky-100/90 font-medium">
             <Link
               to="/contact"
               className="hover:text-white transition-colors flex items-center gap-1"
             >
-              <MapPin className="w-3 h-3 text-accent-gold" />
+              <MapPin className="w-3 h-3 text-sky-300" />
               <span>Campus Directions</span>
             </Link>
             <Link
               to={siteConfig.portals.studentPortal.path}
-              className="hover:text-white transition-colors flex items-center gap-1.5 text-accent-gold hover:text-white font-semibold"
+              className="hover:text-white transition-colors flex items-center gap-1.5 text-sky-300 hover:text-white font-semibold"
             >
               <GraduationCap className="w-3.5 h-3.5" />
               <span>{siteConfig.portals.studentPortal.label}</span>
@@ -316,15 +316,15 @@ export function Header() {
                 to={siteConfig.portals.studentPortal.path}
                 className="w-full py-3 rounded-xl border border-slate-300 text-center text-xs font-bold text-navy hover:bg-slate-50 flex items-center justify-center gap-2"
               >
-                <GraduationCap className="w-4 h-4 text-accent-gold" />
+                <GraduationCap className="w-4 h-4 text-sky-600" />
                 <span>{siteConfig.portals.studentPortal.label}</span>
               </Link>
               <Link
                 to={siteConfig.portals.applyNow.path}
-                className="w-full py-3 rounded-xl bg-adeshina-blue text-center text-xs font-bold text-white shadow-md hover:bg-navy flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl bg-[#05264c] hover:bg-sky-600 text-center text-xs font-bold text-white shadow-md flex items-center justify-center gap-2 transition-colors"
               >
                 <span>{siteConfig.portals.applyNow.label}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-sky-300" />
               </Link>
             </div>
           </div>
