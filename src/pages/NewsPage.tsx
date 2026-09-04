@@ -1,14 +1,43 @@
-import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Search, ArrowRight, ArrowLeft, Calendar, X, Megaphone } from 'lucide-react';
 import { newsArticles } from '@/data/news';
 import { NewsArticle } from '@/types/news';
 import { Container } from '@/components/common/Container';
 
 export function NewsPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeArticle, setActiveArticle] = useState<NewsArticle | null>(null);
+
+  const openArticle = (article: NewsArticle) => {
+    setActiveArticle(article);
+    if (location.hash !== `#${article.slug}`) {
+      navigate(`/news#${article.slug}`, { replace: true });
+    }
+  };
+
+  const closeArticle = () => {
+    setActiveArticle(null);
+    if (location.hash) {
+      navigate('/news', { replace: true });
+    }
+  };
+
+  // Open bulletin when arriving via /news#slug (e.g. homepage “Read Notice”)
+  useEffect(() => {
+    const slug = location.hash.replace(/^#/, '');
+    if (!slug) {
+      setActiveArticle(null);
+      return;
+    }
+    const match = newsArticles.find((a) => a.slug === slug);
+    if (match) {
+      setActiveArticle(match);
+    }
+  }, [location.hash]);
 
   // Available unique categories
   const categories = useMemo(() => {
@@ -73,7 +102,7 @@ export function NewsPage() {
       </section>
 
       {/* Filter and Search Bar */}
-      <section className="sticky top-16 z-30 bg-white border-b border-slate-200/90 shadow-xs py-4">
+      <section className="sticky top-16 z-30 bg-white border-b border-slate-200/90 shadow-sm py-4">
         <Container size="wide">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
             {/* Category Filter Pills */}
@@ -85,7 +114,7 @@ export function NewsPage() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-4 py-2 text-xs font-bold rounded-lg transition-all shrink-0 capitalize ${
                     selectedCategory === cat
-                      ? 'bg-navy text-white shadow-xs'
+                      ? 'bg-navy text-white shadow-sm'
                       : 'text-slate-600 hover:text-navy hover:bg-slate-100'
                   }`}
                 >
@@ -102,7 +131,7 @@ export function NewsPage() {
                 placeholder="Search bulletins..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-8 py-2 text-navy focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue placeholder:text-slate-400"
+                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-8 py-2 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue placeholder:text-slate-400"
               />
               {searchQuery && (
                 <button
@@ -162,8 +191,8 @@ export function NewsPage() {
                 <div>
                   <button
                     type="button"
-                    onClick={() => setActiveArticle(featuredArticle)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy text-white text-xs font-bold hover:bg-navy-dark transition-all shadow-xs"
+                    onClick={() => openArticle(featuredArticle)}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy text-white text-xs font-bold hover:bg-navy-dark transition-all shadow-sm"
                   >
                     <span>Read Full Bulletin</span>
                     <ArrowRight className="w-4 h-4 text-accent-gold" />
@@ -205,7 +234,7 @@ export function NewsPage() {
                 <div className="mt-6 pt-4 border-t border-slate-100">
                   <button
                     type="button"
-                    onClick={() => setActiveArticle(article)}
+                    onClick={() => openArticle(article)}
                     className="text-xs font-bold text-navy group-hover:text-adeshina-blue inline-flex items-center gap-1.5 transition-colors"
                   >
                     <span>Read Full Notice</span>
@@ -221,8 +250,8 @@ export function NewsPage() {
       {/* Bulletin Reader Modal */}
       {activeArticle && (
         <div
-          className="fixed inset-0 z-50 bg-navy/60 backdrop-blur-xs flex items-center justify-center p-4"
-          onClick={() => setActiveArticle(null)}
+          className="fixed inset-0 z-50 bg-navy/60 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={closeArticle}
           role="dialog"
           aria-modal="true"
         >
@@ -247,7 +276,7 @@ export function NewsPage() {
               </div>
               <button
                 type="button"
-                onClick={() => setActiveArticle(null)}
+                onClick={closeArticle}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-navy hover:bg-slate-100 shrink-0"
                 aria-label="Close bulletin"
               >
@@ -272,7 +301,7 @@ export function NewsPage() {
               </span>
               <button
                 type="button"
-                onClick={() => setActiveArticle(null)}
+                onClick={closeArticle}
                 className="px-4 py-2 rounded-lg bg-navy text-white font-bold hover:bg-navy-dark transition-all"
               >
                 Dismiss

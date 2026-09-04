@@ -3,7 +3,6 @@ import { Programme } from '@/types/programme';
 export const programmes: Programme[] = [
   // ==========================================
   // ADESHINA COLLEGE OF HEALTH TECHNOLOGY
-  // (Research-found programmes listed from secondary reports)
   // ==========================================
   {
     id: 'community-health-chew',
@@ -14,16 +13,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Comprehensive clinical and community primary healthcare practice, immunization delivery, maternal & child health, and community health management.',
-    entryRequirements: [
-      'Five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not more than two sittings.',
-      'Mandatory credits in English Language, Mathematics, Biology/Health Science, Chemistry, and Physics.',
-    ],
-    careerOpportunities: [
-      'Primary Health Care Centers (PHCs)',
-      'General & Specialist Hospitals',
-      'Community Health Outreach Programs',
-      'Local Government Health Departments',
-    ],
+    entryRequirements: ['Five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not more than two sittings.', 'Mandatory credits in English Language, Mathematics, Biology/Health Science, Chemistry, and Physics.'],
+    careerOpportunities: ['Primary Health Care Centres (PHCs)', 'General & Specialist Hospitals', 'Community Health Outreach Programmes', 'Local Government Health Departments'],
   },
   {
     id: 'junior-community-health-jchew',
@@ -34,14 +25,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Foundational community healthcare delivery, rural health assistance, basic first aid, and preventive health sensitization.',
-    entryRequirements: [
-      'Three (3) to five (5) passes/credits in SSCE/WAEC/NECO/NABTEB including English, Mathematics, and Biology.',
-    ],
-    careerOpportunities: [
-      'Rural Healthcare Outposts',
-      'Maternal & Child Health Clinics',
-      'Community Health Mobilization Teams',
-    ],
+    entryRequirements: ['Three (3) to five (5) passes/credits in SSCE/WAEC/NECO/NABTEB including English, Mathematics, and Biology.'],
+    careerOpportunities: ['Rural Healthcare Outposts', 'Maternal & Child Health Clinics', 'Community Health Mobilization Teams'],
   },
   {
     id: 'medical-laboratory-technician',
@@ -52,15 +37,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Clinical laboratory diagnostic procedures, clinical haematology, medical microbiology, parasitology, and chemical pathology assays.',
-    entryRequirements: [
-      'Five (5) credit passes in English Language, Mathematics, Biology, Chemistry, and Physics at SSCE/NECO/WAEC in not more than two sittings.',
-    ],
-    careerOpportunities: [
-      'Diagnostic Medical Laboratories',
-      'Hospital Pathology Departments',
-      'Blood Transfusion Services',
-      'Medical Research Institutes',
-    ],
+    entryRequirements: ['Five (5) credit passes in English Language, Mathematics, Biology, Chemistry, and Physics at SSCE/NECO/WAEC in not more than two sittings.'],
+    careerOpportunities: ['Diagnostic Medical Laboratories', 'Hospital Pathology Departments', 'Blood Transfusion Services', 'Medical Research Institutes'],
   },
   {
     id: 'pharmacy-technician',
@@ -71,15 +49,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Pharmacology principles, drug compounding techniques, pharmaceutical inventory management, and ethical dispensing.',
-    entryRequirements: [
-      'Five (5) credit passes in SSCE/WAEC/NECO at not more than two sittings including English, Mathematics, Chemistry, Biology, and Physics.',
-    ],
-    careerOpportunities: [
-      'Hospital Pharmacy Departments',
-      'Community Retail Pharmacies',
-      'Pharmaceutical Manufacturing & Distribution',
-      'Public Health Drug Depots',
-    ],
+    entryRequirements: ['Five (5) credit passes in SSCE/WAEC/NECO at not more than two sittings including English, Mathematics, Chemistry, Biology, and Physics.'],
+    careerOpportunities: ['Hospital Pharmacy Departments', 'Community Retail Pharmacies', 'Pharmaceutical Manufacturing & Distribution', 'Public Health Drug Depots'],
   },
   {
     id: 'environmental-health-technology',
@@ -90,14 +61,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Environmental sanitation, occupational health and safety, pollution inspection, epidemiology, water hygiene, and public health enforcement.',
-    entryRequirements: [
-      'Five (5) O-Level credits in English Language, Mathematics, Biology, Chemistry, and Physics/Geography.',
-    ],
-    careerOpportunities: [
-      'Ministry of Environment & Sanitation Agencies',
-      'Public Health Inspection Units',
-      'Industrial Occupational Safety Departments',
-    ],
+    entryRequirements: ['Five (5) O-Level credits in English Language, Mathematics, Biology, Chemistry, and Physics/Geography.'],
+    careerOpportunities: ['Ministry of Environment & Sanitation Agencies', 'Public Health Inspection Units', 'Industrial Occupational Safety Departments'],
   },
   {
     id: 'health-information-management',
@@ -108,14 +73,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Health records administration, clinical coding, hospital biometric data systems, medical confidentiality, and healthcare biostatistics.',
-    entryRequirements: [
-      'Five (5) O-Level credits including English Language, Mathematics, Biology, and two other relevant science/social science subjects.',
-    ],
-    careerOpportunities: [
-      'Hospital Medical Records Departments',
-      'Health Informatics Units',
-      'Health Insurance Organizations (NHIA/State HMOs)',
-    ],
+    entryRequirements: ['Five (5) O-Level credits including English Language, Mathematics, Biology, and two other relevant science/social science subjects.'],
+    careerOpportunities: ['Hospital Medical Records Departments', 'Health Informatics Units', 'Health Insurance Organizations (NHIA/State HMOs)'],
   },
   {
     id: 'dental-technology',
@@ -126,13 +85,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Fabrication of dental prosthetics, orthodontic appliances, restorative crowns, and dental material laboratory technology.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Biology, Chemistry, and Physics.',
-    ],
-    careerOpportunities: [
-      'Dental Prosthetic Laboratories',
-      'Maxillofacial & Dental Hospital Clinics',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Biology, Chemistry, and Physics.'],
+    careerOpportunities: ['Dental Prosthetic Laboratories', 'Maxillofacial & Dental Hospital Clinics'],
   },
   {
     id: 'dental-therapy',
@@ -143,13 +97,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Preventive dental clinical care, scaling and polishing, oral health education, and routine clinical dental assessments.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Biology, Chemistry, and Physics.',
-    ],
-    careerOpportunities: [
-      'Dental Clinics & General Hospitals',
-      'Community Oral Health Outreach Units',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Biology, Chemistry, and Physics.'],
+    careerOpportunities: ['Dental Clinics & General Hospitals', 'Community Oral Health Outreach Units'],
   },
   {
     id: 'public-health-nursing',
@@ -160,13 +109,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Community health assessment, preventative clinical nursing, epidemic response, and family health monitoring.',
-    entryRequirements: [
-      'Registered Nurse (RN) qualification plus 5 O\'Level credits in relevant sciences.',
-    ],
-    careerOpportunities: [
-      'Community Public Health Centers',
-      'Maternal & Child Health Services',
-    ],
+    entryRequirements: ['Registered Nurse (RN) qualification plus 5 O\'Level credits in relevant sciences.'],
+    careerOpportunities: ['Community Public Health Centres', 'Maternal & Child Health Services'],
   },
   {
     id: 'community-health',
@@ -177,13 +121,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Primary healthcare coordination, health education campaigns, sanitation, and grassroots disease prevention.',
-    entryRequirements: [
-      'Five (5) O-Level credit passes in English, Mathematics, Biology, Chemistry, and Physics.',
-    ],
-    careerOpportunities: [
-      'Local Government Health Authorities',
-      'Primary Healthcare Centers',
-    ],
+    entryRequirements: ['Five (5) O-Level credit passes in English, Mathematics, Biology, Chemistry, and Physics.'],
+    careerOpportunities: ['Local Government Health Authorities', 'Primary Healthcare Centres'],
   },
   {
     id: 'health-assistant-medical-course',
@@ -194,13 +133,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Fundamental patient support, bedside assistance, basic clinical hygiene, and hospital orderly assistance.',
-    entryRequirements: [
-      'Passes/credits in English, Mathematics, and Biology at SSCE/NECO/NABTEB.',
-    ],
-    careerOpportunities: [
-      'Clinics & Outpatient Departments',
-      'Nursing Homes & Long-term Care Centers',
-    ],
+    entryRequirements: ['Passes/credits in English, Mathematics, and Biology at SSCE/NECO/NABTEB.'],
+    careerOpportunities: ['Clinics & Outpatient Departments', 'Nursing Homes & Long-term Care Centres'],
   },
   {
     id: 'x-ray-technician',
@@ -211,13 +145,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Medical radiography equipment operation, radiation safety protocols, and radiographic film processing.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Physics, Chemistry, and Biology.',
-    ],
-    careerOpportunities: [
-      'Diagnostic Imaging Centers',
-      'Radiology Departments in Hospitals',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Physics, Chemistry, and Biology.'],
+    careerOpportunities: ['Diagnostic Imaging Centres', 'Radiology Departments in Hospitals'],
   },
   {
     id: 'community-nutrition-technician',
@@ -227,14 +156,9 @@ export const programmes: Programme[] = [
     duration: '2-3 Years',
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
-    description: 'Nutritional deficiency assessment, dietary planning, maternal-child nutrition supplementation, and community feeding programs.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Biology/Agricultural Science, Chemistry, and Food & Nutrition.',
-    ],
-    careerOpportunities: [
-      'Nutrition Units in Health Centers',
-      'Public Health NGOs & Community Health Teams',
-    ],
+    description: 'Nutritional deficiency assessment, dietary planning, maternal-child nutrition supplementation, and community feeding programmes.',
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Biology/Agricultural Science, Chemistry, and Food & Nutrition.'],
+    careerOpportunities: ['Nutrition Units in Health Centres', 'Public Health NGOs & Community Health Teams'],
   },
   {
     id: 'food-hygienist',
@@ -245,13 +169,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Food sanitation inspection, foodborne pathogen control, industrial kitchen compliance, and food safety standards.',
-    entryRequirements: [
-      'O-Level credits in English, Mathematics, Biology, and Chemistry.',
-    ],
-    careerOpportunities: [
-      'Food Processing & Hospitality Inspection',
-      'Public Health Environmental Units',
-    ],
+    entryRequirements: ['O-Level credits in English, Mathematics, Biology, and Chemistry.'],
+    careerOpportunities: ['Food Processing & Hospitality Inspection', 'Public Health Environmental Units'],
   },
   {
     id: 'environmental-health-assistant',
@@ -262,18 +181,12 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
     description: 'Field sanitary inspections, vector control operations, waste disposal monitoring, and rural hygiene sensitization.',
-    entryRequirements: [
-      'Passes/credits in English, Mathematics, Biology, and relevant science subjects.',
-    ],
-    careerOpportunities: [
-      'Local Government Sanitation Units',
-      'Environmental Health Inspection Desks',
-    ],
+    entryRequirements: ['Passes/credits in English, Mathematics, Biology, and relevant science subjects.'],
+    careerOpportunities: ['Local Government Sanitation Units', 'Environmental Health Inspection Desks'],
   },
 
   // ==========================================
   // ADESHINA COLLEGE OF EDUCATION
-  // (Consistently reported NCE programmes)
   // ==========================================
   {
     id: 'primary-education-studies',
@@ -284,15 +197,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Foundational pedagogy, child cognitive development, early literacy and numeracy instructional methodologies, and primary school classroom leadership.',
-    entryRequirements: [
-      'Five (5) credit passes in SSCE/WAEC/NECO/NABTEB including English Language and Mathematics.',
-    ],
-    careerOpportunities: [
-      'Primary School Educators',
-      'Curriculum Development Coordinators',
-      'Early Childhood Learning Centers',
-      'Direct Entry to University B.Ed/B.A.Ed Degree',
-    ],
+    entryRequirements: ['Five (5) credit passes in SSCE/WAEC/NECO/NABTEB including English Language and Mathematics.'],
+    careerOpportunities: ['Primary School Educators', 'Curriculum Development Coordinators', 'Early Childhood Learning Centres', 'Direct Entry to University B.Ed/B.A.Ed Degree'],
   },
   {
     id: 'early-childhood-care-education',
@@ -303,15 +209,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Early development psychology, nursery learning curriculum design, observational evaluation, child play psychology, and nurturing learning environments.',
-    entryRequirements: [
-      'Five (5) O-Level credit passes including English Language and Mathematics at not more than two sittings.',
-    ],
-    careerOpportunities: [
-      'Preschool & Nursery School Instructors',
-      'Early Learning Facility Administrators',
-      'Child Welfare & Development Agencies',
-      'Direct Entry to University B.Ed Degree',
-    ],
+    entryRequirements: ['Five (5) O-Level credit passes including English Language and Mathematics at not more than two sittings.'],
+    careerOpportunities: ['Preschool & Nursery School Instructors', 'Early Learning Facility Administrators', 'Child Welfare & Development Agencies', 'Direct Entry to University B.Ed Degree'],
   },
   {
     id: 'business-education',
@@ -322,15 +221,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Pedagogical training in accounting, office technology, commerce, business management, and entrepreneurship instruction.',
-    entryRequirements: [
-      'Five (5) credit passes in English Language, Mathematics, Economics/Commerce, and other commercial/arts subjects.',
-    ],
-    careerOpportunities: [
-      'Secondary School Business Studies & Accounting Teachers',
-      'Corporate Training Assistants',
-      'Administrative Educational Officers',
-      'Direct Entry to University B.Ed Business Education',
-    ],
+    entryRequirements: ['Five (5) credit passes in English Language, Mathematics, Economics/Commerce, and other commercial/arts subjects.'],
+    careerOpportunities: ['Secondary School Business Studies & Accounting Teachers', 'Corporate Training Assistants', 'Administrative Educational Officers', 'Direct Entry to University B.Ed Business Education'],
   },
   {
     id: 'social-studies-double-major',
@@ -341,14 +233,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Comprehensive socio-cultural pedagogy, civic governance, national integration, and socio-environmental studies.',
-    entryRequirements: [
-      'Five (5) credit passes including English Language, Mathematics, Government/History, and Social Sciences.',
-    ],
-    careerOpportunities: [
-      'Junior & Senior Secondary Social Studies Teachers',
-      'Civic Education Officers',
-      'Direct Entry to University B.Ed Social Studies',
-    ],
+    entryRequirements: ['Five (5) credit passes including English Language, Mathematics, Government/History, and Social Sciences.'],
+    careerOpportunities: ['Junior & Senior Secondary Social Studies Teachers', 'Civic Education Officers', 'Direct Entry to University B.Ed Social Studies'],
   },
   {
     id: 'integrated-science-mathematics-education',
@@ -359,14 +245,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Core scientific inquiry, basic science laboratory instructional techniques, algebra, geometry, and mathematical problem-solving pedagogy.',
-    entryRequirements: [
-      'Five (5) credit passes in English Language, Mathematics, Physics, Chemistry, or Biology.',
-    ],
-    careerOpportunities: [
-      'Secondary School Basic Science & Mathematics Teachers',
-      'Science Practical Lab Demonstrators',
-      'Direct Entry to University B.Sc(Ed) Mathematics/Science',
-    ],
+    entryRequirements: ['Five (5) credit passes in English Language, Mathematics, Physics, Chemistry, or Biology.'],
+    careerOpportunities: ['Secondary School Basic Science & Mathematics Teachers', 'Science Practical Lab Demonstrators', 'Direct Entry to University B.Sc(Ed) Mathematics/Science'],
   },
   {
     id: 'english-social-studies',
@@ -377,14 +257,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'English grammar and literature instructional methodology paired with civic education, cultural geography, and sociological studies.',
-    entryRequirements: [
-      'Five (5) credit passes in English Language, Literature in English, Mathematics, and relevant Arts/Social Science subjects.',
-    ],
-    careerOpportunities: [
-      'Junior & Senior Secondary English/Social Studies Teachers',
-      'Educational Content Writers & Editors',
-      'Direct Entry to University B.A.(Ed) Degree',
-    ],
+    entryRequirements: ['Five (5) credit passes in English Language, Literature in English, Mathematics, and relevant Arts/Social Science subjects.'],
+    careerOpportunities: ['Junior & Senior Secondary English/Social Studies Teachers', 'Educational Content Writers & Editors', 'Direct Entry to University B.A.(Ed) Degree'],
   },
   {
     id: 'biology-integrated-science',
@@ -395,13 +269,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Biological sciences pedagogy, botanical & zoological laboratory methods, and general science teaching.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Biology, Chemistry, and Physics/Agricultural Science.',
-    ],
-    careerOpportunities: [
-      'Biology & Basic Science Secondary Teachers',
-      'Science Education Resource Specialists',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Biology, Chemistry, and Physics/Agricultural Science.'],
+    careerOpportunities: ['Biology & Basic Science Secondary Teachers', 'Science Education Resource Specialists'],
   },
   {
     id: 'biology-mathematics',
@@ -412,13 +281,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Dual scientific and quantitative methodology across biological systems and mathematical instruction.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Biology, and other science subjects.',
-    ],
-    careerOpportunities: [
-      'Mathematics & Biology Instructors',
-      'Educational Data & Curriculum Assistants',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Biology, and other science subjects.'],
+    careerOpportunities: ['Mathematics & Biology Instructors', 'Educational Data & Curriculum Assistants'],
   },
   {
     id: 'chemistry-mathematics',
@@ -429,13 +293,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Physical and chemical science teaching techniques combined with advanced secondary school mathematics pedagogy.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Chemistry, Physics, and Biology.',
-    ],
-    careerOpportunities: [
-      'Secondary Chemistry & Mathematics Teachers',
-      'Science Laboratory Technologists in Schools',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Chemistry, Physics, and Biology.'],
+    careerOpportunities: ['Secondary Chemistry & Mathematics Teachers', 'Science Laboratory Technologists in Schools'],
   },
   {
     id: 'integrated-science',
@@ -446,13 +305,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Holistic STEM and basic science instructional design for primary and junior secondary educational institutions.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, and at least two core science subjects.',
-    ],
-    careerOpportunities: [
-      'Basic Science Instructors',
-      'STEM Laboratory Coordinators',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, and at least two core science subjects.'],
+    careerOpportunities: ['Basic Science Instructors', 'STEM Laboratory Coordinators'],
   },
   {
     id: 'integrated-science-biology',
@@ -463,12 +317,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Instructional methodology in life sciences, ecological investigations, and basic scientific principles.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Biology, and Chemistry/Physics.',
-    ],
-    careerOpportunities: [
-      'Secondary Biology & Basic Science Teachers',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Biology, and Chemistry/Physics.'],
+    careerOpportunities: ['Secondary Biology & Basic Science Teachers'],
   },
   {
     id: 'integrated-science-chemistry',
@@ -479,12 +329,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Pedagogy in laboratory chemistry, chemical safety, atomic theory, and basic integrated science.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Chemistry, and other sciences.',
-    ],
-    careerOpportunities: [
-      'Secondary Chemistry & Basic Science Teachers',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Chemistry, and other sciences.'],
+    careerOpportunities: ['Secondary Chemistry & Basic Science Teachers'],
   },
   {
     id: 'economics-social-studies',
@@ -495,13 +341,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Instruction in micro/macro economics, financial literacy, national commerce, and socio-civic development.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Mathematics, Economics, and Social Science subjects.',
-    ],
-    careerOpportunities: [
-      'Economics & Social Studies Teachers',
-      'Socio-Economic Educational Analysts',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Mathematics, Economics, and Social Science subjects.'],
+    careerOpportunities: ['Economics & Social Studies Teachers', 'Socio-Economic Educational Analysts'],
   },
   {
     id: 'english-political-science',
@@ -512,13 +353,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Linguistic skills, English grammar, rhetoric, civic governance, and political institution studies.',
-    entryRequirements: [
-      'Five (5) credit passes in English Language, Literature in English, Mathematics, Government/History.',
-    ],
-    careerOpportunities: [
-      'English & Civic Education/Government Teachers',
-      'Public Affairs Educational Coordinators',
-    ],
+    entryRequirements: ['Five (5) credit passes in English Language, Literature in English, Mathematics, Government/History.'],
+    careerOpportunities: ['English & Civic Education/Government Teachers', 'Public Affairs Educational Coordinators'],
   },
   {
     id: 'english-history',
@@ -529,13 +365,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Literature, compositional analysis, Nigerian & world history pedagogy, and historical documentation.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Literature in English, Mathematics, and History/Government.',
-    ],
-    careerOpportunities: [
-      'English & History Secondary Teachers',
-      'Cultural & Historical Heritage Educators',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Literature in English, Mathematics, and History/Government.'],
+    careerOpportunities: ['English & History Secondary Teachers', 'Cultural & Historical Heritage Educators'],
   },
   {
     id: 'english-yoruba',
@@ -546,13 +377,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Bilingual language methodology, indigenous Yoruba cultural linguistics, grammar, and literature in English.',
-    entryRequirements: [
-      'Five (5) credit passes in English Language, Yoruba, Mathematics, and Arts subjects.',
-    ],
-    careerOpportunities: [
-      'English & Yoruba Language Teachers',
-      'Cultural & Linguistic Translators',
-    ],
+    entryRequirements: ['Five (5) credit passes in English Language, Yoruba, Mathematics, and Arts subjects.'],
+    careerOpportunities: ['English & Yoruba Language Teachers', 'Cultural & Linguistic Translators'],
   },
   {
     id: 'english-islamic-studies',
@@ -563,13 +389,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'English language pedagogy paired with Islamic jurisprudence, history, ethics, and religious education methods.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Islamic Religious Studies (IRS), Mathematics, and Arts subjects.',
-    ],
-    careerOpportunities: [
-      'English & Islamic Studies Teachers',
-      'Religious Education Instructors',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Islamic Religious Studies (IRS), Mathematics, and Arts subjects.'],
+    careerOpportunities: ['English & Islamic Studies Teachers', 'Religious Education Instructors'],
   },
   {
     id: 'yoruba-social-studies',
@@ -580,13 +401,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Indigenous language pedagogy, Yoruba folklore, cultural sociology, and civic social studies.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Yoruba, Mathematics, and Social Sciences.',
-    ],
-    careerOpportunities: [
-      'Yoruba & Social Studies Instructors',
-      'Community Cultural Educators',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Yoruba, Mathematics, and Social Sciences.'],
+    careerOpportunities: ['Yoruba & Social Studies Instructors', 'Community Cultural Educators'],
   },
   {
     id: 'islamic-studies-social-studies',
@@ -597,13 +413,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Moral instruction, Islamic philosophy, social ethics, and civic education pedagogical techniques.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Islamic Religious Studies, Mathematics, and relevant Arts/Social Sciences.',
-    ],
-    careerOpportunities: [
-      'Islamic Studies & Social Studies Teachers',
-      'Moral Instruction Counselors',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Islamic Religious Studies, Mathematics, and relevant Arts/Social Sciences.'],
+    careerOpportunities: ['Islamic Studies & Social Studies Teachers', 'Moral Instruction Counselors'],
   },
   {
     id: 'history-islamic-studies',
@@ -614,12 +425,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Islamic civilization, African & global historical events, and humanities pedagogical methodologies.',
-    entryRequirements: [
-      'Five (5) credit passes in English, History/Government, Islamic Studies, and Mathematics.',
-    ],
-    careerOpportunities: [
-      'History & Islamic Studies Educators',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, History/Government, Islamic Studies, and Mathematics.'],
+    careerOpportunities: ['History & Islamic Studies Educators'],
   },
   {
     id: 'christian-religious-studies-english',
@@ -630,13 +437,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Biblical literature pedagogy, Christian ethics, English grammar, and reading comprehension instruction.',
-    entryRequirements: [
-      'Five (5) credit passes in English Language, Christian Religious Studies (CRS), Mathematics, and Arts subjects.',
-    ],
-    careerOpportunities: [
-      'CRS & English Secondary School Teachers',
-      'Moral Instruction Teachers',
-    ],
+    entryRequirements: ['Five (5) credit passes in English Language, Christian Religious Studies (CRS), Mathematics, and Arts subjects.'],
+    careerOpportunities: ['CRS & English Secondary School Teachers', 'Moral Instruction Teachers'],
   },
   {
     id: 'christian-religious-studies-social-studies',
@@ -647,12 +449,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Christian theology, moral education, sociology, and civic engagement teaching methods.',
-    entryRequirements: [
-      'Five (5) credit passes in English, CRS, Mathematics, and Social Sciences.',
-    ],
-    careerOpportunities: [
-      'CRS & Social Studies Educators',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, CRS, Mathematics, and Social Sciences.'],
+    careerOpportunities: ['CRS & Social Studies Educators'],
   },
   {
     id: 'christian-religious-studies-history',
@@ -663,12 +461,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Church history, world civilizations, biblical studies, and historical research instruction.',
-    entryRequirements: [
-      'Five (5) credit passes in English, CRS, History/Government, and Mathematics.',
-    ],
-    careerOpportunities: [
-      'CRS & History Teachers in Secondary Schools',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, CRS, History/Government, and Mathematics.'],
+    careerOpportunities: ['CRS & History Teachers in Secondary Schools'],
   },
   {
     id: 'arabic-english',
@@ -679,13 +473,8 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Arabic linguistics, classical & modern literature, English grammatical structures, and bilingual instruction.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Arabic, Mathematics, and relevant Arts subjects.',
-    ],
-    careerOpportunities: [
-      'Arabic & English Language Teachers',
-      'Bilingual Translators & Educational Consultants',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Arabic, Mathematics, and relevant Arts subjects.'],
+    careerOpportunities: ['Arabic & English Language Teachers', 'Bilingual Translators & Educational Consultants'],
   },
   {
     id: 'arabic-islamic-studies',
@@ -696,12 +485,7 @@ export const programmes: Programme[] = [
     mode: ['Full-Time'],
     verificationStatus: 'verified',
     description: 'Classical Arabic grammar, Quranic exegesis, Islamic jurisprudence, and religious pedagogical instruction.',
-    entryRequirements: [
-      'Five (5) credit passes in English, Arabic, Islamic Studies, and Mathematics.',
-    ],
-    careerOpportunities: [
-      'Arabic & Islamic Religious Knowledge Instructors',
-      'Islamic School Administrators',
-    ],
+    entryRequirements: ['Five (5) credit passes in English, Arabic, Islamic Studies, and Mathematics.'],
+    careerOpportunities: ['Arabic & Islamic Religious Knowledge Instructors', 'Islamic School Administrators'],
   },
 ];

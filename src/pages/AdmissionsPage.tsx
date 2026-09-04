@@ -102,7 +102,7 @@ export function AdmissionsPage() {
 
             <Link
               to="/apply"
-              className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs font-bold hover:bg-navy shrink-0 transition-all shadow-xs"
+              className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs font-bold hover:bg-navy shrink-0 transition-all shadow-sm"
             >
               Start Application
             </Link>
@@ -118,7 +118,7 @@ export function AdmissionsPage() {
               APPLICATION WORKFLOW
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-navy leading-tight">
-              Four Clear Steps to Enrollment
+              Four Clear Steps to Enrolment
             </h2>
             <p className="mt-2 text-sm sm:text-base text-slate-600">
               Follow this structured sequence to apply, verify your credentials, and secure your admission.
@@ -133,7 +133,7 @@ export function AdmissionsPage() {
               >
                 <div>
                   {/* Step Number Badge */}
-                  <div className="w-12 h-12 rounded-xl bg-navy text-white font-serif font-black text-lg flex items-center justify-center mb-5 shadow-xs group-hover:bg-adeshina-blue transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-navy text-white font-serif font-black text-lg flex items-center justify-center mb-5 shadow-sm group-hover:bg-adeshina-blue transition-colors">
                     {item.step}
                   </div>
 
@@ -190,7 +190,7 @@ export function AdmissionsPage() {
                 onClick={() => setSelectedCollegeReq('all')}
                 className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
                   selectedCollegeReq === 'all'
-                    ? 'bg-navy text-white shadow-xs'
+                    ? 'bg-navy text-white shadow-sm'
                     : 'text-slate-600 hover:text-navy'
                 }`}
               >
@@ -201,7 +201,7 @@ export function AdmissionsPage() {
                 onClick={() => setSelectedCollegeReq('health-technology')}
                 className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
                   selectedCollegeReq === 'health-technology'
-                    ? 'bg-navy text-white shadow-xs'
+                    ? 'bg-navy text-white shadow-sm'
                     : 'text-slate-600 hover:text-navy'
                 }`}
               >
@@ -212,7 +212,7 @@ export function AdmissionsPage() {
                 onClick={() => setSelectedCollegeReq('education')}
                 className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
                   selectedCollegeReq === 'education'
-                    ? 'bg-navy text-white shadow-xs'
+                    ? 'bg-navy text-white shadow-sm'
                     : 'text-slate-600 hover:text-navy'
                 }`}
               >
@@ -294,7 +294,7 @@ export function AdmissionsPage() {
 
                     <Link
                       to="/apply"
-                      className="px-4 py-2 rounded-lg bg-adeshina-blue text-white text-xs font-bold hover:bg-navy transition-all shadow-xs"
+                      className="px-4 py-2 rounded-lg bg-adeshina-blue text-white text-xs font-bold hover:bg-navy transition-all shadow-sm"
                     >
                       Apply Now
                     </Link>
@@ -324,7 +324,7 @@ export function AdmissionsPage() {
               return (
                 <div
                   key={index}
-                  className="bg-white rounded-xl border border-slate-200/90 shadow-2xs overflow-hidden"
+                  className="bg-white rounded-xl border border-slate-200/90 shadow-sm overflow-hidden"
                 >
                   <button
                     type="button"

@@ -30,7 +30,7 @@ export function NotFoundPage() {
 
           <Link
             to="/programmes"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-navy border border-slate-300 hover:bg-slate-50 text-xs sm:text-sm font-bold transition-all shadow-xs"
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-navy border border-slate-300 hover:bg-slate-50 text-xs sm:text-sm font-bold transition-all shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Explore Programmes</span>

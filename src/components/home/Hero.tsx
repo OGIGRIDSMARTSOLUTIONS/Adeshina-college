@@ -119,7 +119,7 @@ export function Hero() {
         */}
         <motion.div
           {...animationProps(0.34)}
-          className="mt-14 sm:mt-18 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6"
+          className="mt-14 sm:mt-20 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6"
         >
           {/* College 01: Education */}
           <Link

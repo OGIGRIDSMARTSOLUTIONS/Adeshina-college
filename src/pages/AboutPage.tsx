@@ -125,7 +125,7 @@ export function AboutPage() {
               <div className="pt-2 flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/colleges"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-navy text-white text-xs sm:text-sm font-bold hover:bg-navy-dark transition-all shadow-xs"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-navy text-white text-xs sm:text-sm font-bold hover:bg-navy-dark transition-all shadow-sm"
                 >
                   <span>Explore Both Colleges</span>
                   <ArrowRight className="w-4 h-4" />
@@ -237,10 +237,10 @@ export function AboutPage() {
               return (
                 <div
                   key={val.title}
-                  className="bg-[#f8fafc] p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-2xs hover:shadow-md hover:border-adeshina-blue/30 transition-all flex flex-col justify-between"
+                  className="bg-[#f8fafc] p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-adeshina-blue/30 transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <div className="w-12 h-12 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-xs">
+                    <div className="w-12 h-12 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-sm">
                       <Icon className="w-6 h-6 text-accent-gold" />
                     </div>
                     <h3 className="font-serif font-bold text-navy text-lg mb-2">

@@ -1,0 +1,109 @@
+# =============================================================================
+# admissions.yaml  =  ADMISSIONS INFO (steps, requirements, FAQs)
+# =============================================================================
+# session, applicationOpen, generalNotice, steps, requirements, faqs
+# Edit here, then:  npm run sync:admissions -- load admissions.yaml
+#
+admissionInfo:
+  session: 2024/2025 & 2025/2026 Academic Sessions
+  applicationOpen: true
+  generalNotice: >-
+    Applications are currently invited from suitably qualified candidates for admission into various
+    accredited Diploma, NCE, and Certificate programmes at Adeshina College of Health Technology and
+    Adeshina College of Education, Share, Kwara State.
+  steps:
+    - step: '01'
+      title: Select Your Academic Programme
+      description: >-
+        Review our programmes directory to determine whether your qualifications match your desired
+        department in Health Technology or Education.
+      details: >-
+        Check specific subject combinations required for Diploma in CHEW, Medical Lab, Pharmacy
+        Tech, or NCE Teaching subjects.
+    - step: '02'
+      title: Prepare Your O'Level Credentials
+      description: >-
+        Ensure you have valid SSCE / WAEC / NECO / NABTEB result slips with at least 5 credit passes
+        (including English and Mathematics) in relevant subjects.
+      details: >-
+        Awaiting results (AR) candidates can also apply, provided their certified statement of
+        result is ready prior to matriculation.
+    - step: '03'
+      title: Obtain & Complete the Application Form
+      description: >-
+        Purchase and complete the official application form online via the portal or physically at
+        the Admissions Registry on campus in Share.
+      details: >-
+        Attach certified passport photographs, birth certificate/declaration of age, and local
+        government identification certificate.
+    - step: '04'
+      title: Entrance Verification & Induction
+      description: >-
+        Attend the scheduled document verification and academic screening at the main campus,
+        followed by registration and orientation.
+      details: >-
+        Successful candidates receive their official Provisional Letter of Admission with
+        registration guidelines.
+  requirements:
+    - collegeId: health-technology
+      collegeName: Adeshina College of Health Technology
+      qualification: Diploma & National Diploma (ND) / Certificate
+      mandatorySubjects:
+        - English Language
+        - Mathematics
+        - Biology / Health Science
+        - Chemistry
+        - Physics
+      requirements:
+        - >-
+          Candidate must possess a minimum of five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not
+          more than two (2) sittings.
+        - Credits must include English Language, Mathematics, Biology, Chemistry, and Physics.
+        - >-
+          For Certificate programmes (e.g. JCHEW), a minimum of 3 credit passes in core science
+          subjects is required.
+        - >-
+          Candidates awaiting O'Level results may apply on condition of presenting verified results
+          at registration.
+    - collegeId: education
+      collegeName: Adeshina College of Education
+      qualification: Nigeria Certificate in Education (NCE)
+      mandatorySubjects:
+        - English Language
+        - Mathematics
+        - Relevant Subject Area Credits (3)
+      requirements:
+        - >-
+          Candidate must possess a minimum of five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not
+          more than two (2) sittings.
+        - >-
+          Credits must include English Language, Mathematics, and three (3) subjects relevant to the
+          intended teaching discipline.
+        - >-
+          For Science/Maths combinations, credits in Mathematics, Physics/Chemistry/Biology are
+          required.
+        - >-
+          For Commercial/Arts combinations, credits in Economics, Government, Literature, or
+          Business Studies are required.
+  faqs:
+    - question: Where is the Adeshina Group of Colleges campus located for physical screening?
+      answer: >-
+        The campus is located along Share-Okeode Road, beside the Ifelodun Local Government
+        Secretariat, Share, Kwara State, Nigeria.
+    - question: Can I combine results from WAEC and NECO?
+      answer: >-
+        Yes, a combination of results from WAEC, NECO, and NABTEB is acceptable provided the total
+        number of sittings does not exceed two (2).
+    - question: What is the duration of programmes offered at the colleges?
+      answer: >-
+        Standard Diploma and NCE programmes run for three (3) academic years on a full-time semester
+        schedule. Certificate programmes (such as JCHEW) run for two (2) years.
+    - question: Can NCE graduates from Adeshina College of Education gain Direct Entry into universities?
+      answer: >-
+        Yes. The Nigeria Certificate in Education (NCE) is recognized for 200-Level Direct Entry
+        admission into Bachelor of Education (B.Ed / B.A.Ed / B.Sc.Ed) degree programmes across
+        Nigerian universities.
+    - question: How do I reach the Admissions Registry if I need assistance?
+      answer: >-
+        You can visit the Admissions Registry on campus in Share or reach out through our Contact
+        Page to submit an inquiry.

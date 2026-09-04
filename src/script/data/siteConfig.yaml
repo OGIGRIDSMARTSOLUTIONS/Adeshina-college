@@ -1,0 +1,49 @@
+# =============================================================================
+# siteConfig.yaml  =  SCHOOL IDENTITY (the facts: name, logo, phone, email)
+# =============================================================================
+# This is a DATA file. It stores content, not design and not React code.
+#
+# Think of each line as:  label: value
+#   institutionName: Adeshina Group of Colleges
+#        ↑ key              ↑ the actual text shown on the website
+#
+# Nested blocks (brand, portals, contact) group related facts together.
+#
+# React does NOT read this file directly.
+# Run the script to copy these values into src/data/siteConfig.ts,
+# which Header, Footer, Contact, and Portal already import.
+
+institutionName: Adeshina Group of Colleges
+shortName: Adeshina Colleges
+location: Share
+fullLocation: Share, Kwara State, Nigeria
+tagline: Centre of Excellence in Health Technology and Education
+shortDescription: Dedicated to providing high-quality professional healthcare technology and teacher education programmes in a disciplined, supportive academic environment.
+designerCredit: Designed by OGIGRID SMART SOLUTIONS
+designerUrl: https://ogigridsmart.vercel.app/
+
+# Logo paths — files live in public/LOGO/ (the leading / means "from the website root")
+brand:
+  logoUrl: /LOGO/adeshina-logo.jpg
+  logoLightUrl: /LOGO/adeshina-logo.jpg
+  faviconUrl: /LOGO/adeshina-logo.jpg
+
+# Where the header buttons should send people
+portals:
+  studentPortal:
+    label: Student Portal
+    path: /portal
+  applyNow:
+    label: Apply Now
+    path: /apply
+
+# Shown in the footer and on the contact page
+contact:
+  campusAddress: Layout B, Plot 1, Share-Okeode Road, Beside Ifelodun LG Secretariat, Share
+  stateCountry: Kwara State, Nigeria
+  email: adesinacoed@gmail.com
+  phone: "08135131503, 07018182681"
+  officeHours: "Monday – Friday: 8:00 AM – 4:30 PM"
+
+# Empty for now — no verified social accounts
+socials: []

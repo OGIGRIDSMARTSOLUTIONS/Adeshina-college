@@ -1,0 +1,110 @@
+# =============================================================================
+# module.yaml  =  RULES (not school content)
+# =============================================================================
+# DATA YAML answers: "What is the content?"
+# THIS file answers: "What must be present / what values are allowed?"
+#
+# If validation fails, the sync script does NOT overwrite src/data/*.ts
+
+version: 1
+description: Validation rules for Adeshina content modules
+
+modules:
+  siteConfig:
+    source: data/siteConfig.yaml
+    target: src/data/siteConfig.ts
+    required_fields:
+      - institutionName
+      - shortName
+      - location
+      - fullLocation
+      - tagline
+      - shortDescription
+      - designerCredit
+      - brand
+      - portals
+      - contact
+    required_nested:
+      brand:
+        - faviconUrl
+      portals:
+        - studentPortal
+        - applyNow
+      contact:
+        - campusAddress
+        - stateCountry
+        - email
+        - phone
+
+  programmes:
+    source: data/programmes.yaml
+    target: src/data/programmes.ts
+    required_fields:
+      - id
+      - name
+      - collegeId
+      - level
+      - duration
+      - mode
+    allowed_collegeIds:
+      - health-technology
+      - education
+    allowed_modes:
+      - Full-Time
+    allowed_verificationStatus:
+      - verified
+      - research-found
+
+  # ----- Phase 4 -----
+  colleges:
+    source: data/colleges.yaml
+    target: src/data/colleges.ts
+    required_fields:
+      - id
+      - name
+      - shortName
+      - slug
+      - tagline
+      - description
+    allowed_ids:
+      - health-technology
+      - education
+
+  navigation:
+    source: data/navigation.yaml
+    target: src/data/navigation.ts
+    nav_item_required_fields:
+      - label
+      - path
+
+  admissions:
+    source: data/admissions.yaml
+    target: src/data/admissions.ts
+    required_fields:
+      - session
+      - applicationOpen
+      - generalNotice
+      - steps
+      - requirements
+      - faqs
+    step_required_fields:
+      - step
+      - title
+      - description
+    requirement_required_fields:
+      - collegeId
+      - collegeName
+      - qualification
+      - requirements
+      - mandatorySubjects
+
+  news:
+    source: data/news.yaml
+    target: src/data/news.ts
+    required_fields:
+      - id
+      - title
+      - slug
+      - date
+      - category
+      - summary

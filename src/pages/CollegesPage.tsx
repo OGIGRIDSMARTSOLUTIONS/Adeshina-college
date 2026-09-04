@@ -104,7 +104,7 @@ export function CollegesPage() {
 
                 <Link
                   to="/apply"
-                  className="px-4 py-2 rounded-lg bg-navy text-white text-xs font-bold hover:bg-adeshina-blue active:bg-adeshina-blue-dark transition-all duration-200 shadow-xs hover:shadow-sm"
+                  className="px-4 py-2 rounded-lg bg-navy text-white text-xs font-bold hover:bg-adeshina-blue active:bg-adeshina-blue-dark transition-all duration-200 shadow-sm hover:shadow-sm"
                 >
                   Apply Now
                 </Link>
@@ -170,7 +170,7 @@ export function CollegesPage() {
 
                 <Link
                   to="/apply"
-                  className="px-4 py-2 rounded-lg bg-navy text-white text-xs font-bold hover:bg-adeshina-blue active:bg-adeshina-blue-dark transition-all duration-200 shadow-xs hover:shadow-sm"
+                  className="px-4 py-2 rounded-lg bg-navy text-white text-xs font-bold hover:bg-adeshina-blue active:bg-adeshina-blue-dark transition-all duration-200 shadow-sm hover:shadow-sm"
                 >
                   Apply Now
                 </Link>
@@ -196,7 +196,7 @@ export function CollegesPage() {
 
             <Link
               to="/admissions"
-              className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs sm:text-sm font-bold hover:bg-adeshina-blue-dark transition-all shrink-0 shadow-xs"
+              className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs sm:text-sm font-bold hover:bg-adeshina-blue-dark transition-all shrink-0 shadow-sm"
             >
               Start Admission Process
             </Link>

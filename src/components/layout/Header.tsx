@@ -104,7 +104,7 @@ export function Header() {
 
       {/* Main Header Bar */}
       <Container size="wide">
-        <div className="flex items-center justify-between h-20 sm:h-22">
+        <div className="flex items-center justify-between h-20 sm:h-24">
           {/* Brand Logo & Title */}
           <Link
             to="/"
@@ -115,7 +115,7 @@ export function Header() {
               <img
                 src={siteConfig.brand.logoUrl}
                 alt={`${siteConfig.institutionName} Emblem`}
-                className="h-11 w-11 sm:h-13 sm:w-13 object-contain shrink-0 rounded-lg transition-transform duration-200 group-hover:scale-105"
+                className="h-11 w-11 sm:h-14 sm:w-14 object-contain shrink-0 rounded-lg transition-transform duration-200 group-hover:scale-105"
                 width="52"
                 height="52"
               />
@@ -226,7 +226,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-3">
             <Link
               to={siteConfig.portals.studentPortal.path}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-blue-50 hover:border-adeshina-blue text-navy hover:text-adeshina-blue text-xs sm:text-sm font-bold transition-all shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-blue-50 hover:border-adeshina-blue text-navy hover:text-adeshina-blue text-xs sm:text-sm font-bold transition-all shadow-sm"
             >
               <GraduationCap className="w-4 h-4 text-accent-gold" />
               <span>{siteConfig.portals.studentPortal.label}</span>
@@ -245,7 +245,7 @@ export function Header() {
           <div className="flex lg:hidden items-center gap-2">
             <Link
               to={siteConfig.portals.applyNow.path}
-              className="px-3.5 py-2 rounded-lg bg-adeshina-blue text-white text-xs font-bold shadow-xs hover:bg-navy transition-colors"
+              className="px-3.5 py-2 rounded-lg bg-adeshina-blue text-white text-xs font-bold shadow-sm hover:bg-navy transition-colors"
             >
               Apply Now
             </Link>
