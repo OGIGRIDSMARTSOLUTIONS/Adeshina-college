@@ -19,7 +19,7 @@ export const newsArticles: NewsArticle[] = [
     category: 'Campus Facilities',
     summary: 'New specialized medical equipment and modern diagnostic tools are installed in the clinical laboratory practical suites to support immersive student training.',
     content: 'In line with the continuous commitment to practical healthcare excellence, Adeshina College of Health Technology has completed the installation of new diagnostic microscopes, clinical pathology testing kits, and pharmacology compounding workstations. The upgraded facilities will provide students in Medical Laboratory Technician (MLT), Pharmacy Technician, and CHEW programmes with hands-on exposure matching contemporary clinical hospital standards.',
-    featuredImage: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=800&q=80',
+    featuredImage: '/images/health-technology/health-campus-2.jpg',
   },
   {
     id: 'admissions-list-released-education',
@@ -49,7 +49,7 @@ export const newsArticles: NewsArticle[] = [
     category: 'Academic Notice',
     summary: 'CHEW and JCHEW students commence their supervised rural and urban primary health care clinical attachments under certified medical personnel.',
     content: 'Students enrolled in Community Health Extension Worker (CHEW) and Junior CHEW programmes have been deployed to assigned Primary Health Care (PHC) facilities and comprehensive health centers across Ifelodun, Ilorin, and surrounding local government areas. The clinical posting is a mandatory curriculum requirement aimed at developing grassroots diagnostic, immunization, and maternal healthcare competencies.',
-    featuredImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+    featuredImage: '/images/health-technology/health-campus-1.jpg',
   },
   {
     id: 'resumption-calendar-released',

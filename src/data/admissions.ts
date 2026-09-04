@@ -55,7 +55,7 @@ export const admissionInfo: AdmissionInfo = {
       title: 'Entrance Verification & Induction',
       description: 'Attend the scheduled document verification and academic screening at the main campus, followed by registration and orientation.',
       details: 'Successful candidates receive their official Provisional Letter of Admission with registration guidelines.',
-    },
+    }
   ],
   requirements: [
     {
@@ -63,25 +63,15 @@ export const admissionInfo: AdmissionInfo = {
       collegeName: 'Adeshina College of Health Technology',
       qualification: 'Diploma & National Diploma (ND) / Certificate',
       mandatorySubjects: ['English Language', 'Mathematics', 'Biology / Health Science', 'Chemistry', 'Physics'],
-      requirements: [
-        'Candidate must possess a minimum of five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not more than two (2) sittings.',
-        'Credits must include English Language, Mathematics, Biology, Chemistry, and Physics.',
-        'For Certificate programmes (e.g. JCHEW), a minimum of 3 credit passes in core science subjects is required.',
-        'Candidates awaiting O\'Level results may apply on condition of presenting verified results at registration.',
-      ],
+      requirements: ['Candidate must possess a minimum of five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not more than two (2) sittings.', 'Credits must include English Language, Mathematics, Biology, Chemistry, and Physics.', 'For Certificate programmes (e.g. JCHEW), a minimum of 3 credit passes in core science subjects is required.', 'Candidates awaiting O\'Level results may apply on condition of presenting verified results at registration.'],
     },
     {
       collegeId: 'education',
       collegeName: 'Adeshina College of Education',
       qualification: 'Nigeria Certificate in Education (NCE)',
       mandatorySubjects: ['English Language', 'Mathematics', 'Relevant Subject Area Credits (3)'],
-      requirements: [
-        'Candidate must possess a minimum of five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not more than two (2) sittings.',
-        'Credits must include English Language, Mathematics, and three (3) subjects relevant to the intended teaching discipline.',
-        'For Science/Maths combinations, credits in Mathematics, Physics/Chemistry/Biology are required.',
-        'For Commercial/Arts combinations, credits in Economics, Government, Literature, or Business Studies are required.',
-      ],
-    },
+      requirements: ['Candidate must possess a minimum of five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not more than two (2) sittings.', 'Credits must include English Language, Mathematics, and three (3) subjects relevant to the intended teaching discipline.', 'For Science/Maths combinations, credits in Mathematics, Physics/Chemistry/Biology are required.', 'For Commercial/Arts combinations, credits in Economics, Government, Literature, or Business Studies are required.'],
+    }
   ],
   faqs: [
     {
@@ -103,6 +93,6 @@ export const admissionInfo: AdmissionInfo = {
     {
       question: 'How do I reach the Admissions Registry if I need assistance?',
       answer: 'You can visit the Admissions Registry on campus in Share or reach out through our Contact Page to submit an inquiry.',
-    },
+    }
   ],
 };

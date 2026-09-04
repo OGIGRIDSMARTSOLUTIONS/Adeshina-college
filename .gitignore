@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Phase 5 — local content backups from YAML sync (keep folder, ignore backup files)
+src/script/backup/*
+!src/script/backup/.gitkeep
