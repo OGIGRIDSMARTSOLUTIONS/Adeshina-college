@@ -108,7 +108,7 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
 
                 <Link
                   to="/apply"
-                  className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-navy hover:bg-adeshina-blue active:bg-adeshina-blue-dark rounded-lg shadow-xs hover:shadow-md transition-all duration-200 text-center"
+                  className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-navy hover:bg-adeshina-blue active:bg-adeshina-blue-dark rounded-lg shadow-sm hover:shadow-md transition-all duration-200 text-center"
                 >
                   Apply Now
                 </Link>

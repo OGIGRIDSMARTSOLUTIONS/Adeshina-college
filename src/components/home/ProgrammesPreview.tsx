@@ -56,7 +56,7 @@ export function ProgrammesPreview() {
           </div>
 
           {/* Academic Selector Filter (Light Sky Blue Pill Style) */}
-          <div className="flex items-center bg-white p-1 rounded-xl border border-sky-200 shadow-xs shrink-0 self-start md:self-auto">
+          <div className="flex items-center bg-white p-1 rounded-xl border border-sky-200 shadow-sm shrink-0 self-start md:self-auto">
             <button
               type="button"
               onClick={() => setActiveFilter('all')}
@@ -178,7 +178,7 @@ export function ProgrammesPreview() {
 
                   <Link
                     to="/apply"
-                    className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-[#05264c] hover:bg-sky-500 hover:text-[#05264c] rounded-lg shadow-xs hover:shadow-md transition-all duration-200 text-center"
+                    className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-[#05264c] hover:bg-sky-500 hover:text-[#05264c] rounded-lg shadow-sm hover:shadow-md transition-all duration-200 text-center"
                   >
                     Apply Now
                   </Link>

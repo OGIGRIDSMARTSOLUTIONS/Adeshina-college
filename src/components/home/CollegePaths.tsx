@@ -15,7 +15,7 @@ export function CollegePaths() {
     <section className="py-20 lg:py-28 bg-[#f0f7ff] border-b border-sky-100" aria-labelledby="academic-paths-heading">
       <Container size="wide">
         {/* Centered Editorial Header with Light Blue / Gold Accent */}
-        <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
+        <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-20">
           <div className="inline-flex items-center gap-2 mb-2.5">
             <span className="w-6 h-0.5 bg-sky-500" aria-hidden="true" />
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-700">

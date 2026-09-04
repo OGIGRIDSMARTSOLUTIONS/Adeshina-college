@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 
 export function FinalCTA() {
   return (
-    <section className="py-20 lg:py-26 bg-[#05264c] text-white relative overflow-hidden border-t border-sky-900/50" aria-labelledby="final-cta-heading">
+    <section className="py-20 lg:py-28 bg-[#05264c] text-white relative overflow-hidden border-t border-sky-900/50" aria-labelledby="final-cta-heading">
       {/* Subtle Cyan Grid Watermark Accent */}
       <div 
         className="absolute inset-0 opacity-15 pointer-events-none"
@@ -45,7 +45,7 @@ export function FinalCTA() {
 
           <Link
             to="/programmes"
-            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/10 text-white border border-white/25 hover:bg-white hover:text-[#052042] font-extrabold text-sm uppercase tracking-wider transition-all shadow-xs backdrop-blur-sm"
+            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/10 text-white border border-white/25 hover:bg-white hover:text-[#052042] font-extrabold text-sm uppercase tracking-wider transition-all shadow-sm backdrop-blur-sm"
           >
             Explore Programmes
           </Link>

@@ -35,9 +35,9 @@ programmes:
         Mandatory credits in English Language, Mathematics, Biology/Health Science, Chemistry, and
         Physics.
     careerOpportunities:
-      - Primary Health Care Centers (PHCs)
+      - Primary Health Care Centres (PHCs)
       - General & Specialist Hospitals
-      - Community Health Outreach Programs
+      - Community Health Outreach Programmes
       - Local Government Health Departments
   - id: junior-community-health-jchew
     name: Junior Community Health Extension Worker (JCHEW)
@@ -182,7 +182,7 @@ programmes:
     entryRequirements:
       - Registered Nurse (RN) qualification plus 5 O'Level credits in relevant sciences.
     careerOpportunities:
-      - Community Public Health Centers
+      - Community Public Health Centres
       - Maternal & Child Health Services
   - id: community-health
     name: Community Health
@@ -199,7 +199,7 @@ programmes:
       - Five (5) O-Level credit passes in English, Mathematics, Biology, Chemistry, and Physics.
     careerOpportunities:
       - Local Government Health Authorities
-      - Primary Healthcare Centers
+      - Primary Healthcare Centres
   - id: health-assistant-medical-course
     name: Health Assistant Medical Course (HAM)
     collegeId: health-technology
@@ -215,7 +215,7 @@ programmes:
       - Passes/credits in English, Mathematics, and Biology at SSCE/NECO/NABTEB.
     careerOpportunities:
       - Clinics & Outpatient Departments
-      - Nursing Homes & Long-term Care Centers
+      - Nursing Homes & Long-term Care Centres
   - id: x-ray-technician
     name: X-Ray Technician (XR)
     collegeId: health-technology
@@ -230,7 +230,7 @@ programmes:
     entryRequirements:
       - Five (5) credit passes in English, Mathematics, Physics, Chemistry, and Biology.
     careerOpportunities:
-      - Diagnostic Imaging Centers
+      - Diagnostic Imaging Centres
       - Radiology Departments in Hospitals
   - id: community-nutrition-technician
     name: Community Nutrition Technician (CNT)
@@ -242,13 +242,13 @@ programmes:
     verificationStatus: research-found
     description: >-
       Nutritional deficiency assessment, dietary planning, maternal-child nutrition supplementation,
-      and community feeding programs.
+      and community feeding programmes.
     entryRequirements:
       - >-
         Five (5) credit passes in English, Mathematics, Biology/Agricultural Science, Chemistry, and
         Food & Nutrition.
     careerOpportunities:
-      - Nutrition Units in Health Centers
+      - Nutrition Units in Health Centres
       - Public Health NGOs & Community Health Teams
   - id: food-hygienist
     name: Food Hygienist (FH)
@@ -298,7 +298,7 @@ programmes:
     careerOpportunities:
       - Primary School Educators
       - Curriculum Development Coordinators
-      - Early Childhood Learning Centers
+      - Early Childhood Learning Centres
       - Direct Entry to University B.Ed/B.A.Ed Degree
   - id: early-childhood-care-education
     name: Early Childhood Care Education (ECCE)

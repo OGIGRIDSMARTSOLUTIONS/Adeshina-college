@@ -14,7 +14,7 @@ export const programmes: Programme[] = [
     verificationStatus: 'research-found',
     description: 'Comprehensive clinical and community primary healthcare practice, immunization delivery, maternal & child health, and community health management.',
     entryRequirements: ['Five (5) credit passes in SSCE/WAEC/NECO/NABTEB at not more than two sittings.', 'Mandatory credits in English Language, Mathematics, Biology/Health Science, Chemistry, and Physics.'],
-    careerOpportunities: ['Primary Health Care Centers (PHCs)', 'General & Specialist Hospitals', 'Community Health Outreach Programs', 'Local Government Health Departments'],
+    careerOpportunities: ['Primary Health Care Centres (PHCs)', 'General & Specialist Hospitals', 'Community Health Outreach Programmes', 'Local Government Health Departments'],
   },
   {
     id: 'junior-community-health-jchew',
@@ -110,7 +110,7 @@ export const programmes: Programme[] = [
     verificationStatus: 'research-found',
     description: 'Community health assessment, preventative clinical nursing, epidemic response, and family health monitoring.',
     entryRequirements: ['Registered Nurse (RN) qualification plus 5 O\'Level credits in relevant sciences.'],
-    careerOpportunities: ['Community Public Health Centers', 'Maternal & Child Health Services'],
+    careerOpportunities: ['Community Public Health Centres', 'Maternal & Child Health Services'],
   },
   {
     id: 'community-health',
@@ -122,7 +122,7 @@ export const programmes: Programme[] = [
     verificationStatus: 'research-found',
     description: 'Primary healthcare coordination, health education campaigns, sanitation, and grassroots disease prevention.',
     entryRequirements: ['Five (5) O-Level credit passes in English, Mathematics, Biology, Chemistry, and Physics.'],
-    careerOpportunities: ['Local Government Health Authorities', 'Primary Healthcare Centers'],
+    careerOpportunities: ['Local Government Health Authorities', 'Primary Healthcare Centres'],
   },
   {
     id: 'health-assistant-medical-course',
@@ -134,7 +134,7 @@ export const programmes: Programme[] = [
     verificationStatus: 'research-found',
     description: 'Fundamental patient support, bedside assistance, basic clinical hygiene, and hospital orderly assistance.',
     entryRequirements: ['Passes/credits in English, Mathematics, and Biology at SSCE/NECO/NABTEB.'],
-    careerOpportunities: ['Clinics & Outpatient Departments', 'Nursing Homes & Long-term Care Centers'],
+    careerOpportunities: ['Clinics & Outpatient Departments', 'Nursing Homes & Long-term Care Centres'],
   },
   {
     id: 'x-ray-technician',
@@ -146,7 +146,7 @@ export const programmes: Programme[] = [
     verificationStatus: 'research-found',
     description: 'Medical radiography equipment operation, radiation safety protocols, and radiographic film processing.',
     entryRequirements: ['Five (5) credit passes in English, Mathematics, Physics, Chemistry, and Biology.'],
-    careerOpportunities: ['Diagnostic Imaging Centers', 'Radiology Departments in Hospitals'],
+    careerOpportunities: ['Diagnostic Imaging Centres', 'Radiology Departments in Hospitals'],
   },
   {
     id: 'community-nutrition-technician',
@@ -156,9 +156,9 @@ export const programmes: Programme[] = [
     duration: '2-3 Years',
     mode: ['Full-Time'],
     verificationStatus: 'research-found',
-    description: 'Nutritional deficiency assessment, dietary planning, maternal-child nutrition supplementation, and community feeding programs.',
+    description: 'Nutritional deficiency assessment, dietary planning, maternal-child nutrition supplementation, and community feeding programmes.',
     entryRequirements: ['Five (5) credit passes in English, Mathematics, Biology/Agricultural Science, Chemistry, and Food & Nutrition.'],
-    careerOpportunities: ['Nutrition Units in Health Centers', 'Public Health NGOs & Community Health Teams'],
+    careerOpportunities: ['Nutrition Units in Health Centres', 'Public Health NGOs & Community Health Teams'],
   },
   {
     id: 'food-hygienist',
@@ -198,7 +198,7 @@ export const programmes: Programme[] = [
     verificationStatus: 'verified',
     description: 'Foundational pedagogy, child cognitive development, early literacy and numeracy instructional methodologies, and primary school classroom leadership.',
     entryRequirements: ['Five (5) credit passes in SSCE/WAEC/NECO/NABTEB including English Language and Mathematics.'],
-    careerOpportunities: ['Primary School Educators', 'Curriculum Development Coordinators', 'Early Childhood Learning Centers', 'Direct Entry to University B.Ed/B.A.Ed Degree'],
+    careerOpportunities: ['Primary School Educators', 'Curriculum Development Coordinators', 'Early Childhood Learning Centres', 'Direct Entry to University B.Ed/B.A.Ed Degree'],
   },
   {
     id: 'early-childhood-care-education',

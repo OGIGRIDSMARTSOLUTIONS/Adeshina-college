@@ -110,7 +110,7 @@ export function ProgrammesPage() {
       </section>
 
       {/* Filter and Search Bar Section */}
-      <section className="sticky top-16 z-30 bg-white border-b border-slate-200/90 shadow-xs py-4">
+      <section className="sticky top-16 z-30 bg-white border-b border-slate-200/90 shadow-sm py-4">
         <Container size="wide">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             {/* College Tabs */}
@@ -120,7 +120,7 @@ export function ProgrammesPage() {
                 onClick={() => handleCollegeChange('all')}
                 className={`px-4 py-2 text-xs font-bold rounded-lg transition-all shrink-0 ${
                   selectedCollege === 'all'
-                    ? 'bg-navy text-white shadow-xs'
+                    ? 'bg-navy text-white shadow-sm'
                     : 'text-slate-600 hover:text-navy hover:bg-slate-100'
                 }`}
               >
@@ -132,7 +132,7 @@ export function ProgrammesPage() {
                 onClick={() => handleCollegeChange('health-technology')}
                 className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-lg transition-all shrink-0 ${
                   selectedCollege === 'health-technology'
-                    ? 'bg-[#10a37f] text-white shadow-xs'
+                    ? 'bg-[#10a37f] text-white shadow-sm'
                     : 'text-slate-600 hover:text-navy hover:bg-slate-100'
                 }`}
               >
@@ -145,7 +145,7 @@ export function ProgrammesPage() {
                 onClick={() => handleCollegeChange('education')}
                 className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-lg transition-all shrink-0 ${
                   selectedCollege === 'education'
-                    ? 'bg-adeshina-blue text-white shadow-xs'
+                    ? 'bg-adeshina-blue text-white shadow-sm'
                     : 'text-slate-600 hover:text-navy hover:bg-slate-100'
                 }`}
               >
@@ -161,7 +161,7 @@ export function ProgrammesPage() {
                 <select
                   value={selectedLevel}
                   onChange={(e) => setSelectedLevel(e.target.value)}
-                  className="w-full sm:w-auto text-xs font-medium bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue"
+                  className="w-full sm:w-auto text-xs font-medium bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-adeshina-blue"
                   aria-label="Filter by Qualification Award Level"
                 >
                   <option value="all">All Qualifications</option>
@@ -181,7 +181,7 @@ export function ProgrammesPage() {
                   placeholder="Search programmes..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-8 py-2 text-navy focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue placeholder:text-slate-400"
+                  className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-8 py-2 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue placeholder:text-slate-400"
                 />
                 {searchQuery && (
                   <button
@@ -334,7 +334,7 @@ export function ProgrammesPage() {
 
                       <Link
                         to="/apply"
-                        className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-navy hover:bg-adeshina-blue active:bg-adeshina-blue-dark rounded-lg shadow-xs hover:shadow-md transition-all duration-200 text-center"
+                        className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-navy hover:bg-adeshina-blue active:bg-adeshina-blue-dark rounded-lg shadow-sm hover:shadow-md transition-all duration-200 text-center"
                       >
                         Apply Now
                       </Link>
@@ -358,7 +358,7 @@ export function ProgrammesPage() {
 
             <Link
               to="/admissions"
-              className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs sm:text-sm font-bold hover:bg-adeshina-blue-dark transition-all shrink-0 shadow-xs inline-flex items-center gap-2"
+              className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs sm:text-sm font-bold hover:bg-adeshina-blue-dark transition-all shrink-0 shadow-sm inline-flex items-center gap-2"
             >
               <span>Go to Admissions</span>
               <ArrowRight className="w-4 h-4" />

@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Microscope, BookOpen, MapPin } from 'lucide-react';
+import { ArrowRight, Users, BookOpen, MapPin } from 'lucide-react';
 import { Container } from '@/components/common/Container';
 
 const galleryCards = [
   {
     category: 'Health Sciences',
-    title: 'Diagnostic & Clinical Practical Suites',
-    subtitle: 'Modern laboratory benches and clinical simulation equipment for hands-on medical training.',
+    title: 'Student Common Area & SRC Pavilion',
+    subtitle: 'A shaded outdoor meeting space on campus where Health Technology students gather between lectures and activities.',
     image: '/images/health-technology/health-campus-2.jpg',
-    icon: Microscope,
+    icon: Users,
     tagColor: 'bg-emerald-50 text-[#0b6b54] border-emerald-200/80',
   },
   {
@@ -37,7 +37,7 @@ export function CampusLife() {
     <section className="py-20 lg:py-28 bg-[#f0f7ff] border-b border-sky-100" aria-labelledby="campus-life-heading">
       <Container size="wide">
         {/* Centered Editorial Header with Light Blue Accent */}
-        <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-18">
+        <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-20">
           <div className="inline-flex items-center gap-2 mb-2">
             <span className="w-6 h-0.5 bg-sky-500" aria-hidden="true" />
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-700">
@@ -81,7 +81,7 @@ export function CampusLife() {
                 {/* Top Floating Badge */}
                 <div className="relative z-10 self-start">
                   <span
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-white/95 text-[#05264c] shadow-sm border border-white/40 backdrop-blur-xs"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-white/95 text-[#05264c] shadow-sm border border-white/40 backdrop-blur-sm"
                   >
                     <Icon className="w-3.5 h-3.5 text-sky-600" />
                     <span>{card.category}</span>

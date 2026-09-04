@@ -59,7 +59,7 @@ export function ApplyPage() {
   const [stateOfOrigin, setStateOfOrigin] = useState('');
   const [address, setAddress] = useState('');
 
-  // Step 2: Program Selection
+  // Step 2: Programme Selection
   const [selectedCollege, setSelectedCollege] = useState<'health-technology' | 'education'>('health-technology');
   const [selectedProgramme, setSelectedProgramme] = useState('');
   const [intakePeriod, setIntakePeriod] = useState('2024/2025 Regular Session');
@@ -84,6 +84,7 @@ export function ApplyPage() {
   // Step 5: Submission & Ref
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
+  const [submissionDate, setSubmissionDate] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const availableProgrammes = programmes.filter((p) => p.collegeId === selectedCollege);
@@ -145,6 +146,14 @@ export function ApplyPage() {
       const randomDigits = Math.floor(100000 + Math.random() * 900000);
       const generated = `AD-${collegeCode}-${randomDigits}`;
       setSubmittedRef(generated);
+      setSubmissionDate(
+        new Date().toLocaleDateString('en-GB', {
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        })
+      );
       setIsSubmitting(false);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 700);
@@ -152,7 +161,7 @@ export function ApplyPage() {
 
   const stepsList = [
     { num: 1, title: 'Personal Information' },
-    { num: 2, title: 'Program Selection' },
+    { num: 2, title: 'Programme Selection' },
     { num: 3, title: 'Academic Background' },
     { num: 4, title: 'Document Upload' },
     { num: 5, title: 'Review & Submit' },
@@ -163,7 +172,7 @@ export function ApplyPage() {
       case 1:
         return { main: 'Apply Now', sub: 'Step 1: Personal Information' };
       case 2:
-        return { main: 'Choose Program', sub: 'Step 2: Program Selection' };
+        return { main: 'Choose Programme', sub: 'Step 2: Programme Selection' };
       case 3:
         return { main: 'Education', sub: 'Step 3: Academic Background' };
       case 4:
@@ -221,7 +230,7 @@ export function ApplyPage() {
                     <img
                       src={siteConfig.brand.logoUrl}
                       alt={siteConfig.institutionName}
-                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-xl border border-slate-200 p-1 bg-white shadow-xs"
+                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-xl border border-slate-200 p-1 bg-white shadow-sm"
                     />
                   ) : (
                     <div className="w-16 h-16 rounded-xl bg-navy text-white font-serif font-black text-2xl flex items-center justify-center">
@@ -300,7 +309,7 @@ export function ApplyPage() {
                   </div>
                   <div>
                     <span className="text-slate-400 block text-[11px]">Submission Date:</span>
-                    <span className="font-bold text-navy">Sat Aug 29, 2026</span>
+                    <span className="font-bold text-navy">{submissionDate}</span>
                   </div>
                 </div>
               </div>
@@ -368,7 +377,7 @@ export function ApplyPage() {
                   <span>Important Instructions for Physical Verification & Screening</span>
                 </div>
                 <p className="text-slate-600 leading-relaxed">
-                  1. Print two (2) colored copies of this registration slip and bring them along with your original O'Level certificate/statement of result and birth certificate.
+                  1. Print two (2) coloured copies of this registration slip and bring them along with your original O'Level certificate/statement of result and birth certificate.
                 </p>
                 <p className="text-slate-600 leading-relaxed">
                   2. Screening venue: Admissions Registry, Adeshina Group of Colleges, Layout B, Plot 1, Share-Okeode Road, Share, Kwara State.
@@ -398,7 +407,7 @@ export function ApplyPage() {
               <button
                 type="button"
                 onClick={() => (currentStep > 1 ? handlePrevStep() : navigate('/admissions'))}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-200/70 hover:bg-slate-300/80 text-navy text-xs font-bold transition-all shadow-2xs"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-200/70 hover:bg-slate-300/80 text-navy text-xs font-bold transition-all shadow-sm"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
                 <span>{currentStep > 1 ? 'Go to Previous Step' : 'Back to Admissions'}</span>
@@ -577,7 +586,7 @@ export function ApplyPage() {
                 )}
 
                 {/* -------------------------------------------------- */}
-                {/* STEP 2: Program Selection                          */}
+                {/* STEP 2: Programme Selection                        */}
                 {/* -------------------------------------------------- */}
                 {currentStep === 2 && (
                   <div className="space-y-6">
@@ -594,7 +603,7 @@ export function ApplyPage() {
                           }}
                           className={`p-4 rounded-xl border-2 text-left transition-all ${
                             selectedCollege === 'health-technology'
-                              ? 'border-adeshina-blue bg-blue-50/50 shadow-xs'
+                              ? 'border-adeshina-blue bg-blue-50/50 shadow-sm'
                               : 'border-slate-200 bg-white hover:border-slate-300'
                           }`}
                         >
@@ -617,7 +626,7 @@ export function ApplyPage() {
                           }}
                           className={`p-4 rounded-xl border-2 text-left transition-all ${
                             selectedCollege === 'education'
-                              ? 'border-adeshina-blue bg-blue-50/50 shadow-xs'
+                              ? 'border-adeshina-blue bg-blue-50/50 shadow-sm'
                               : 'border-slate-200 bg-white hover:border-slate-300'
                           }`}
                         >
@@ -636,7 +645,7 @@ export function ApplyPage() {
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
-                        Select Program of Study <span className="text-red-500">*</span>
+                        Select Programme of Study <span className="text-red-500">*</span>
                       </label>
                       <select
                         value={selectedProgramme}
@@ -662,7 +671,7 @@ export function ApplyPage() {
                           onClick={() => setIntakePeriod('2024/2025 Regular Session')}
                           className={`p-3.5 rounded-xl border text-xs font-bold transition-all ${
                             intakePeriod === '2024/2025 Regular Session'
-                              ? 'border-navy bg-navy text-white shadow-xs'
+                              ? 'border-navy bg-navy text-white shadow-sm'
                               : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
                           }`}
                         >
@@ -673,7 +682,7 @@ export function ApplyPage() {
                           onClick={() => setIntakePeriod('2025/2026 Academic Session')}
                           className={`p-3.5 rounded-xl border text-xs font-bold transition-all ${
                             intakePeriod === '2025/2026 Academic Session'
-                              ? 'border-navy bg-navy text-white shadow-xs'
+                              ? 'border-navy bg-navy text-white shadow-sm'
                               : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
                           }`}
                         >
@@ -771,13 +780,13 @@ export function ApplyPage() {
                                     type="text"
                                     disabled
                                     value={item.subject}
-                                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 border border-slate-300 text-slate-700 text-xs sm:text-sm font-medium shadow-2xs"
+                                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 border border-slate-300 text-slate-700 text-xs sm:text-sm font-medium shadow-sm"
                                   />
                                 ) : (
                                   <select
                                     value={item.subject}
                                     onChange={(e) => handleSubjectChange(item.id, 'subject', e.target.value)}
-                                    className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-navy text-xs sm:text-sm font-medium focus:ring-2 focus:ring-adeshina-blue focus:border-adeshina-blue outline-none transition-all shadow-2xs"
+                                    className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-navy text-xs sm:text-sm font-medium focus:ring-2 focus:ring-adeshina-blue focus:border-adeshina-blue outline-none transition-all shadow-sm"
                                   >
                                     <option value="">Select Subject...</option>
                                     {COMMON_SUBJECTS.map((sub) => (
@@ -791,7 +800,7 @@ export function ApplyPage() {
                                 <select
                                   value={item.grade}
                                   onChange={(e) => handleSubjectChange(item.id, 'grade', e.target.value)}
-                                  className={`w-full px-3 py-2.5 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-adeshina-blue focus:border-adeshina-blue outline-none transition-all shadow-2xs ${
+                                  className={`w-full px-3 py-2.5 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-adeshina-blue focus:border-adeshina-blue outline-none transition-all shadow-sm ${
                                     item.grade === 'Grade' || !item.grade ? 'text-slate-400 font-normal' : 'text-navy'
                                   }`}
                                 >
@@ -858,7 +867,7 @@ export function ApplyPage() {
                           </div>
                         </div>
 
-                        <label className="px-5 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-adeshina-blue text-navy hover:text-adeshina-blue text-xs font-bold transition-all cursor-pointer shadow-2xs">
+                        <label className="px-5 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-adeshina-blue text-navy hover:text-adeshina-blue text-xs font-bold transition-all cursor-pointer shadow-sm">
                           <span>{olevelFileName ? 'Replace File' : 'Upload File'}</span>
                           <input
                             type="file"
@@ -894,7 +903,7 @@ export function ApplyPage() {
                           </div>
                         </div>
 
-                        <label className="px-5 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-adeshina-blue text-navy hover:text-adeshina-blue text-xs font-bold transition-all cursor-pointer shadow-2xs">
+                        <label className="px-5 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-adeshina-blue text-navy hover:text-adeshina-blue text-xs font-bold transition-all cursor-pointer shadow-sm">
                           <span>{passportFileName ? 'Replace File' : 'Upload File'}</span>
                           <input
                             type="file"
@@ -937,10 +946,10 @@ export function ApplyPage() {
                         <p><span className="text-slate-400">State / Gender:</span> <span className="font-semibold text-navy">{stateOfOrigin || 'N/A'} · {gender}</span></p>
                       </div>
 
-                      {/* Program block */}
+                      {/* Programme block */}
                       <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1.5">
                         <span className="font-bold text-navy uppercase tracking-wider block text-[11px] mb-1">
-                          2. Chosen Academic Program
+                          2. Chosen Academic Programme
                         </span>
                         <p><span className="text-slate-400">College:</span> <span className="font-semibold text-navy">{selectedCollege === 'health-technology' ? 'Adeshina College of Health Technology' : 'Adeshina College of Education'}</span></p>
                         <p><span className="text-slate-400">Programme:</span> <span className="font-semibold text-navy">{selectedProgramme || 'Not selected'} (Full-time)</span></p>
@@ -1070,7 +1079,7 @@ export function ApplyPage() {
                             isPassed
                               ? 'bg-emerald-500 text-white'
                               : isCurrent
-                              ? 'bg-navy text-white shadow-xs ring-4 ring-blue-100'
+                              ? 'bg-navy text-white shadow-sm ring-4 ring-blue-100'
                               : 'bg-slate-100 text-slate-400'
                           }`}
                         >

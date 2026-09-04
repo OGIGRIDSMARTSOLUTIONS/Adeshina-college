@@ -67,7 +67,7 @@ export function ContactPage() {
             {/* Address */}
             <div className="p-6 rounded-2xl bg-[#f8fafc] border border-slate-200/90 flex flex-col justify-between">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-2xs">
+                <div className="w-11 h-11 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-sm">
                   <MapPin className="w-5 h-5 text-accent-gold" />
                 </div>
                 <h3 className="font-serif font-bold text-navy text-base mb-1">
@@ -82,7 +82,7 @@ export function ContactPage() {
             {/* Phone Lines */}
             <div className="p-6 rounded-2xl bg-[#f8fafc] border border-slate-200/90 flex flex-col justify-between">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-2xs">
+                <div className="w-11 h-11 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-sm">
                   <Phone className="w-5 h-5 text-accent-gold" />
                 </div>
                 <h3 className="font-serif font-bold text-navy text-base mb-1">
@@ -102,7 +102,7 @@ export function ContactPage() {
             {/* Email */}
             <div className="p-6 rounded-2xl bg-[#f8fafc] border border-slate-200/90 flex flex-col justify-between">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-2xs">
+                <div className="w-11 h-11 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-sm">
                   <Mail className="w-5 h-5 text-accent-gold" />
                 </div>
                 <h3 className="font-serif font-bold text-navy text-base mb-1">
@@ -120,7 +120,7 @@ export function ContactPage() {
             {/* Office Hours */}
             <div className="p-6 rounded-2xl bg-[#f8fafc] border border-slate-200/90 flex flex-col justify-between">
               <div>
-                <div className="w-11 h-11 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-2xs">
+                <div className="w-11 h-11 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-sm">
                   <Clock className="w-5 h-5 text-accent-gold" />
                 </div>
                 <h3 className="font-serif font-bold text-navy text-base mb-1">
@@ -195,7 +195,7 @@ export function ContactPage() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g., Ibrahim Adeleke"
-                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue"
+                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue"
                       />
                     </div>
 
@@ -211,7 +211,7 @@ export function ContactPage() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="e.g., 08012345678"
-                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue"
+                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue"
                       />
                     </div>
                   </div>
@@ -228,7 +228,7 @@ export function ContactPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="e.g., student@gmail.com"
-                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue"
+                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue"
                       />
                     </div>
 
@@ -241,7 +241,7 @@ export function ContactPage() {
                         id="collegeInterest"
                         value={formData.collegeInterest}
                         onChange={(e) => setFormData({ ...formData, collegeInterest: e.target.value })}
-                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue font-medium"
+                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue font-medium"
                       >
                         <option value="general">General Inquiries / Group Admission</option>
                         <option value="health-technology">Adeshina College of Health Technology</option>
@@ -261,7 +261,7 @@ export function ContactPage() {
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       placeholder="e.g., Inquiry on CHEW Diploma Admission"
-                      className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue"
+                      className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue"
                     />
                   </div>
 
@@ -277,7 +277,7 @@ export function ContactPage() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="Please include any specific questions regarding entry requirements, tuition, or application procedures..."
-                      className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-hidden focus:ring-2 focus:ring-adeshina-blue"
+                      className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue"
                     />
                   </div>
 

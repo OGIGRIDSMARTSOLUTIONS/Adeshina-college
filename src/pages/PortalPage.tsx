@@ -6,9 +6,6 @@ import {
   ShieldCheck, 
   Eye, 
   EyeOff, 
-  FileCheck2, 
-  BookOpen, 
-  ReceiptText, 
   AlertCircle,
   ArrowLeft 
 } from 'lucide-react';
@@ -43,8 +40,8 @@ export function PortalPage() {
       setIsLoading(false);
       setErrorMessage(
         activeTab === 'staff'
-          ? 'Staff ICT authentication gateway active. Please contact the campus ICT administrator for authorized session token.'
-          : 'Student database session active: Matriculation credentials verified. Course registrations and fee records synchronized.'
+          ? 'Staff ICT authentication gateway active. Please contact the campus ICT administrator for authorised session token.'
+          : 'Student database session active: Matriculation credentials verified. Course registrations and fee records synchronised.'
       );
     }, 700);
   };
@@ -58,11 +55,11 @@ export function PortalPage() {
           alt="Adeshina Academic Community Background"
           onLoad={() => setImageLoaded(true)}
           className={`w-full h-full object-cover object-center transition-opacity duration-1000 ${
-            imageLoaded ? 'opacity-40' : 'opacity-0'
+            imageLoaded ? 'opacity-70' : 'opacity-0'
           }`}
         />
-        {/* Cinematic dark blue overlay for high contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#071322]/90 via-[#071322]/75 to-[#071322]/95" />
+        {/* Soft navy wash — keeps the form readable without muddying the photo */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#071322]/55 via-[#071322]/40 to-[#071322]/70" />
       </div>
 
       {/* Top Header Row with Logo & Return to Main Website Link */}
@@ -142,7 +139,7 @@ export function PortalPage() {
               }}
               className={`py-2.5 px-4 text-xs sm:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
                 activeTab === 'student'
-                  ? 'bg-navy text-white shadow-xs'
+                  ? 'bg-navy text-white shadow-sm'
                   : 'text-slate-600 hover:text-navy hover:bg-slate-100'
               }`}
             >
@@ -158,7 +155,7 @@ export function PortalPage() {
               }}
               className={`py-2.5 px-4 text-xs sm:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 ${
                 activeTab === 'staff'
-                  ? 'bg-navy text-white shadow-xs'
+                  ? 'bg-navy text-white shadow-sm'
                   : 'text-slate-600 hover:text-navy hover:bg-slate-100'
               }`}
             >
@@ -295,15 +292,15 @@ export function PortalPage() {
           <div className="bg-slate-50/80 px-6 py-3.5 border-t border-slate-200/80">
             <div className="grid grid-cols-3 gap-2 text-center text-[11px] text-slate-500 font-medium">
               <div className="flex flex-col items-center gap-1">
-                <FileCheck2 className="w-3.5 h-3.5 text-sky-600" />
+                <span className="text-base leading-none" aria-hidden="true">📋</span>
                 <span>Course Reg</span>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <ReceiptText className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="text-base leading-none" aria-hidden="true">🧾</span>
                 <span>Fee Receipts</span>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <BookOpen className="w-3.5 h-3.5 text-purple-600" />
+                <span className="text-base leading-none" aria-hidden="true">📊</span>
                 <span>Grade Sheets</span>
               </div>
             </div>

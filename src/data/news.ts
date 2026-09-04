@@ -48,7 +48,7 @@ export const newsArticles: NewsArticle[] = [
     date: 'July 15, 2024',
     category: 'Academic Notice',
     summary: 'CHEW and JCHEW students commence their supervised rural and urban primary health care clinical attachments under certified medical personnel.',
-    content: 'Students enrolled in Community Health Extension Worker (CHEW) and Junior CHEW programmes have been deployed to assigned Primary Health Care (PHC) facilities and comprehensive health centers across Ifelodun, Ilorin, and surrounding local government areas. The clinical posting is a mandatory curriculum requirement aimed at developing grassroots diagnostic, immunization, and maternal healthcare competencies.',
+    content: 'Students enrolled in Community Health Extension Worker (CHEW) and Junior CHEW programmes have been deployed to assigned Primary Health Care (PHC) facilities and comprehensive health centres across Ifelodun, Ilorin, and surrounding local government areas. The clinical posting is a mandatory curriculum requirement aimed at developing grassroots diagnostic, immunization, and maternal healthcare competencies.',
     featuredImage: '/images/health-technology/health-campus-1.jpg',
   },
   {
