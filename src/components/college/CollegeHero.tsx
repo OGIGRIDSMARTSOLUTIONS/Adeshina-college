@@ -47,7 +47,7 @@ export function CollegeHero({ college }: CollegeHeroProps) {
             {/* Back Breadcrumb */}
             <div className="mb-3">
               <Link
-                to="/colleges"
+                to="/"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
@@ -86,7 +86,7 @@ export function CollegeHero({ college }: CollegeHeroProps) {
             {/* Dual CTA Buttons (Matching Reference Design) */}
             <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
               <Link
-                to="/apply"
+                to={`/colleges/${college.id}/apply`}
                 className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-adeshina-blue text-white text-sm font-bold shadow-md hover:bg-navy hover:shadow-lg transition-all duration-200"
               >
                 <span>Apply Now</span>

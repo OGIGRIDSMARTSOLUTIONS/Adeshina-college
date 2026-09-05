@@ -1,48 +1,32 @@
-import { useState, useMemo, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, BookOpen, Stethoscope, ArrowRight, ArrowLeft, CheckCircle2, Briefcase, GraduationCap, X, Info } from 'lucide-react';
 import { programmes } from '@/data/programmes';
-import { colleges } from '@/data/colleges';
 import { Container } from '@/components/common/Container';
 import { Programme } from '@/types/programme';
+import { useCollege } from '@/context/CollegeContext';
 
 export function ProgrammesPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const collegeParam = searchParams.get('college');
-
-  const [selectedCollege, setSelectedCollege] = useState<string>(collegeParam || 'all');
+  const { college, collegeId, path } = useCollege();
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeProgramme, setActiveProgramme] = useState<Programme | null>(null);
 
-  // Sync state if query param changes
-  useEffect(() => {
-    if (collegeParam && (collegeParam === 'health-technology' || collegeParam === 'education')) {
-      setSelectedCollege(collegeParam);
-    }
-  }, [collegeParam]);
+  const collegeProgrammes = useMemo(
+    () => programmes.filter((p) => p.collegeId === collegeId),
+    [collegeId]
+  );
 
-  const handleCollegeChange = (id: string) => {
-    setSelectedCollege(id);
-    if (id === 'all') {
-      searchParams.delete('college');
-      setSearchParams(searchParams);
-    } else {
-      setSearchParams({ college: id });
-    }
-  };
-
-  // Available unique levels
+  // Available unique levels within this college
   const availableLevels = useMemo(() => {
     const levels = new Set<string>();
-    programmes.forEach((p) => levels.add(p.level));
+    collegeProgrammes.forEach((p) => levels.add(p.level));
     return ['all', ...Array.from(levels)];
-  }, []);
+  }, [collegeProgrammes]);
 
   // Filtered programmes
   const filteredProgrammes = useMemo(() => {
-    return programmes.filter((prog) => {
-      const matchesCollege = selectedCollege === 'all' || prog.collegeId === selectedCollege;
+    return collegeProgrammes.filter((prog) => {
       const matchesLevel = selectedLevel === 'all' || prog.level === selectedLevel;
       const matchesSearch =
         searchQuery.trim() === '' ||
@@ -50,9 +34,9 @@ export function ProgrammesPage() {
         (prog.description && prog.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
         prog.level.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return matchesCollege && matchesLevel && matchesSearch;
+      return matchesLevel && matchesSearch;
     });
-  }, [selectedCollege, selectedLevel, searchQuery]);
+  }, [collegeProgrammes, selectedLevel, searchQuery]);
 
   return (
     <div className="bg-[#f8fbff] min-h-screen">
@@ -61,8 +45,8 @@ export function ProgrammesPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#052042] via-[#073663]/90 to-transparent z-10 pointer-events-none" />
         <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-30 pointer-events-none">
           <img
-            src="/images/education/campus-gate.jpg"
-            alt="Adeshina Campus"
+            src={college.heroImage || '/images/education/campus-gate.jpg'}
+            alt={college.name}
             className="w-full h-full object-cover object-[center_top]"
           />
         </div>
@@ -72,22 +56,22 @@ export function ProgrammesPage() {
             {/* Back Breadcrumb */}
             <div className="mb-3">
               <Link
-                to="/"
+                to={path()}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
-                <span>Back to Home</span>
+                <span>Back to College Home</span>
               </Link>
             </div>
 
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-300 block mb-2">
-              ACADEMIC PROGRAMMES DIRECTORY
+              {college.shortName.toUpperCase()} · PROGRAMMES
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
               Explore Professional Qualifications
             </h1>
             <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
-              Discover accredited Diploma, NCE, and Certificate programmes offered across Adeshina College of Health Technology and Adeshina College of Education in Share, Kwara State.
+              Discover accredited programmes offered at {college.name} in Share, Kwara State.
             </p>
 
             {/* Quick Metrics */}
@@ -113,46 +97,11 @@ export function ProgrammesPage() {
       <section className="sticky top-16 z-30 bg-white border-b border-slate-200/90 shadow-sm py-4">
         <Container size="wide">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
-            {/* College Tabs */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0">
-              <button
-                type="button"
-                onClick={() => handleCollegeChange('all')}
-                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all shrink-0 ${
-                  selectedCollege === 'all'
-                    ? 'bg-navy text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy hover:bg-slate-100'
-                }`}
-              >
-                All Colleges ({programmes.length})
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleCollegeChange('health-technology')}
-                className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-lg transition-all shrink-0 ${
-                  selectedCollege === 'health-technology'
-                    ? 'bg-[#10a37f] text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy hover:bg-slate-100'
-                }`}
-              >
-                <Stethoscope className="w-3.5 h-3.5" />
-                <span>Health Technology (15)</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleCollegeChange('education')}
-                className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-lg transition-all shrink-0 ${
-                  selectedCollege === 'education'
-                    ? 'bg-adeshina-blue text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy hover:bg-slate-100'
-                }`}
-              >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>College of Education (25)</span>
-              </button>
-            </div>
+            {/* Level + Search only — college is fixed by route */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 w-full">
+              <p className="text-xs font-bold text-slate-600 shrink-0">
+                {college.shortName} · {collegeProgrammes.length} programmes
+              </p>
 
             {/* Search Input & Qualification Filter */}
             <div className="flex flex-col sm:flex-row items-center gap-3">
@@ -194,6 +143,7 @@ export function ProgrammesPage() {
                 )}
               </div>
             </div>
+            </div>
           </div>
         </Container>
       </section>
@@ -204,18 +154,15 @@ export function ProgrammesPage() {
           {/* Active Filter Summary Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 text-xs text-slate-500">
             <span>
-              Showing <strong className="text-navy font-bold">{filteredProgrammes.length}</strong> of {programmes.length} programmes
+              Showing <strong className="text-navy font-bold">{filteredProgrammes.length}</strong> of {collegeProgrammes.length} programmes
             </span>
 
-            {(selectedCollege !== 'all' || selectedLevel !== 'all' || searchQuery !== '') && (
+            {(selectedLevel !== 'all' || searchQuery !== '') && (
               <button
                 type="button"
                 onClick={() => {
-                  setSelectedCollege('all');
                   setSelectedLevel('all');
                   setSearchQuery('');
-                  searchParams.delete('college');
-                  setSearchParams(searchParams);
                 }}
                 className="text-adeshina-blue hover:underline font-bold self-start sm:self-auto"
               >
@@ -225,7 +172,7 @@ export function ProgrammesPage() {
           </div>
 
           {/* Health Technology Research-Found Notice Callout */}
-          {selectedCollege === 'health-technology' && (
+          {collegeId === 'health-technology' && (
             <div className="mb-8 p-4 sm:p-5 rounded-xl bg-amber-50/90 border border-amber-200/80 text-xs text-amber-900 flex items-start gap-3">
               <Info className="w-4 h-4 text-accent-gold shrink-0 mt-0.5" />
               <div>
@@ -243,16 +190,13 @@ export function ProgrammesPage() {
               <GraduationCap className="w-12 h-12 text-slate-300 mx-auto mb-4" />
               <h3 className="font-serif font-bold text-navy text-lg">No programmes match your filter</h3>
               <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                Try clearing your search term or changing the college/qualification level filter.
+                Try clearing your search term or changing the qualification level filter.
               </p>
               <button
                 type="button"
                 onClick={() => {
-                  setSelectedCollege('all');
                   setSelectedLevel('all');
                   setSearchQuery('');
-                  searchParams.delete('college');
-                  setSearchParams(searchParams);
                 }}
                 className="mt-5 px-5 py-2.5 rounded-lg bg-navy text-white text-xs font-bold hover:bg-navy-dark transition-all"
               >
@@ -263,7 +207,6 @@ export function ProgrammesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
               {filteredProgrammes.map((prog) => {
                 const isHealth = prog.collegeId === 'health-technology';
-                const college = colleges.find((c) => c.id === prog.collegeId);
 
                 return (
                   <div
@@ -333,7 +276,7 @@ export function ProgrammesPage() {
                       </button>
 
                       <Link
-                        to="/apply"
+                        to={path('apply')}
                         className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-navy hover:bg-adeshina-blue active:bg-adeshina-blue-dark rounded-lg shadow-sm hover:shadow-md transition-all duration-200 text-center"
                       >
                         Apply Now
@@ -357,7 +300,7 @@ export function ProgrammesPage() {
             </div>
 
             <Link
-              to="/admissions"
+              to={path('admissions')}
               className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs sm:text-sm font-bold hover:bg-adeshina-blue-dark transition-all shrink-0 shadow-sm inline-flex items-center gap-2"
             >
               <span>Go to Admissions</span>
@@ -481,7 +424,7 @@ export function ProgrammesPage() {
               </button>
 
               <Link
-                to="/apply"
+                to={path('apply')}
                 className="px-6 py-2.5 rounded-xl bg-[#05264c] text-white text-xs font-bold hover:bg-sky-600 transition-all duration-200 shadow-sm"
               >
                 Apply for this Programme &rarr;

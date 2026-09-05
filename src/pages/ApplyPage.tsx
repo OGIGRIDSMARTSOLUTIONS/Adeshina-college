@@ -16,6 +16,8 @@ import {
 import { programmes } from '@/data/programmes';
 import { siteConfig } from '@/data/siteConfig';
 import { Container } from '@/components/common/Container';
+import { useCollege } from '@/context/CollegeContext';
+import { CollegeId } from '@/lib/collegePaths';
 
 interface SubjectGrade {
   id: string;
@@ -47,6 +49,7 @@ const GRADE_OPTIONS = ['Grade', 'A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 
 
 export function ApplyPage() {
   const navigate = useNavigate();
+  const { college, collegeId, path } = useCollege();
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   // Step 1: Personal Info
@@ -59,8 +62,8 @@ export function ApplyPage() {
   const [stateOfOrigin, setStateOfOrigin] = useState('');
   const [address, setAddress] = useState('');
 
-  // Step 2: Programme Selection
-  const [selectedCollege, setSelectedCollege] = useState<'health-technology' | 'education'>('health-technology');
+  // Step 2: Programme Selection — college locked by route
+  const selectedCollege = collegeId as CollegeId;
   const [selectedProgramme, setSelectedProgramme] = useState('');
   const [intakePeriod, setIntakePeriod] = useState('2024/2025 Regular Session');
 
@@ -210,7 +213,7 @@ export function ApplyPage() {
                   <span>Print Official Slip</span>
                 </button>
                 <Link
-                  to="/"
+                  to={path()}
                   className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all"
                 >
                   Return to Home
@@ -406,7 +409,7 @@ export function ApplyPage() {
             <div className="flex items-center justify-between pb-2">
               <button
                 type="button"
-                onClick={() => (currentStep > 1 ? handlePrevStep() : navigate('/admissions'))}
+                onClick={() => (currentStep > 1 ? handlePrevStep() : navigate(path('admissions')))}
                 className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-200/70 hover:bg-slate-300/80 text-navy text-xs font-bold transition-all shadow-sm"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
@@ -414,7 +417,7 @@ export function ApplyPage() {
               </button>
 
               <Link
-                to="/"
+                to={path()}
                 className="text-xs font-bold text-slate-500 hover:text-navy transition-colors"
               >
                 Return to Home &rarr;
@@ -592,54 +595,16 @@ export function ApplyPage() {
                   <div className="space-y-6">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
-                        Select Academic College / Faculty
+                        Academic College
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedCollege('health-technology');
-                            setSelectedProgramme('');
-                          }}
-                          className={`p-4 rounded-xl border-2 text-left transition-all ${
-                            selectedCollege === 'health-technology'
-                              ? 'border-adeshina-blue bg-blue-50/50 shadow-sm'
-                              : 'border-slate-200 bg-white hover:border-slate-300'
-                          }`}
-                        >
-                          <span className="block text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">
-                            College 01
-                          </span>
-                          <span className="block font-serif font-bold text-navy text-sm sm:text-base">
-                            Adeshina College of Health Technology
-                          </span>
-                          <span className="block text-xs text-slate-500 mt-1">
-                            CHEW, MLT, Pharmacy Tech, Environmental Health
-                          </span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedCollege('education');
-                            setSelectedProgramme('');
-                          }}
-                          className={`p-4 rounded-xl border-2 text-left transition-all ${
-                            selectedCollege === 'education'
-                              ? 'border-adeshina-blue bg-blue-50/50 shadow-sm'
-                              : 'border-slate-200 bg-white hover:border-slate-300'
-                          }`}
-                        >
-                          <span className="block text-xs font-bold text-adeshina-blue uppercase tracking-wider mb-1">
-                            College 02
-                          </span>
-                          <span className="block font-serif font-bold text-navy text-sm sm:text-base">
-                            Adeshina College of Education
-                          </span>
-                          <span className="block text-xs text-slate-500 mt-1">
-                            Nigeria Certificate in Education (NCE)
-                          </span>
-                        </button>
+                      <div className="p-4 rounded-xl border-2 border-adeshina-blue bg-blue-50/50 shadow-sm text-left">
+                        <span className="block text-xs font-bold text-adeshina-blue uppercase tracking-wider mb-1">
+                          Applying to
+                        </span>
+                        <span className="block font-serif font-bold text-navy text-sm sm:text-base">
+                          {college.name}
+                        </span>
+                        <span className="block text-xs text-slate-500 mt-1">{college.tagline}</span>
                       </div>
                     </div>
 
@@ -1030,7 +995,7 @@ export function ApplyPage() {
 
                     <button
                       type="button"
-                      onClick={() => (currentStep > 1 ? handlePrevStep() : navigate('/admissions'))}
+                      onClick={() => (currentStep > 1 ? handlePrevStep() : navigate(path('admissions')))}
                       className="mt-3 text-xs sm:text-sm font-semibold text-slate-500 hover:text-navy hover:underline transition-colors py-1"
                     >
                       Go Back

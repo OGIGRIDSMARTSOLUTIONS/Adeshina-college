@@ -37,14 +37,14 @@ export function CollegeCTA({ college }: CollegeCTAProps) {
         {/* Actions */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            to="/apply"
+            to={`/colleges/${college.id}/apply`}
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white text-navy hover:bg-navy hover:text-white active:bg-navy-dark font-bold text-sm shadow-md hover:shadow-xl transition-all duration-200"
           >
             Apply to {college.shortName}
           </Link>
 
           <Link
-            to="/contact"
+            to={`/colleges/${college.id}/contact`}
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-transparent text-white border border-white/30 hover:bg-white/10 font-bold text-sm transition-all"
           >
             Contact Admissions Desk

@@ -1,11 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
-import { PageLayout } from '@/components/layout/PageLayout';
-import { HomePage } from '@/pages/HomePage';
+import { GroupLayout } from '@/components/layout/GroupLayout';
+import { CollegeLayout } from '@/components/layout/CollegeLayout';
+import { GatewayPage } from '@/pages/GatewayPage';
+import { CollegeHomePage } from '@/pages/CollegeHomePage';
 import { AboutPage } from '@/pages/AboutPage';
-import { CollegesPage } from '@/pages/CollegesPage';
-import { HealthTechnologyPage } from '@/pages/HealthTechnologyPage';
-import { EducationPage } from '@/pages/EducationPage';
 import { ProgrammesPage } from '@/pages/ProgrammesPage';
 import { AdmissionsPage } from '@/pages/AdmissionsPage';
 import { NewsPage } from '@/pages/NewsPage';
@@ -19,30 +18,32 @@ export function App() {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        {/* Dedicated Full-Screen Portal (Standalone: No Main Website Header/Footer) */}
         <Route path="/portal" element={<PortalPage />} />
 
-        {/* Public Website Routes (Rendered inside Global Header & Footer) */}
-        <Route
-          path="/*"
-          element={
-            <PageLayout>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/about" element={<AboutPage />} />
-                <Route path="/colleges" element={<CollegesPage />} />
-                <Route path="/colleges/health-technology" element={<HealthTechnologyPage />} />
-                <Route path="/colleges/education" element={<EducationPage />} />
-                <Route path="/programmes" element={<ProgrammesPage />} />
-                <Route path="/admissions" element={<AdmissionsPage />} />
-                <Route path="/apply" element={<ApplyPage />} />
-                <Route path="/news" element={<NewsPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </PageLayout>
-          }
-        />
+        <Route element={<GroupLayout />}>
+          <Route path="/" element={<GatewayPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Route>
+
+        <Route path="/colleges/:collegeId" element={<CollegeLayout />}>
+          <Route index element={<CollegeHomePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="programmes" element={<ProgrammesPage />} />
+          <Route path="admissions" element={<AdmissionsPage />} />
+          <Route path="news" element={<NewsPage />} />
+          <Route path="contact" element={<ContactPage />} />
+          <Route path="apply" element={<ApplyPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+
+        <Route path="/colleges" element={<Navigate to="/#colleges" replace />} />
+        <Route path="/programmes" element={<Navigate to="/#colleges" replace />} />
+        <Route path="/admissions" element={<Navigate to="/#colleges" replace />} />
+        <Route path="/apply" element={<Navigate to="/#colleges" replace />} />
+
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

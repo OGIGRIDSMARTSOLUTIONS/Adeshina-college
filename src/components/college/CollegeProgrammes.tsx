@@ -30,7 +30,7 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
           </div>
 
           <Link
-            to="/admissions"
+            to={`/colleges/${college.id}/admissions`}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy text-white text-xs sm:text-sm font-bold hover:bg-navy-dark transition-all shrink-0 self-start md:self-auto shadow-sm"
           >
             <span>Admission Guidelines</span>
@@ -100,14 +100,14 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
               {/* Action Buttons */}
               <div className="mt-6 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2.5">
                 <Link
-                  to={`/programmes?college=${prog.collegeId}`}
+                  to={`/colleges/${college.id}/programmes`}
                   className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-navy bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors text-center"
                 >
                   View Details
                 </Link>
 
                 <Link
-                  to="/apply"
+                  to={`/colleges/${college.id}/apply`}
                   className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-navy hover:bg-adeshina-blue active:bg-adeshina-blue-dark rounded-lg shadow-sm hover:shadow-md transition-all duration-200 text-center"
                 >
                   Apply Now
@@ -130,7 +130,7 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
           </div>
 
           <Link
-            to="/admissions"
+            to={`/colleges/${college.id}/admissions`}
             className="inline-flex items-center gap-1.5 text-xs font-bold text-navy hover:text-adeshina-blue uppercase tracking-wider shrink-0 px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors"
           >
             <span>Review Admissions</span>

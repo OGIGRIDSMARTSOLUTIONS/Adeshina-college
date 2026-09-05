@@ -105,10 +105,10 @@ export function CampusLife() {
         {/* Bottom Banner linking to Programmes & Admissions */}
         <div className="mt-12 text-center">
           <Link
-            to="/programmes"
+            to="/#colleges"
             className="inline-flex items-center gap-2 text-sm font-extrabold text-[#05264c] hover:text-white hover:bg-[#05264c] transition-all py-3.5 px-8 rounded-xl bg-white border border-sky-200 shadow-sm hover:shadow-md"
           >
-            <span>Explore Campus Programmes & Requirements</span>
+            <span>Explore Our Colleges</span>
             <ArrowRight className="w-4 h-4 text-sky-500" />
           </Link>
         </div>

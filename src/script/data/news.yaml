@@ -22,10 +22,11 @@ newsArticles:
       registries upon presentation of proof of registration and fee clearance.
     featuredImage: /images/education/campus-gate.jpg
   - id: health-tech-laboratory-upgrade
-    title: College of Health Tech Upgrades Laboratory & Clinical Training Facilities
+    title: College of Health Technology Upgrades Laboratory & Clinical Training Facilities
     slug: health-tech-laboratory-upgrade
     date: September 28, 2024
     category: Campus Facilities
+    collegeId: health-technology
     summary: >-
       New specialized medical equipment and modern diagnostic tools are installed in the clinical
       laboratory practical suites to support immersive student training.
@@ -41,6 +42,7 @@ newsArticles:
     slug: admissions-list-released-education
     date: September 10, 2024
     category: Admissions
+    collegeId: education
     summary: >-
       Prospective student candidates can now verify their admission status and complete physical
       registration at the central admissions registry in Share.
@@ -56,6 +58,7 @@ newsArticles:
     slug: teaching-practice-orientation
     date: August 22, 2024
     category: Academic Notice
+    collegeId: education
     summary: >-
       The School of Education organises a mandatory orientation workshop on modern classroom
       management and instructional lesson delivery ahead of external practicum.
@@ -71,6 +74,7 @@ newsArticles:
     slug: community-health-clinical-posting
     date: July 15, 2024
     category: Academic Notice
+    collegeId: health-technology
     summary: >-
       CHEW and JCHEW students commence their supervised rural and urban primary health care clinical
       attachments under certified medical personnel.

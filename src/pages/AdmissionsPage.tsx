@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, ChevronDown, ChevronUp, MapPin, ShieldCheck, ArrowLeft } from 'lucide-react';
 import { admissionInfo } from '@/data/admissions';
 import { Container } from '@/components/common/Container';
+import { useCollege } from '@/context/CollegeContext';
 
 export function AdmissionsPage() {
+  const { college, collegeId, path } = useCollege();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [selectedCollegeReq, setSelectedCollegeReq] = useState<string>('all');
 
-  const filteredRequirements = selectedCollegeReq === 'all'
-    ? admissionInfo.requirements
-    : admissionInfo.requirements.filter((r) => r.collegeId === selectedCollegeReq);
+  const filteredRequirements = admissionInfo.requirements.filter((r) => r.collegeId === collegeId);
 
   return (
     <div className="bg-[#f8fbff] min-h-screen">
@@ -30,7 +29,7 @@ export function AdmissionsPage() {
             {/* Back to Home Breadcrumb */}
             <div className="mb-4">
               <Link
-                to="/"
+                to={path()}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
@@ -57,7 +56,7 @@ export function AdmissionsPage() {
             {/* Quick Actions */}
             <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Link
-                to="/apply"
+                to={path('apply')}
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-[#052042] text-sm font-extrabold uppercase tracking-wider shadow-lg shadow-sky-500/20 transition-all duration-200"
               >
                 <span>Apply Now (Online Form)</span>
@@ -101,7 +100,7 @@ export function AdmissionsPage() {
             </div>
 
             <Link
-              to="/apply"
+              to={path('apply')}
               className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs font-bold hover:bg-navy shrink-0 transition-all shadow-sm"
             >
               Start Application
@@ -157,7 +156,7 @@ export function AdmissionsPage() {
 
           <div className="mt-12 text-center">
             <Link
-              to="/apply"
+              to={path('apply')}
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-navy text-white hover:bg-adeshina-blue font-bold text-sm shadow-md hover:shadow-lg transition-all"
             >
               <span>Begin Step 1: Online Application</span>
@@ -179,45 +178,8 @@ export function AdmissionsPage() {
                 General Entry Requirements
               </h2>
               <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">
-                O'Level benchmarks required for admission into each respective college.
+                O'Level benchmarks required for admission into {college.shortName}.
               </p>
-            </div>
-
-            {/* Filter */}
-            <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200/90 shrink-0 self-start md:self-auto">
-              <button
-                type="button"
-                onClick={() => setSelectedCollegeReq('all')}
-                className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                  selectedCollegeReq === 'all'
-                    ? 'bg-navy text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy'
-                }`}
-              >
-                All Colleges
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedCollegeReq('health-technology')}
-                className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                  selectedCollegeReq === 'health-technology'
-                    ? 'bg-navy text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy'
-                }`}
-              >
-                Health Technology
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedCollegeReq('education')}
-                className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                  selectedCollegeReq === 'education'
-                    ? 'bg-navy text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy'
-                }`}
-              >
-                Education
-              </button>
             </div>
           </div>
 
@@ -285,7 +247,7 @@ export function AdmissionsPage() {
                   {/* Footer links */}
                   <div className="mt-8 pt-4 border-t border-slate-200/80 flex items-center justify-between gap-2">
                     <Link
-                      to={`/colleges/${req.collegeId}`}
+                      to={path()}
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-navy hover:text-adeshina-blue transition-colors"
                     >
                       <span>View Departments</span>
@@ -293,7 +255,7 @@ export function AdmissionsPage() {
                     </Link>
 
                     <Link
-                      to="/apply"
+                      to={path('apply')}
                       className="px-4 py-2 rounded-lg bg-adeshina-blue text-white text-xs font-bold hover:bg-navy transition-all shadow-sm"
                     >
                       Apply Now
@@ -374,13 +336,13 @@ export function AdmissionsPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 shrink-0">
               <Link
-                to="/apply"
+                to={path('apply')}
                 className="px-6 py-3.5 rounded-xl bg-adeshina-blue hover:bg-navy font-bold text-xs sm:text-sm shadow-md transition-all text-center"
               >
                 Apply Online Now
               </Link>
               <Link
-                to="/contact"
+                to={path('contact')}
                 className="px-6 py-3.5 rounded-xl bg-white text-[#081426] hover:bg-slate-100 font-bold text-xs sm:text-sm shadow-md transition-all text-center"
               >
                 Contact Admissions Desk

@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, ShieldCheck, Compass, Navigation, ArrowLeft } from 'lucide-react';
 import { siteConfig } from '@/data/siteConfig';
 import { Container } from '@/components/common/Container';
+import { useScopedPath } from '@/context/CollegeContext';
 
 export function ContactPage() {
+  const { college, path, isGroup } = useScopedPath();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    collegeInterest: 'general',
+    collegeInterest: college?.collegeId ?? 'general',
     subject: '',
     message: '',
   });
@@ -39,11 +41,11 @@ export function ContactPage() {
             {/* Back Breadcrumb */}
             <div className="mb-3">
               <Link
-                to="/"
+                to={path()}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
-                <span>Back to Home</span>
+                <span>{isGroup ? 'Back to Home' : 'Back to College Home'}</span>
               </Link>
             </div>
 
@@ -170,7 +172,7 @@ export function ContactPage() {
                         name: '',
                         email: '',
                         phone: '',
-                        collegeInterest: 'general',
+                        collegeInterest: college?.collegeId ?? 'general',
                         subject: '',
                         message: '',
                       });
@@ -234,19 +236,32 @@ export function ContactPage() {
 
                     {/* College of Interest */}
                     <div>
-                      <label htmlFor="collegeInterest" className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                      <label
+                        htmlFor="collegeInterest"
+                        className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5"
+                      >
                         College / Area of Interest
                       </label>
-                      <select
-                        id="collegeInterest"
-                        value={formData.collegeInterest}
-                        onChange={(e) => setFormData({ ...formData, collegeInterest: e.target.value })}
-                        className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue font-medium"
-                      >
-                        <option value="general">General Inquiries / Group Admission</option>
-                        <option value="health-technology">Adeshina College of Health Technology</option>
-                        <option value="education">Adeshina College of Education</option>
-                      </select>
+                      {isGroup ? (
+                        <select
+                          id="collegeInterest"
+                          value={formData.collegeInterest}
+                          onChange={(e) =>
+                            setFormData({ ...formData, collegeInterest: e.target.value })
+                          }
+                          className="w-full text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue font-medium"
+                        >
+                          <option value="general">General Inquiries / Group Admission</option>
+                          <option value="health-technology">
+                            Adeshina College of Health Technology
+                          </option>
+                          <option value="education">Adeshina College of Education</option>
+                        </select>
+                      ) : (
+                        <div className="w-full text-xs sm:text-sm bg-slate-100 border border-slate-200 rounded-xl px-4 py-3 text-navy font-medium">
+                          {college?.college.name}
+                        </div>
+                      )}
                     </div>
                   </div>
 

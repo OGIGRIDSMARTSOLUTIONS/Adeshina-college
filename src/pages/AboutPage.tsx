@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, Compass, ShieldCheck, Award, Users, Microscope, CheckCircle2, Landmark } from 'lucide-react';
 import { Container } from '@/components/common/Container';
+import { useScopedPath } from '@/context/CollegeContext';
 
 export function AboutPage() {
+  const { path } = useScopedPath();
   const coreValues = [
     {
       title: 'Practical Competency',
@@ -62,7 +64,7 @@ export function AboutPage() {
             {/* Back Breadcrumb */}
             <div className="mb-3">
               <Link
-                to="/"
+                to={path()}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
@@ -71,7 +73,7 @@ export function AboutPage() {
             </div>
 
             <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-300 block mb-2">
-              ABOUT ADESHINA GROUP OF COLLEGES
+              ABOUT THE COLLEGE
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
               A Centre of Excellence in Healthcare & Educator Development
@@ -124,14 +126,14 @@ export function AboutPage() {
               
               <div className="pt-2 flex flex-col sm:flex-row gap-4">
                 <Link
-                  to="/colleges"
+                  to={path('programmes')}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-navy text-white text-xs sm:text-sm font-bold hover:bg-navy-dark transition-all shadow-sm"
                 >
-                  <span>Explore Both Colleges</span>
+                  <span>Explore Programmes</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  to="/admissions"
+                  to={path('admissions')}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-100 text-navy text-xs sm:text-sm font-bold hover:bg-slate-200 transition-all"
                 >
                   <span>Admission Guidelines</span>
@@ -324,13 +326,13 @@ export function AboutPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 shrink-0 relative z-10">
               <Link
-                to="/apply"
+                to={path('apply')}
                 className="px-6 py-3.5 rounded-xl bg-white text-[#081426] hover:bg-slate-100 font-bold text-xs sm:text-sm shadow-md transition-all text-center"
               >
                 Apply for Admission
               </Link>
               <Link
-                to="/contact"
+                to={path('contact')}
                 className="px-6 py-3.5 rounded-xl bg-adeshina-blue text-white hover:bg-adeshina-blue-dark font-bold text-xs sm:text-sm shadow-md transition-all text-center"
               >
                 Visit Our Campus

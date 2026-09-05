@@ -4,51 +4,61 @@ import { Search, ArrowRight, ArrowLeft, Calendar, X, Megaphone } from 'lucide-re
 import { newsArticles } from '@/data/news';
 import { NewsArticle } from '@/types/news';
 import { Container } from '@/components/common/Container';
+import { useScopedPath } from '@/context/CollegeContext';
 
 export function NewsPage() {
+  const { college, path } = useScopedPath();
+  const collegeId = college?.collegeId;
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeArticle, setActiveArticle] = useState<NewsArticle | null>(null);
 
+  const collegeArticles = useMemo(
+    () =>
+      collegeId
+        ? newsArticles.filter((a) => !a.collegeId || a.collegeId === collegeId)
+        : newsArticles,
+    [collegeId]
+  );
+
+  const newsBase = path('news');
+
   const openArticle = (article: NewsArticle) => {
     setActiveArticle(article);
     if (location.hash !== `#${article.slug}`) {
-      navigate(`/news#${article.slug}`, { replace: true });
+      navigate(`${newsBase}#${article.slug}`, { replace: true });
     }
   };
 
   const closeArticle = () => {
     setActiveArticle(null);
     if (location.hash) {
-      navigate('/news', { replace: true });
+      navigate(newsBase, { replace: true });
     }
   };
 
-  // Open bulletin when arriving via /news#slug (e.g. homepage “Read Notice”)
   useEffect(() => {
     const slug = location.hash.replace(/^#/, '');
     if (!slug) {
       setActiveArticle(null);
       return;
     }
-    const match = newsArticles.find((a) => a.slug === slug);
+    const match = collegeArticles.find((a) => a.slug === slug);
     if (match) {
       setActiveArticle(match);
     }
-  }, [location.hash]);
+  }, [location.hash, collegeArticles]);
 
-  // Available unique categories
   const categories = useMemo(() => {
     const set = new Set<string>();
-    newsArticles.forEach((a) => set.add(a.category));
+    collegeArticles.forEach((a) => set.add(a.category));
     return ['all', ...Array.from(set)];
-  }, []);
+  }, [collegeArticles]);
 
-  // Filtered articles
   const filteredArticles = useMemo(() => {
-    return newsArticles.filter((article) => {
+    return collegeArticles.filter((article) => {
       const matchesCat = selectedCategory === 'all' || article.category === selectedCategory;
       const matchesQuery =
         searchQuery.trim() === '' ||
@@ -58,9 +68,9 @@ export function NewsPage() {
 
       return matchesCat && matchesQuery;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [collegeArticles, selectedCategory, searchQuery]);
 
-  const featuredArticle = newsArticles[0];
+  const featuredArticle = collegeArticles[0];
 
   return (
     <div className="bg-[#f8fbff] min-h-screen">
@@ -80,7 +90,7 @@ export function NewsPage() {
             {/* Back Breadcrumb */}
             <div className="mb-3">
               <Link
-                to="/"
+                to={path()}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
