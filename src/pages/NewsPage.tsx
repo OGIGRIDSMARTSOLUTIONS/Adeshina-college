@@ -1,18 +1,17 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search, ArrowRight, ArrowLeft, Calendar, X, Megaphone } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Calendar, X } from 'lucide-react';
 import { newsArticles } from '@/data/news';
 import { NewsArticle } from '@/types/news';
 import { Container } from '@/components/common/Container';
 import { useScopedPath } from '@/context/CollegeContext';
 
 export function NewsPage() {
-  const { college, path } = useScopedPath();
+  const { college, path, isGroup } = useScopedPath();
   const collegeId = college?.collegeId;
   const location = useLocation();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeArticle, setActiveArticle] = useState<NewsArticle | null>(null);
 
   const collegeArticles = useMemo(
@@ -58,263 +57,190 @@ export function NewsPage() {
   }, [collegeArticles]);
 
   const filteredArticles = useMemo(() => {
-    return collegeArticles.filter((article) => {
-      const matchesCat = selectedCategory === 'all' || article.category === selectedCategory;
-      const matchesQuery =
-        searchQuery.trim() === '' ||
-        article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        article.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        article.category.toLowerCase().includes(searchQuery.toLowerCase());
+    if (selectedCategory === 'all') return collegeArticles;
+    return collegeArticles.filter((article) => article.category === selectedCategory);
+  }, [collegeArticles, selectedCategory]);
 
-      return matchesCat && matchesQuery;
-    });
-  }, [collegeArticles, selectedCategory, searchQuery]);
-
-  const featuredArticle = collegeArticles[0];
+  const isHealth = collegeId === 'health-technology';
+  const heroImage = isHealth
+    ? '/images/health-technology/health-campus-1.jpg'
+    : '/images/education/campus-gate.jpg';
 
   return (
-    <div className="bg-[#f8fbff] min-h-screen">
-      {/* Light Sky Blue / Navy Page Hero Banner */}
-      <section className="bg-[#05264c] text-white py-16 sm:py-20 border-b border-sky-900/50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#052042] via-[#073663]/90 to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-30 pointer-events-none">
-          <img
-            src="/images/education/campus-gate.jpg"
-            alt="Adeshina Campus Gate in Share"
-            className="w-full h-full object-cover object-[center_top]"
-          />
-        </div>
+    <div className="bg-white min-h-screen">
+      {/* Page hero */}
+      <section className="relative overflow-hidden bg-[#05264c] text-white">
+        <img
+          src={heroImage}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+        />
+        <div className="absolute inset-0 bg-[#05264c]/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#041c36]/92 via-[#05264c]/70 to-[#05264c]/35" />
 
-        <Container size="wide" className="relative z-20">
+        <Container size="wide" className="relative z-10 py-16 sm:py-20 lg:py-24">
           <div className="max-w-3xl">
-            {/* Back Breadcrumb */}
-            <div className="mb-3">
-              <Link
-                to={path()}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
-                <span>Back to Home</span>
-              </Link>
-            </div>
+            <Link
+              to={path()}
+              className="inline-flex items-center gap-2 rounded-md border border-white/35 bg-white/10 px-4 py-2.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-[#05264c] hover:border-white"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              {isGroup ? 'Back to Home' : 'Back to College Home'}
+            </Link>
 
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-300 block mb-2">
-              NEWS, BULLETINS & ANNOUNCEMENTS
-            </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
-              Institutional Updates & Campus Notices
+            <h1 className="mt-6 font-serif font-semibold text-4xl sm:text-5xl md:text-[3.25rem] tracking-[-0.02em] leading-[1.12] text-white">
+              News & updates
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
-              Stay informed on matriculation ceremonies, admissions lists, teaching practice orientations, clinical practical postings, and official campus developments.
+            <p className="mt-4 text-xl sm:text-2xl font-serif text-[#e8c56a] leading-snug tracking-[-0.01em]">
+              {isHealth
+                ? 'Health Technology campus notices'
+                : isGroup
+                  ? 'Campus notices'
+                  : 'College of Education campus notices'}
+            </p>
+            <p className="mt-5 text-base sm:text-lg text-white/85 leading-relaxed max-w-2xl">
+              {isHealth
+                ? 'Admissions lists, clinical postings, matriculation, and official updates from Adeshina College of Health Technology, Share.'
+                : isGroup
+                  ? 'Stay informed on matriculation, admissions lists, and official campus developments.'
+                  : 'Admissions lists, teaching practice notices, matriculation, and official updates from Adeshina College of Education, Share.'}
             </p>
           </div>
         </Container>
       </section>
 
-      {/* Filter and Search Bar */}
-      <section className="sticky top-16 z-30 bg-white border-b border-slate-200/90 shadow-sm py-4">
+      {/* Notices */}
+      <section className="py-12 sm:py-14 bg-[#f8fafc] border-b border-slate-200">
         <Container size="wide">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 text-xs font-bold rounded-lg transition-all shrink-0 capitalize ${
-                    selectedCategory === cat
-                      ? 'bg-navy text-white shadow-sm'
-                      : 'text-slate-600 hover:text-navy hover:bg-slate-100'
-                  }`}
-                >
-                  {cat === 'all' ? 'All Bulletins' : cat}
-                </button>
-              ))}
-            </div>
-
-            {/* Search Input */}
-            <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                placeholder="Search bulletins..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg pl-9 pr-8 py-2 text-navy focus:outline-none focus:ring-2 focus:ring-adeshina-blue placeholder:text-slate-400"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-navy"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
+          <div className="mb-8 flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setSelectedCategory(cat)}
+                className={`rounded-md border px-4 py-2.5 text-[13px] font-semibold capitalize transition-colors shrink-0 ${
+                  selectedCategory === cat
+                    ? 'border-[#05264c] bg-[#05264c] text-white'
+                    : 'border-slate-300 bg-white text-[#05264c] hover:border-[#02509e] hover:text-[#02509e]'
+                }`}
+              >
+                {cat === 'all' ? 'All' : cat}
+              </button>
+            ))}
           </div>
-        </Container>
-      </section>
 
-      {/* Main Content Area */}
-      <section className="py-12 sm:py-16">
-        <Container size="wide">
-          {/* Featured Headline Announcement (only if no active search) */}
-          {selectedCategory === 'all' && searchQuery === '' && featuredArticle && (
-            <div className="mb-12 bg-white rounded-3xl border border-slate-200/90 shadow-md overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-center">
-              <div className="lg:col-span-5 h-64 lg:h-full relative overflow-hidden bg-navy">
-                <img
-                  src={featuredArticle.featuredImage || '/images/education/campus-gate.jpg'}
-                  alt={featuredArticle.title}
-                  className="w-full h-full object-cover object-[center_top]"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-accent-gold text-white shadow-sm">
-                    Featured Notice
-                  </span>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-3 text-xs text-slate-400 mb-3">
-                    <span className="font-bold text-adeshina-blue uppercase tracking-wider">
-                      {featuredArticle.category}
-                    </span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {featuredArticle.date}
-                    </span>
-                  </div>
-
-                  <h2 className="text-2xl sm:text-3xl font-serif font-black text-navy leading-tight mb-3">
-                    {featuredArticle.title}
-                  </h2>
-
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                    {featuredArticle.summary}
-                  </p>
-                </div>
-
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => openArticle(featuredArticle)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy text-white text-xs font-bold hover:bg-navy-dark transition-all shadow-sm"
-                  >
-                    <span>Read Full Bulletin</span>
-                    <ArrowRight className="w-4 h-4 text-accent-gold" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Grid of All News Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {filteredArticles.map((article) => (
               <article
                 key={article.id}
-                className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.04)] hover:shadow-xl hover:border-adeshina-blue/30 transition-all duration-200 flex flex-col justify-between group"
+                className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-300 bg-white shadow-[0_10px_28px_-12px_rgba(5,38,76,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-12px_rgba(5,38,76,0.34)]"
               >
-                <div>
-                  {/* Category and Date */}
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <span className="text-[11px] uppercase tracking-wider font-bold text-adeshina-blue bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-md">
-                      {article.category}
-                    </span>
-                    <time className="text-xs text-slate-400 font-medium">
-                      {article.date}
-                    </time>
-                  </div>
-
-                  {/* Headline */}
-                  <h3 className="text-lg font-serif font-bold text-navy leading-snug group-hover:text-adeshina-blue transition-colors mb-2.5">
-                    {article.title}
-                  </h3>
-
-                  {/* Summary */}
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-3">
-                    {article.summary}
-                  </p>
+                <div className="relative aspect-[16/10] bg-[#041c36]">
+                  <img
+                    src={
+                      article.featuredImage ||
+                      (isHealth
+                        ? '/images/health-technology/health-campus-1.jpg'
+                        : '/images/education/campus-gate.jpg')
+                    }
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100">
+                <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-slate-500">
+                    <span
+                      className={`font-semibold uppercase tracking-[0.08em] ${
+                        isHealth ? 'text-[#0a7a5c]' : 'text-[#02509e]'
+                      }`}
+                    >
+                      {article.category}
+                    </span>
+                    <span aria-hidden="true">·</span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <Calendar className="h-3.5 w-3.5" />
+                      {article.date}
+                    </span>
+                  </div>
+
+                  <h2 className="mt-3 font-serif font-semibold text-xl text-[#05264c] leading-snug">
+                    {article.title}
+                  </h2>
+                  <p className="mt-2 text-[14px] text-slate-600 leading-relaxed line-clamp-3">
+                    {article.summary}
+                  </p>
+
                   <button
                     type="button"
                     onClick={() => openArticle(article)}
-                    className="text-xs font-bold text-navy group-hover:text-adeshina-blue inline-flex items-center gap-1.5 transition-colors"
+                    className={`mt-auto pt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-colors ${
+                      isHealth
+                        ? 'text-[#0a7a5c] hover:text-[#05264c]'
+                        : 'text-[#02509e] hover:text-[#05264c]'
+                    }`}
                   >
-                    <span>Read Full Notice</span>
-                    <ArrowRight className="w-3.5 h-3.5 text-adeshina-blue group-hover:translate-x-1 transition-transform" />
+                    Read notice
+                    <ArrowRight className="h-4 w-4" />
                   </button>
                 </div>
               </article>
             ))}
+
+            {filteredArticles.length === 0 && (
+              <p className="md:col-span-2 lg:col-span-3 rounded-lg border border-slate-200 bg-white px-5 py-8 text-center text-[15px] text-slate-500">
+                No notices in this category yet.
+              </p>
+            )}
           </div>
         </Container>
       </section>
 
-      {/* Bulletin Reader Modal */}
       {activeArticle && (
         <div
-          className="fixed inset-0 z-50 bg-navy/60 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#041c36]/65 p-4 backdrop-blur-sm"
           onClick={closeArticle}
           role="dialog"
           aria-modal="true"
         >
           <div
-            className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto"
+            className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-lg border border-slate-200 bg-white p-6 sm:p-8 shadow-[0_20px_50px_-20px_rgba(5,38,76,0.45)]"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
-            <div className="flex items-start justify-between gap-4 pb-4 border-b border-slate-100">
+            <div className="flex items-start justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[11px] uppercase tracking-wider font-bold text-adeshina-blue bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-md">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-slate-500">
+                  <span className="font-semibold uppercase tracking-[0.08em] text-[#02509e]">
                     {activeArticle.category}
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">
-                    {activeArticle.date}
-                  </span>
+                  <span aria-hidden="true">·</span>
+                  <span>{activeArticle.date}</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-serif font-bold text-navy mt-1 leading-snug">
+                <h3 className="mt-2 font-serif font-semibold text-2xl text-[#05264c] leading-snug">
                   {activeArticle.title}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={closeArticle}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-navy hover:bg-slate-100 shrink-0"
-                aria-label="Close bulletin"
+                className="rounded-md p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-[#05264c]"
+                aria-label="Close notice"
               >
-                <X className="w-5 h-5" />
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            {/* Full Content */}
-            <div className="py-6 space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
-              {activeArticle.content ? (
-                <p>{activeArticle.content}</p>
-              ) : (
-                <p>{activeArticle.summary}</p>
-              )}
-            </div>
+            <p className="py-6 text-[15px] text-slate-600 leading-relaxed">
+              {activeArticle.content || activeArticle.summary}
+            </p>
 
-            {/* Modal Footer */}
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <Megaphone className="w-4 h-4 text-accent-gold" />
-                <span>Published by Central Senate & Registry, Share Campus</span>
-              </span>
+            <div className="border-t border-slate-200 pt-4">
               <button
                 type="button"
                 onClick={closeArticle}
-                className="px-4 py-2 rounded-lg bg-navy text-white font-bold hover:bg-navy-dark transition-all"
+                className="inline-flex items-center justify-center rounded-md bg-[#05264c] px-5 py-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[#02509e]"
               >
-                Dismiss
+                Close
               </button>
             </div>
           </div>

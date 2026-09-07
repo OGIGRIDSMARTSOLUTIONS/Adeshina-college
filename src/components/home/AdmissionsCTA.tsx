@@ -18,7 +18,7 @@ export function AdmissionsCTA() {
         <div className="inline-flex items-center gap-2 mb-3">
           <span className="w-8 h-0.5 bg-sky-400" aria-hidden="true" />
           <span className="text-xs uppercase tracking-[0.2em] font-bold text-sky-300">
-            2024/2025 ADMISSIONS IN PROGRESS
+            ADMISSIONS IN PROGRESS
           </span>
           <span className="w-8 h-0.5 bg-sky-400" aria-hidden="true" />
         </div>

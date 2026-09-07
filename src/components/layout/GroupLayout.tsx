@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { GatewayHeader } from '@/components/layout/GatewayHeader';
 import { GatewayFooter } from '@/components/layout/GatewayFooter';
+import { ChatLauncher } from '@/components/chatbot/ChatLauncher';
 
 export function GroupLayout() {
   return (
@@ -10,6 +11,7 @@ export function GroupLayout() {
         <Outlet />
       </main>
       <GatewayFooter />
+      <ChatLauncher />
     </div>
   );
 }

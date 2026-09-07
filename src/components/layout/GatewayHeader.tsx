@@ -1,15 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-  GraduationCap,
-  Phone,
-  MapPin,
-  Menu,
-  X,
-  ChevronDown,
-  Stethoscope,
-  BookOpen,
-} from 'lucide-react';
+import { Menu, X, GraduationCap } from 'lucide-react';
 import { siteConfig } from '@/data/siteConfig';
 import { colleges } from '@/data/colleges';
 import { collegePath, CollegeId } from '@/lib/collegePaths';
@@ -18,15 +9,18 @@ import { Container } from '@/components/common/Container';
 const navLinks = [
   { label: 'About', path: '/about' },
   { label: 'News', path: '/news' },
-  { label: 'Contact / Support', path: '/contact' },
+  { label: 'Support', path: '/contact' },
+];
+
+const collegeLinks = [
+  { id: 'health-technology' as CollegeId, label: 'Health Tech' },
+  { id: 'education' as CollegeId, label: 'Education' },
 ];
 
 export function GatewayHeader() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [collegesOpen, setCollegesOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -37,18 +31,7 @@ export function GatewayHeader() {
 
   useEffect(() => {
     setMobileOpen(false);
-    setCollegesOpen(false);
   }, [location.pathname]);
-
-  useEffect(() => {
-    const onOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setCollegesOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', onOutside);
-    return () => document.removeEventListener('mousedown', onOutside);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
@@ -60,160 +43,143 @@ export function GatewayHeader() {
   const isActive = (path: string) =>
     location.pathname === path || location.pathname.startsWith(`${path}/`);
 
+  const navItemClass = (active: boolean) =>
+    `relative inline-flex items-center px-2.5 py-2 text-[14px] font-semibold tracking-[-0.01em] rounded-md transition-all duration-200 ${
+      active
+        ? 'text-[#02509e] bg-[#e2eefb]'
+        : 'text-slate-600 hover:text-[#02509e] hover:bg-[#e2eefb]'
+    }`;
+
+  const collegeButtonClass = (id: CollegeId) => {
+    const active = location.pathname.startsWith(`/colleges/${id}`);
+    if (id === 'health-technology') {
+      return `inline-flex h-9 items-center whitespace-nowrap rounded-md px-3 text-[12px] font-semibold transition-colors duration-200 ${
+        active
+          ? 'bg-[#10a37f] text-white'
+          : 'border border-slate-300 bg-white text-[#05264c] hover:border-[#10a37f] hover:bg-[#10a37f] hover:text-white'
+      }`;
+    }
+    return `inline-flex h-9 items-center whitespace-nowrap rounded-md px-3 text-[12px] font-semibold transition-colors duration-200 ${
+      active
+        ? 'bg-[#02509e] text-white'
+        : 'border border-slate-300 bg-white text-[#05264c] hover:border-[#02509e] hover:bg-[#02509e] hover:text-white'
+    }`;
+  };
+
   return (
     <header
-      className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${
+      className={`sticky top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-300 ${
         isScrolled
-          ? 'shadow-[0_4px_24px_-6px_rgba(8,20,38,0.14)] border-b border-slate-200/80'
-          : 'border-b border-slate-200/90'
+          ? 'bg-white/95 backdrop-blur-md border-slate-200/80 shadow-[0_10px_40px_-18px_rgba(5,38,76,0.28)]'
+          : 'bg-white border-transparent shadow-[0_6px_24px_-14px_rgba(5,38,76,0.16)]'
       }`}
     >
-      <div className="hidden lg:block bg-[#05264c] text-[11px] text-sky-100/90 border-b border-sky-900/40">
-        <Container size="wide" className="flex items-center justify-between h-9">
-          <span className="flex items-center gap-1.5 font-medium">
-            <MapPin className="w-3 h-3 text-sky-300" />
-            {siteConfig.fullLocation}
-          </span>
-          <a
-            href="tel:08135131503"
-            className="flex items-center gap-1.5 hover:text-white transition-colors font-semibold"
-          >
-            <Phone className="w-3 h-3 text-sky-300" />
-            Admissions: 0813 513 1503
-          </a>
-        </Container>
-      </div>
-
       <Container size="wide">
-        <div className="flex items-center justify-between h-[4.25rem] sm:h-20 gap-4">
+        <div className="flex items-center justify-between gap-4 h-[4.75rem] xl:h-[5.25rem]">
           <Link
             to="/"
-            className="flex items-center gap-3 group focus-visible:ring-2 focus-visible:ring-adeshina-blue focus-visible:rounded-lg p-1 -ml-1 min-w-0"
+            className="flex items-center gap-3 group min-w-0 max-w-[48%] xl:max-w-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#02509e]"
           >
             {siteConfig.brand.logoUrl ? (
-              <img
-                src={siteConfig.brand.logoUrl}
-                alt=""
-                className="h-11 w-11 sm:h-14 sm:w-14 object-contain shrink-0 rounded-lg"
-              />
+              <span className="relative shrink-0 rounded-full p-[3px] bg-gradient-to-br from-[#c68a18]/70 via-[#02509e]/25 to-[#05264c]/40 shadow-[0_4px_14px_-6px_rgba(5,38,76,0.45)]">
+                <img
+                  src={siteConfig.brand.logoUrl}
+                  alt=""
+                  className="h-10 w-10 xl:h-12 xl:w-12 object-contain rounded-full bg-white"
+                />
+              </span>
             ) : (
-              <div className="h-11 w-11 rounded-lg bg-navy text-white flex items-center justify-center font-black text-xl">
+              <div className="h-10 w-10 xl:h-12 xl:w-12 rounded-full bg-[#05264c] text-white flex items-center justify-center font-serif font-bold text-xl shrink-0">
                 A
               </div>
             )}
-            <div className="flex flex-col leading-tight text-left min-w-0">
-              <span className="font-serif font-black text-sm sm:text-lg tracking-tight text-[#05264c] group-hover:text-adeshina-blue transition-colors truncate">
-                {siteConfig.institutionName}
+            <div className="flex flex-col text-left min-w-0 leading-none">
+              <span className="font-serif font-semibold text-[1.05rem] xl:text-[1.3rem] text-[#05264c] tracking-[-0.02em] truncate transition-colors group-hover:text-[#02509e]">
+                <span className="xl:hidden">Adeshina Colleges</span>
+                <span className="hidden xl:inline">{siteConfig.institutionName}</span>
               </span>
-              <span className="text-[10px] uppercase tracking-[0.14em] text-slate-500 font-bold">
-                Share · Kwara State
+              <span className="mt-1.5 xl:mt-2 inline-flex items-center gap-2 text-[10px] xl:text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+                <span className="h-px w-3 xl:w-4 bg-[#c68a18]" aria-hidden="true" />
+                Share · Kwara
               </span>
             </div>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-0.5" aria-label="Group navigation">
-            <div className="relative" ref={dropdownRef}>
-              <button
-                type="button"
-                onClick={() => setCollegesOpen((o) => !o)}
-                className={`inline-flex items-center gap-1 px-3 py-2 text-xs font-bold rounded-lg transition-colors ${
-                  location.pathname.startsWith('/colleges/')
-                    ? 'text-adeshina-blue bg-blue-50'
-                    : 'text-slate-600 hover:text-navy hover:bg-slate-50'
-                }`}
-                aria-expanded={collegesOpen}
-              >
-                Colleges
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform ${collegesOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-              {collegesOpen && (
-                <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl border border-slate-200 shadow-lg py-2 z-50">
-                  {colleges.map((c) => {
-                    const id = c.id as CollegeId;
-                    const Icon = id === 'health-technology' ? Stethoscope : BookOpen;
-                    return (
-                      <Link
-                        key={c.id}
-                        to={collegePath(id)}
-                        className="flex items-start gap-3 px-4 py-3 hover:bg-slate-50 transition-colors"
-                      >
-                        <Icon
-                          className={`w-4 h-4 mt-0.5 shrink-0 ${
-                            id === 'health-technology' ? 'text-emerald-600' : 'text-adeshina-blue'
-                          }`}
-                        />
-                        <span>
-                          <span className="block text-xs font-bold text-navy">{c.shortName}</span>
-                          <span className="block text-[11px] text-slate-500 mt-0.5 line-clamp-2">
-                            {c.tagline}
-                          </span>
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
+          {/* Full desktop nav from xl only — avoids crowding at 1024–1279 */}
+          <div className="hidden xl:flex items-center gap-3">
+            <div className="flex items-center gap-1.5 shrink-0">
+              {collegeLinks.map((college) => (
+                <Link
+                  key={college.id}
+                  to={collegePath(college.id)}
+                  className={collegeButtonClass(college.id)}
+                >
+                  {college.label}
+                </Link>
+              ))}
             </div>
 
-            {navLinks.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`px-3 py-2 text-xs font-bold rounded-lg transition-colors ${
-                  isActive(item.path)
-                    ? 'text-adeshina-blue bg-blue-50'
-                    : 'text-slate-600 hover:text-navy hover:bg-slate-50'
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+            <span className="h-7 w-px bg-slate-200" aria-hidden="true" />
 
-          <div className="flex items-center gap-2 shrink-0">
+            <nav className="flex items-center" aria-label="Group navigation">
+              {navLinks.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={navItemClass(isActive(item.path))}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <span className="h-7 w-px bg-slate-200" aria-hidden="true" />
+
             <Link
               to={siteConfig.portals.studentPortal.path}
-              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#05264c] hover:bg-adeshina-blue text-white text-xs font-bold transition-colors shadow-sm"
+              className="group relative inline-flex h-9 items-center gap-2 overflow-hidden rounded-md bg-[#05264c] px-3.5 text-[12px] font-semibold tracking-[0.03em] text-white ring-1 ring-[#c68a18]/60 transition-all duration-300 hover:bg-[#041830] hover:ring-[#e8c56a]"
             >
-              <GraduationCap className="w-3.5 h-3.5 text-sky-300" />
-              <span>{siteConfig.portals.studentPortal.label}</span>
+              <GraduationCap className="w-3.5 h-3.5 text-[#e8c56a] transition-transform duration-300 group-hover:scale-110" />
+              <span>Portal</span>
             </Link>
-            <button
-              type="button"
-              className="lg:hidden p-2 rounded-lg text-navy hover:bg-slate-100"
-              onClick={() => setMobileOpen((o) => !o)}
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
           </div>
+
+          <button
+            type="button"
+            className="xl:hidden inline-flex h-11 w-11 items-center justify-center rounded-md text-[#05264c] transition-colors hover:bg-[#f4f8fc]"
+            onClick={() => setMobileOpen((o) => !o)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </Container>
 
       {mobileOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white shadow-lg">
-          <Container size="wide" className="py-4 space-y-1">
-            <p className="px-3 pt-1 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+        <div className="xl:hidden border-t border-slate-100 bg-white/98 backdrop-blur-sm max-h-[min(70vh,32rem)] overflow-y-auto">
+          <Container size="wide" className="py-5 space-y-1">
+            <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
               Colleges
             </p>
             {colleges.map((c) => (
               <Link
                 key={c.id}
                 to={collegePath(c.id as CollegeId)}
-                className="block px-3 py-2.5 text-sm font-bold text-navy rounded-lg hover:bg-slate-50"
+                className="block rounded-md px-3 py-3 text-[16px] font-medium text-[#05264c] hover:bg-[#f0f7ff] hover:text-[#02509e]"
               >
                 {c.shortName}
               </Link>
             ))}
-            <div className="border-t border-slate-100 my-2" />
+            <div className="border-t border-slate-100 my-3" />
             {navLinks.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`block px-3 py-2.5 text-sm font-bold rounded-lg ${
-                  isActive(item.path) ? 'bg-blue-50 text-adeshina-blue' : 'text-navy hover:bg-slate-50'
+                className={`block rounded-md px-3 py-3 text-[16px] font-medium ${
+                  isActive(item.path)
+                    ? 'text-[#02509e] bg-[#eef5fc]'
+                    : 'text-[#05264c] hover:bg-[#f0f7ff] hover:text-[#02509e]'
                 }`}
               >
                 {item.label}
@@ -221,8 +187,9 @@ export function GatewayHeader() {
             ))}
             <Link
               to="/portal"
-              className="block mt-3 text-center px-4 py-3 rounded-xl bg-[#05264c] text-white text-sm font-bold"
+              className="mt-4 flex items-center justify-center gap-2.5 rounded-md px-6 py-4 text-[14px] font-semibold tracking-[0.03em] text-white bg-[#05264c] ring-1 ring-[#c68a18]/55 hover:bg-[#041830] hover:ring-[#e8c56a] transition-all"
             >
+              <GraduationCap className="w-4 h-4 text-[#e8c56a]" />
               Student Portal
             </Link>
           </Container>

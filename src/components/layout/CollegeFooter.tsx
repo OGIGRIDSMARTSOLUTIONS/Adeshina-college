@@ -10,59 +10,58 @@ export function CollegeFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#05264c] text-white mt-auto border-t border-sky-900/50">
-      <Container size="wide" className="py-14 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
-          <div className="lg:col-span-5 space-y-4">
+    <footer className="relative z-20 bg-[#041c36] text-white mt-auto">
+      <Container size="wide" className="py-14 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+          <div className="md:col-span-5 space-y-4">
             <Link to={path()} className="inline-flex items-center gap-3 group">
               {siteConfig.brand.logoLightUrl ? (
                 <img
                   src={siteConfig.brand.logoLightUrl}
                   alt=""
-                  className="h-10 w-10 object-contain shrink-0 rounded-md bg-white p-1"
+                  className="h-12 w-12 object-contain bg-white p-0.5"
                 />
               ) : null}
               <div className="flex flex-col leading-tight">
-                <span className="font-extrabold text-lg tracking-tight text-white group-hover:text-sky-200 transition-colors">
+                <span className="font-serif font-semibold text-xl text-white group-hover:text-white/90 transition-colors">
                   {college.name}
                 </span>
-                <span className="text-xs uppercase tracking-widest text-sky-200/80 font-semibold">
+                <span className="mt-1.5 text-xs uppercase tracking-[0.16em] text-white/60 font-medium">
                   {siteConfig.location} · Kwara State
                 </span>
               </div>
             </Link>
-            <p className="text-sm text-sky-100/90 leading-relaxed max-w-sm">{college.tagline}</p>
-            <div className="pt-2 text-xs text-sky-200/80 space-y-1">
-              <p>
+            <p className="text-[15px] text-white/70 leading-relaxed max-w-sm">{college.tagline}</p>
+            <ul className="space-y-2 text-[15px] text-white/75 pt-1">
+              <li>
                 {siteConfig.contact.campusAddress}, {siteConfig.contact.stateCountry}
-              </p>
-              <p>
-                Inquiries:{' '}
-                <a href="tel:08135131503" className="text-white hover:text-sky-300 font-medium">
+              </li>
+              <li>
+                <a href="tel:08135131503" className="hover:text-white transition-colors">
                   0813 513 1503
-                </a>{' '}
-                ·{' '}
+                </a>
+                {' · '}
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
-                  className="text-white hover:text-sky-300 font-medium"
+                  className="hover:text-white transition-colors break-all"
                 >
                   {siteConfig.contact.email}
                 </a>
-              </p>
-            </div>
+              </li>
+            </ul>
           </div>
 
           {sections.map((section) => (
-            <div key={section.title} className="lg:col-span-3 sm:col-span-1">
-              <h3 className="text-xs font-bold tracking-widest uppercase text-sky-300 mb-4">
+            <div key={section.title} className="md:col-span-3 space-y-3.5">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#e8c56a]">
                 {section.title}
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-3 text-[15px]">
                 {section.items.map((item) => (
                   <li key={item.path}>
                     <Link
                       to={item.path}
-                      className="text-sm text-sky-100/80 hover:text-white transition-colors block"
+                      className="text-white/75 hover:text-white transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -74,10 +73,10 @@ export function CollegeFooter() {
         </div>
       </Container>
 
-      <div className="bg-[#031933] py-5 border-t border-sky-900/40">
+      <div className="border-t border-white/10 py-5">
         <Container
           size="wide"
-          className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-sky-200/70"
+          className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/55"
         >
           <p>
             &copy; {year} {college.name}. Part of {siteConfig.institutionName}.
@@ -87,12 +86,14 @@ export function CollegeFooter() {
               href={siteConfig.designerUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sky-300 hover:text-white transition-colors"
+              className="text-[13px] sm:text-sm font-semibold tracking-wide text-[#e8c56a] transition-colors duration-300 hover:text-white"
             >
               {siteConfig.designerCredit}
             </a>
           ) : (
-            <p>{siteConfig.designerCredit}</p>
+            <p className="text-[13px] sm:text-sm font-semibold tracking-wide text-[#e8c56a]">
+              {siteConfig.designerCredit}
+            </p>
           )}
         </Container>
       </div>

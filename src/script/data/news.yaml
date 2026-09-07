@@ -1,14 +1,20 @@
 # =============================================================================
 # news.yaml  =  NEWS / UPDATES (articles)
 # =============================================================================
-# Each item is one news article (title, date, summary, content…)
-# Edit here, then:  npm run sync:news -- load news.yaml
+# Edit THIS file when the school sends a new notice.
+# Then run:  npm run sync:news
+# That regenerates src/data/news.ts for the site.
+#
+# collegeId options:
+#   health-technology  → shows on Health Tech news (+ Group)
+#   education          → shows on Education news (+ Group)
+#   (omit collegeId)   → Group-wide notice (shows on all college news too)
 #
 newsArticles:
-  - id: matriculation-ceremony-2024-2025
-    title: Matriculation Ceremony Announced for 2024/2025 Academic Session
-    slug: matriculation-ceremony-2024-2025
-    date: October 14, 2024
+  - id: matriculation-ceremony-2026-2027
+    title: Matriculation Ceremony Announced for 2026/2027 Academic Session
+    slug: matriculation-ceremony-2026-2027
+    date: September 5, 2026
     category: Academic Notice
     summary: >-
       The combined Senate of Adeshina Group of Colleges welcomes newly admitted matriculating
@@ -16,7 +22,7 @@ newsArticles:
     content: >-
       The Management and Academic Board of Adeshina Group of Colleges wish to inform all newly
       admitted students into Adeshina College of Health Technology and Adeshina College of Education
-      that the official Matriculation and Oath-Taking Ceremony for the 2024/2025 academic session is
+      that the official Matriculation and Oath-Taking Ceremony for the 2026/2027 academic session is
       scheduled to take place at the Main Campus Auditorium in Share, Kwara State. All matriculating
       students are required to collect their academic gowns from their respective departmental
       registries upon presentation of proof of registration and fee clearance.
@@ -60,7 +66,7 @@ newsArticles:
     category: Academic Notice
     collegeId: education
     summary: >-
-      The School of Education organises a mandatory orientation workshop on modern classroom
+      The College of Education organises a mandatory orientation workshop on modern classroom
       management and instructional lesson delivery ahead of external practicum.
     content: >-
       The Directorate of Teaching Practice at Adeshina College of Education has scheduled an

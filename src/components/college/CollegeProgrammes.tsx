@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Stethoscope, CheckCircle2 } from 'lucide-react';
+import { BookOpen, Stethoscope } from 'lucide-react';
 import { College } from '@/types/college';
 import { programmes } from '@/data/programmes';
 import { Container } from '@/components/common/Container';
@@ -11,131 +11,95 @@ interface CollegeProgrammesProps {
 export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
   const isHealth = college.id === 'health-technology';
   const collegeProgrammes = programmes.filter((p) => p.collegeId === college.id);
+  const previewProgrammes = collegeProgrammes.slice(0, 3);
 
   return (
-    <section id="programmes-list" className="py-20 lg:py-28 bg-[#f4f7fb] border-b border-slate-200/80">
+    <section id="programmes-list" className="py-20 lg:py-28 bg-white border-b border-slate-200">
       <Container size="wide">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-14">
-          <div>
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
-              ACADEMIC OFFERINGS
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-serif font-black tracking-tight text-navy leading-tight">
-              Programmes at {college.shortName}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-12">
+          <div className="max-w-3xl">
+            <h2 className="font-serif font-semibold text-4xl sm:text-5xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
+              Our programmes
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">
-              Accredited and structured programmes designed for professional competency and immediate career readiness.
+            <p className="mt-4 text-xl sm:text-2xl font-serif text-[#02509e] leading-snug tracking-[-0.01em]">
+              {isHealth
+                ? 'Health training pathways for clinical and community practice'
+                : 'Teacher education pathways for classroom leadership'}
+            </p>
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+              {isHealth
+                ? 'Adeshina College of Health Technology prepares students for roles in community health, laboratory science, pharmacy support, environmental health, and related services. Below are a few of our pathways — open the full list for every programme, duration, and study mode.'
+                : 'Adeshina College of Education prepares students for teaching practice, pedagogy, and instructional leadership. Below are a few of our pathways — open the full list for every programme, duration, and study mode.'}
             </p>
           </div>
 
           <Link
-            to={`/colleges/${college.id}/admissions`}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy text-white text-xs sm:text-sm font-bold hover:bg-navy-dark transition-all shrink-0 self-start md:self-auto shadow-sm"
+            to={`/colleges/${college.id}/programmes`}
+            className="inline-flex items-center justify-center rounded-md bg-[#05264c] px-6 py-3.5 text-[14px] font-semibold text-white transition-colors duration-300 hover:bg-[#02509e] shrink-0 self-start md:self-auto"
           >
-            <span>Admission Guidelines</span>
-            <ArrowRight className="w-4 h-4 text-accent-gold" />
+            View all programmes
           </Link>
         </div>
 
-        {/* 3-Column Structured Grand-Plus Style Programme Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
-          {collegeProgrammes.map((prog) => (
-            <div
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          {previewProgrammes.map((prog, index) => (
+            <Link
               key={prog.id}
-              className="bg-white rounded-xl p-6 sm:p-7 border border-slate-200/90 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] hover:shadow-lg hover:border-adeshina-blue/40 transition-all duration-200 flex flex-col justify-between group"
+              to={`/colleges/${college.id}/programmes`}
+              className="group flex h-full flex-col overflow-hidden rounded-lg bg-white ring-1 ring-slate-200/90 shadow-[0_10px_28px_-12px_rgba(5,38,76,0.28)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgba(5,38,76,0.35)] hover:ring-[#02509e]/45"
             >
-              <div>
-                {/* Badge Row */}
-                <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="relative aspect-[16/10] bg-[#041c36]">
+                <img
+                  src={
+                    prog.image ||
+                    (isHealth
+                      ? '/images/health-technology/health-campus-1.jpg'
+                      : '/images/education/campus-gate.jpg')
+                  }
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <span className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#05264c] text-[12px] font-semibold text-white shadow-sm">
+                  {index + 1}
+                </span>
+              </div>
+
+              <div className="flex flex-1 flex-col p-6 sm:p-7">
+                <div className="flex items-center justify-between gap-2">
                   <span
-                    className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider ${
+                    className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider ${
                       isHealth
-                        ? 'bg-emerald-50 text-[#0b6b54] border border-emerald-100/80'
-                        : 'bg-blue-50 text-navy border border-blue-100/80'
+                        ? 'bg-emerald-50 text-[#0b6b54]'
+                        : 'bg-[#eef5fc] text-[#02509e]'
                     }`}
                   >
                     {isHealth ? (
-                      <Stethoscope className="w-3 h-3 text-[#10a37f]" />
+                      <Stethoscope className="w-3 h-3" />
                     ) : (
-                      <BookOpen className="w-3 h-3 text-adeshina-blue" />
+                      <BookOpen className="w-3 h-3" />
                     )}
                     {prog.level}
                   </span>
-
-                  <span className="text-[11px] font-semibold text-slate-400">
-                    {prog.duration}
-                  </span>
+                  <span className="text-[12px] font-medium text-slate-500">{prog.duration}</span>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-lg font-serif font-bold text-navy leading-snug group-hover:text-adeshina-blue transition-colors">
+                <h3 className="mt-4 font-serif font-semibold text-xl sm:text-[1.35rem] text-[#05264c] leading-snug transition-colors group-hover:text-[#02509e]">
                   {prog.name}
                 </h3>
-
-                {/* Description */}
                 {prog.description && (
-                  <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed line-clamp-2">
+                  <p className="mt-3 text-[15px] text-slate-600 leading-relaxed line-clamp-3">
                     {prog.description}
                   </p>
                 )}
 
-                {/* Structured Metadata block */}
-                <div className="mt-4 pt-4 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400 font-medium">Award / Qualification:</span>
-                    <span className="font-semibold text-navy">{prog.level}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400 font-medium">Study Mode:</span>
-                    <span className="font-semibold text-navy">{prog.mode.join(', ')}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-400 font-medium">Duration:</span>
-                    <span className="font-semibold text-navy">{prog.duration}</span>
-                  </div>
+                <div className="mt-auto pt-6">
+                  <span className="text-[14px] font-semibold text-[#02509e] transition-colors group-hover:text-[#05264c]">
+                    Programme details
+                  </span>
                 </div>
               </div>
-
-              {/* Action Buttons */}
-              <div className="mt-6 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2.5">
-                <Link
-                  to={`/colleges/${college.id}/programmes`}
-                  className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-navy bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors text-center"
-                >
-                  View Details
-                </Link>
-
-                <Link
-                  to={`/colleges/${college.id}/apply`}
-                  className="inline-flex items-center justify-center px-3 py-2 text-xs font-bold text-white bg-navy hover:bg-adeshina-blue active:bg-adeshina-blue-dark rounded-lg shadow-sm hover:shadow-md transition-all duration-200 text-center"
-                >
-                  Apply Now
-                </Link>
-              </div>
-            </div>
+            </Link>
           ))}
-        </div>
-
-        {/* Bottom Callout: Shared Requirements Note */}
-        <div className="mt-12 p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy flex items-center justify-center shrink-0">
-              <CheckCircle2 className="w-5 h-5 text-accent-gold" />
-            </div>
-            <div>
-              <p className="font-bold text-navy text-sm sm:text-base">Need Entry Requirement Clarifications?</p>
-              <p className="text-xs sm:text-sm text-slate-500">Review SSCE O'Level requirements and admission guidelines at the central admissions portal.</p>
-            </div>
-          </div>
-
-          <Link
-            to={`/colleges/${college.id}/admissions`}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-navy hover:text-adeshina-blue uppercase tracking-wider shrink-0 px-4 py-2 rounded-lg hover:bg-slate-50 transition-colors"
-          >
-            <span>Review Admissions</span>
-            <ArrowRight className="w-4 h-4 text-adeshina-blue" />
-          </Link>
         </div>
       </Container>
     </section>
