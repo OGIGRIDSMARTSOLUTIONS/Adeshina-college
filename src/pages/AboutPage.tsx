@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Compass, ShieldCheck, Award, Users, Microscope } from 'lucide-react';
 import { Container } from '@/components/common/Container';
+import { GroupAbout } from '@/components/group/GroupAbout';
 import { useScopedPath } from '@/context/CollegeContext';
 
 export function AboutPage() {
   const { college: scope, path, isGroup } = useScopedPath();
+
+  // Group of Colleges — Design Direction v1 (college about unchanged below)
+  if (isGroup) {
+    return <GroupAbout />;
+  }
+
   const collegeId = scope?.collegeId;
   const isHealth = collegeId === 'health-technology';
   const isEducation = collegeId === 'education';

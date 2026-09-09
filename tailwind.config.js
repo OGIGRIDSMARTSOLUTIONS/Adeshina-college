@@ -42,6 +42,7 @@ export default {
       },
       fontFamily: {
         serif: [
+          '"Source Serif 4"',
           'Georgia',
           'Cambria',
           '"Times New Roman"',
@@ -49,12 +50,9 @@ export default {
           'serif',
         ],
         sans: [
-          '-apple-system',
-          'BlinkMacSystemFont',
+          '"DM Sans"',
           '"Segoe UI"',
-          'Roboto',
-          'Helvetica',
-          'Arial',
+          'system-ui',
           'sans-serif',
         ],
       },

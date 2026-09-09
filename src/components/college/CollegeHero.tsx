@@ -45,7 +45,7 @@ export function CollegeHero({ college }: CollegeHeroProps) {
         <div className="max-w-2xl">
           <div className="mb-5 sm:mb-6">
             <span
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-md text-[12px] sm:text-[13px] font-bold uppercase tracking-[0.14em] ${
+              className={`type-label inline-flex items-center gap-2 px-4 py-2 rounded-md ${
                 isHealth
                   ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-400/35'
                   : 'bg-sky-500/20 text-sky-200 border border-sky-400/35'
@@ -56,18 +56,18 @@ export function CollegeHero({ college }: CollegeHeroProps) {
             </span>
           </div>
 
-          <h1 className="font-serif font-semibold text-[2.35rem] sm:text-5xl lg:text-[3.35rem] tracking-[-0.02em] text-white leading-[1.12]">
+          <h1 className="type-hero text-white">
             {headline}
           </h1>
 
-          <p className="mt-6 text-[15px] sm:text-lg text-white/85 leading-relaxed max-w-xl">
+          <p className="type-body-lg mt-6 text-white/85 max-w-xl">
             {college.description}
           </p>
 
           <div className="mt-9 flex flex-col sm:flex-row gap-3.5">
             <Link
               to={`/colleges/${college.id}/apply`}
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-[#05264c] px-8 py-3.5 text-[15px] font-semibold tracking-[0.02em] text-white shadow-[0_12px_28px_-12px_rgba(0,0,0,0.55)] ring-1 ring-[#c68a18]/70 transition-all duration-300 hover:bg-[#041830] hover:ring-[#e8c56a]"
+              className="type-button group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-[#05264c] px-8 py-3.5 text-white shadow-[0_12px_28px_-12px_rgba(0,0,0,0.55)] ring-1 ring-[#c68a18]/70 transition-all duration-300 hover:bg-[#041830] hover:ring-[#e8c56a]"
             >
               <span
                 className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e8c56a] to-transparent"
@@ -78,7 +78,7 @@ export function CollegeHero({ college }: CollegeHeroProps) {
             </Link>
             <a
               href="#programmes-list"
-              className="inline-flex items-center justify-center rounded-md border border-white/45 bg-white/10 px-8 py-3.5 text-[15px] font-semibold tracking-[0.02em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#05264c] hover:border-white"
+              className="type-button inline-flex items-center justify-center rounded-md border border-white/45 bg-white/10 px-8 py-3.5 text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#05264c] hover:border-white"
             >
               Explore Programmes
             </a>

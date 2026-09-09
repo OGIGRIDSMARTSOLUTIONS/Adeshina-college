@@ -79,26 +79,26 @@ export function CollegeOverview({ college }: CollegeOverviewProps) {
     <section className="py-20 lg:py-28 bg-[#f8fafc] border-b border-slate-200">
       <Container size="wide">
         <div className="max-w-3xl mb-12 md:mb-16">
-          <h2 className="font-serif font-semibold text-4xl sm:text-5xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
+          <h2 className="type-section-lg text-[#05264c]">
             {isHealth ? 'About Health Technology' : 'About the College of Education'}
           </h2>
-          <p className="mt-4 text-xl sm:text-2xl font-serif text-[#02509e] leading-snug tracking-[-0.01em]">
+          <p className="type-subtitle mt-4 text-[#02509e]">
             {isHealth
               ? 'Training skilled health workers for Nigeria’s frontline services'
               : 'Preparing teachers for Nigerian classrooms with strong subject mastery and practical pedagogy'}
           </p>
-          <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed">
+          <p className="type-body-lg mt-5 text-slate-600">
             {college.description}
           </p>
           {isHealth ? (
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            <p className="type-body-lg mt-4 text-slate-600">
               As part of Adeshina Group of Colleges, the College of Health Technology shares the Share
               campus with the College of Education while keeping a clear professional focus: producing
               disciplined, ethically grounded practitioners who can serve clinics, communities, and
               health facilities with competence.
             </p>
           ) : (
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            <p className="type-body-lg mt-4 text-slate-600">
               As part of Adeshina Group of Colleges, the College of Education shares the Share campus
               with the College of Health Technology while keeping a clear professional focus: producing
               disciplined, classroom-ready teachers who can serve primary and junior secondary schools
@@ -122,10 +122,10 @@ export function CollegeOverview({ college }: CollegeOverviewProps) {
                 >
                   <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="mt-5 font-serif font-semibold text-lg text-[#05264c] leading-snug">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-[14px] text-slate-600 leading-relaxed">{item.description}</p>
+                  <h3 className="type-card-title mt-5 text-[#05264c]">
+                    {item.title}
+                  </h3>
+                  <p className="type-body-sm mt-3 text-slate-600">{item.description}</p>
               </div>
             );
           })}
@@ -133,7 +133,7 @@ export function CollegeOverview({ college }: CollegeOverviewProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           <div className="lg:col-span-7 space-y-4">
-            <h3 className="font-serif font-semibold text-2xl text-[#05264c] tracking-[-0.015em]">
+            <h3 className="font-serif text-2xl font-semibold tracking-[-0.015em] text-[#05264c]">
               How we train
             </h3>
             {college.features?.map((feature, idx) => (
@@ -151,8 +151,8 @@ export function CollegeOverview({ college }: CollegeOverviewProps) {
                   {`0${idx + 1}`}
                 </div>
                 <div>
-                  <h4 className="font-serif font-semibold text-lg text-[#05264c]">{feature.title}</h4>
-                  <p className="mt-2 text-[15px] text-slate-600 leading-relaxed">
+                  <h4 className="type-card-title text-[#05264c]">{feature.title}</h4>
+                  <p className="type-body-sm mt-2 text-slate-600">
                     {feature.description}
                   </p>
                 </div>
@@ -162,10 +162,10 @@ export function CollegeOverview({ college }: CollegeOverviewProps) {
 
           <div className="lg:col-span-5">
             <div className="h-full rounded-lg bg-white p-7 sm:p-8 ring-1 ring-slate-200/90 shadow-[0_8px_24px_-12px_rgba(5,38,76,0.16)]">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#c68a18]">
+              <p className="type-label text-[#c68a18]">
                 Training focus areas
               </p>
-              <h3 className="mt-3 font-serif font-semibold text-xl text-[#05264c]">
+              <h3 className="type-card-title mt-3 text-xl text-[#05264c]">
                 {isHealth ? 'Core health competencies' : 'Core teaching competencies'}
               </h3>
               <ul className="mt-6 space-y-3.5">

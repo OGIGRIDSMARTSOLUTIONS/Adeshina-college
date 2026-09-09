@@ -4,6 +4,7 @@ import { ArrowRight, ArrowLeft, Calendar, X } from 'lucide-react';
 import { newsArticles } from '@/data/news';
 import { NewsArticle } from '@/types/news';
 import { Container } from '@/components/common/Container';
+import { GroupNews } from '@/components/group/GroupNews';
 import { useScopedPath } from '@/context/CollegeContext';
 
 export function NewsPage() {
@@ -39,6 +40,7 @@ export function NewsPage() {
   };
 
   useEffect(() => {
+    if (isGroup) return;
     const slug = location.hash.replace(/^#/, '');
     if (!slug) {
       setActiveArticle(null);
@@ -48,7 +50,7 @@ export function NewsPage() {
     if (match) {
       setActiveArticle(match);
     }
-  }, [location.hash, collegeArticles]);
+  }, [location.hash, collegeArticles, isGroup]);
 
   const categories = useMemo(() => {
     const set = new Set<string>();
@@ -60,6 +62,10 @@ export function NewsPage() {
     if (selectedCategory === 'all') return collegeArticles;
     return collegeArticles.filter((article) => article.category === selectedCategory);
   }, [collegeArticles, selectedCategory]);
+
+  if (isGroup) {
+    return <GroupNews />;
+  }
 
   const isHealth = collegeId === 'health-technology';
   const heroImage = isHealth

@@ -81,15 +81,15 @@ export function ProgrammesPage() {
               Back to College Home
             </Link>
 
-            <h1 className="mt-6 font-serif font-semibold text-4xl sm:text-5xl md:text-[3.25rem] tracking-[-0.02em] leading-[1.12] text-white">
+            <h1 className="type-hero mt-6 text-white">
               {isHealth ? 'Health Technology programmes' : 'NCE programmes'}
             </h1>
-            <p className="mt-4 text-xl sm:text-2xl font-serif text-[#e8c56a] leading-snug tracking-[-0.01em]">
+            <p className="type-subtitle mt-4 text-[#e8c56a]">
               {isHealth
                 ? 'Diploma & Certificate pathways'
                 : 'Teacher education pathways'}
             </p>
-            <p className="mt-5 text-base sm:text-lg text-white/85 leading-relaxed max-w-2xl">
+            <p className="type-body-lg mt-5 text-white/85 max-w-2xl">
               {isHealth
                 ? 'Diploma and Certificate pathways in community health, laboratory science, pharmacy technology, and related health fields at Adeshina College of Health Technology, Share.'
                 : 'Nigeria Certificate in Education pathways in primary education, early childhood, sciences, languages, social studies, and related teaching combinations at Adeshina College of Education, Share.'}
