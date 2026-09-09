@@ -39,18 +39,92 @@
 
   body {
     margin: 0;
-    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
     background-color: var(--color-background);
     color: var(--color-text);
     min-height: 100vh;
   }
 
-  .font-serif {
-    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
-  }
-
   *:focus-visible {
     outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
+  }
+}
+
+/*
+  Typography roles (classified for containers)
+  --------------------------------------------
+  Families:
+    - Sans  = DM Sans         → UI, body, nav, buttons, labels
+    - Serif = Source Serif 4  → brand titles / display headings
+
+  Container map:
+    Header brand name     → type-brand
+    Header meta line      → type-meta
+    Header nav            → type-nav
+    Header buttons        → type-button / type-button-sm
+    Page hero title       → type-hero
+    Hero support line     → type-subtitle
+    Hero paragraph        → type-body-lg
+    Section titles        → type-section / type-section-lg
+    Card titles           → type-card-title
+    Body paragraphs       → type-body / type-body-sm
+    Eyebrows / form labels→ type-label
+*/
+@layer components {
+  .type-hero {
+    @apply font-serif font-semibold text-4xl sm:text-5xl md:text-[3.25rem] tracking-[-0.02em] leading-[1.12];
+  }
+
+  .type-brand {
+    @apply font-serif font-semibold text-[1.05rem] xl:text-[1.25rem] tracking-[-0.02em] leading-none;
+  }
+
+  .type-section {
+    @apply font-serif font-semibold text-3xl sm:text-4xl tracking-[-0.02em] leading-[1.12];
+  }
+
+  .type-section-lg {
+    @apply font-serif font-semibold text-4xl sm:text-5xl tracking-[-0.02em] leading-[1.12];
+  }
+
+  .type-subtitle {
+    @apply font-serif text-xl sm:text-2xl leading-snug tracking-[-0.01em];
+  }
+
+  .type-card-title {
+    @apply font-serif font-semibold text-lg leading-snug tracking-[-0.015em];
+  }
+
+  .type-body {
+    @apply font-sans text-base leading-relaxed;
+  }
+
+  .type-body-lg {
+    @apply font-sans text-base sm:text-lg leading-relaxed;
+  }
+
+  .type-body-sm {
+    @apply font-sans text-sm leading-relaxed;
+  }
+
+  .type-label {
+    @apply font-sans text-[11px] font-semibold uppercase tracking-[0.12em];
+  }
+
+  .type-meta {
+    @apply font-sans text-[10px] xl:text-[11px] font-semibold uppercase tracking-[0.16em];
+  }
+
+  .type-nav {
+    @apply font-sans text-[14px] font-semibold tracking-[-0.01em];
+  }
+
+  .type-button {
+    @apply font-sans text-[13px] font-semibold;
+  }
+
+  .type-button-sm {
+    @apply font-sans text-[12px] font-semibold;
   }
 }

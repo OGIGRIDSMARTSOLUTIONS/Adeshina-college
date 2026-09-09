@@ -55,11 +55,11 @@ export function AdmissionsPage() {
               </span>
             </div>
 
-            <h1 className="mt-6 font-serif font-semibold text-4xl sm:text-5xl md:text-[3.25rem] tracking-[-0.02em] leading-[1.12] text-white">
+            <h1 className="type-hero mt-6 text-white">
               Admissions at {college.shortName}
             </h1>
 
-            <p className="mt-5 text-base sm:text-lg text-white/85 leading-relaxed max-w-2xl">
+            <p className="type-body-lg mt-5 text-white/85 max-w-2xl">
               {isHealth
                 ? 'Entry requirements, application steps, and guidance for candidates applying to Adeshina College of Health Technology, Share.'
                 : 'Entry requirements, application steps, and guidance for candidates applying to Adeshina College of Education, Share.'}

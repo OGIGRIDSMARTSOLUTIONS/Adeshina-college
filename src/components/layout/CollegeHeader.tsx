@@ -56,7 +56,7 @@ export function CollegeHeader() {
   };
 
   const navItemClass = (active: boolean) =>
-    `inline-flex items-center px-2.5 py-2 text-[14px] font-semibold tracking-[-0.01em] rounded-md transition-all duration-200 ${
+    `type-nav inline-flex items-center px-2.5 py-2 rounded-md transition-all duration-200 ${
       active
         ? 'text-[#02509e] bg-[#e2eefb]'
         : 'text-slate-600 hover:text-[#02509e] hover:bg-[#e2eefb]'
@@ -98,7 +98,7 @@ export function CollegeHeader() {
               </div>
             )}
             <div className="flex flex-col text-left min-w-0 leading-none">
-              <span className="font-serif font-semibold text-[1rem] xl:text-[1.2rem] text-[#05264c] tracking-[-0.02em] truncate xl:whitespace-nowrap xl:overflow-visible transition-colors group-hover:text-[#02509e]">
+              <span className="type-brand text-[#05264c] truncate xl:whitespace-nowrap xl:overflow-visible transition-colors group-hover:text-[#02509e]">
                 {isHealth ? (
                   <>
                     <span className="xl:hidden">Health Technology</span>
@@ -111,7 +111,7 @@ export function CollegeHeader() {
                   </>
                 )}
               </span>
-              <span className="mt-1.5 xl:mt-2 inline-flex items-center gap-2 text-[10px] xl:text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+              <span className="type-meta mt-1.5 xl:mt-2 inline-flex items-center gap-2 text-slate-500">
                 <span className="h-px w-3 xl:w-3.5" style={{ backgroundColor: accent }} aria-hidden="true" />
                 Adeshina · Share
               </span>
@@ -133,7 +133,7 @@ export function CollegeHeader() {
             <div className="flex items-center gap-1.5 shrink-0">
               <Link
                 to={path('apply')}
-                className={`inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-3.5 text-[12px] font-semibold text-white transition-colors duration-200 ${
+                className={`type-button inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-3.5 text-white transition-colors duration-200 ${
                   isHealth
                     ? 'bg-[#10a37f] hover:bg-[#0a7a5c]'
                     : 'bg-[#02509e] hover:bg-[#013a75]'

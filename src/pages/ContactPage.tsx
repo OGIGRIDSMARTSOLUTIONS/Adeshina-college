@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { siteConfig } from '@/data/siteConfig';
 import { Container } from '@/components/common/Container';
+import { GroupContact } from '@/components/group/GroupContact';
 import { useScopedPath } from '@/context/CollegeContext';
 
 export function ContactPage() {
@@ -36,6 +37,10 @@ export function ContactPage() {
     if (!formData.name || !formData.phone || !formData.message) return;
     setSubmitted(true);
   };
+
+  if (isGroup) {
+    return <GroupContact />;
+  }
 
   const quickHelp = [
     {

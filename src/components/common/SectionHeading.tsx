@@ -25,7 +25,7 @@ export function SectionHeading({
     <div className={`flex flex-col max-w-3xl mb-10 ${alignmentClass} ${className}`}>
       {eyebrow && (
         <span
-          className={`text-xs uppercase tracking-widest font-bold mb-2 ${
+          className={`type-label mb-2 ${
             dark ? 'text-adeshina-blue-light' : 'text-adeshina-blue'
           }`}
         >
@@ -33,7 +33,7 @@ export function SectionHeading({
         </span>
       )}
       <h2
-        className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight ${
+        className={`type-section ${
           dark ? 'text-text-onDark' : 'text-text'
         }`}
       >
@@ -41,7 +41,7 @@ export function SectionHeading({
       </h2>
       {subtitle && (
         <p
-          className={`mt-3 text-base sm:text-lg leading-relaxed ${
+          className={`type-body-lg mt-3 ${
             dark ? 'text-muted-onDark' : 'text-muted'
           }`}
         >
