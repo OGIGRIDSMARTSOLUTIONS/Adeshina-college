@@ -5,7 +5,7 @@
 # Edit here, then:  npm run sync:admissions -- load admissions.yaml
 #
 admissionInfo:
-  session: 2024/2025 & 2025/2026 Academic Sessions
+  session: 2025/2026 & 2026/2027 Academic Sessions
   applicationOpen: true
   generalNotice: >-
     Applications are currently invited from suitably qualified candidates for admission into various

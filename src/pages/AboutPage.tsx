@@ -1,255 +1,552 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, Compass, ShieldCheck, Award, Users, Microscope, CheckCircle2, Landmark } from 'lucide-react';
+import { ArrowLeft, Compass, ShieldCheck, Award, Users, Microscope } from 'lucide-react';
 import { Container } from '@/components/common/Container';
+import { useScopedPath } from '@/context/CollegeContext';
 
 export function AboutPage() {
-  const coreValues = [
-    {
-      title: 'Practical Competency',
-      description: 'Prioritizing hands-on diagnostic laboratory practice, clinical simulations, and real-school teaching practicums over abstract theory.',
-      icon: Microscope,
-    },
-    {
-      title: 'Moral Integrity & Discipline',
-      description: 'Fostering professional ethics, accountability, and high character benchmarks essential for healthcare practitioners and school educators.',
-      icon: ShieldCheck,
-    },
-    {
-      title: 'Community & Regional Impact',
-      description: 'Directly addressing workforce shortages in primary healthcare clinics and basic education schools across Kwara State and Nigeria.',
-      icon: Users,
-    },
-    {
-      title: 'Academic Rigour',
-      description: 'Structured curricula aligned with national vocational and educational regulatory standards for seamless career transition or Direct Entry.',
-      icon: Award,
-    },
-  ];
+  const { college: scope, path, isGroup } = useScopedPath();
+  const collegeId = scope?.collegeId;
+  const isHealth = collegeId === 'health-technology';
+  const isEducation = collegeId === 'education';
+  const accent = isHealth ? '#10a37f' : '#e8c56a';
+  const hoverRingClass = isHealth
+    ? 'hover:ring-[#10a37f]/40'
+    : 'hover:ring-[#02509e]/35';
 
-  const milestones = [
-    {
-      year: '2011',
-      title: 'Foundational Establishment',
-      description: 'Adeshina was founded in Share, Kwara State, to create accessible, high-standard tertiary pathways for students seeking careers in education and health technology.',
-    },
-    {
-      year: 'Expansion',
-      title: 'Two Specialized Academic Divisions',
-      description: 'Integrated the College of Health Technology and the College of Education on one unified, serene campus sharing central administrative infrastructure.',
-    },
-    {
-      year: 'Present',
-      title: 'Over 40 Distinct Disciplines',
-      description: 'Delivering comprehensive Diploma, NCE, and Certificate training with modern clinical suites, computer laboratories, and extensive clinical postings.',
-    },
-  ];
+  const trainingFocusItems = isHealth
+    ? [
+        'Community Health',
+        'Laboratory Science',
+        'Pharmacy Technology',
+        'Environmental Health',
+      ]
+    : isEducation
+      ? [
+          'Primary Education',
+          'Science & Mathematics',
+          'Language Arts',
+          'Vocational Education',
+        ]
+      : null;
+  const heroImage = isHealth
+    ? '/images/health-technology/health-campus-1.jpg'
+    : isEducation
+      ? '/images/education/campus-gate.jpg'
+      : '/images/education/campus-gate.jpg';
+
+  const heroTitle = isHealth
+    ? 'About the College of Health Technology'
+    : isEducation
+      ? 'About the College of Education'
+      : 'About the school';
+
+  const heroSubtitle = isHealth
+    ? 'Professional training for Nigeria’s frontline health workforce'
+    : isEducation
+      ? 'Excellence in teacher training and instructional leadership'
+      : 'A centre of excellence in healthcare & educator development';
+
+  const heroDescription = isHealth
+    ? 'Based in Share, Kwara State, Adeshina College of Health Technology prepares disciplined, ethically grounded practitioners for community health, clinical support, laboratory science, and related health-technology careers.'
+    : isEducation
+      ? 'Based in Share, Kwara State, Adeshina College of Education equips future teachers with strong academic foundations, modern pedagogy, and practical classroom experience.'
+      : 'Located in Share, Kwara State, Adeshina brings two dedicated institutions together on one campus to forge ethical, highly skilled professionals.';
+
+  const heroStats = isHealth
+    ? [
+        { value: 'Est. 2011', label: 'Institutional legacy' },
+        { value: 'Diploma & Certificate', label: 'Health programmes' },
+        { value: 'Clinical focus', label: 'Labs & community posting' },
+        { value: 'Share, Kwara', label: 'Dedicated campus setting' },
+      ]
+    : isEducation
+      ? [
+          { value: 'Est. 2011', label: 'Institutional legacy' },
+          { value: 'NCE pathways', label: 'Teacher education' },
+          { value: 'Practicum-led', label: 'Classroom preparation' },
+          { value: 'Share, Kwara', label: 'Dedicated campus setting' },
+        ]
+      : [
+          { value: 'Est. 2011', label: 'Foundational legacy' },
+          { value: '2 Colleges', label: 'Health Tech & Education' },
+          { value: '40+', label: 'Academic programmes' },
+          { value: 'Share, Kwara', label: 'Serene campus' },
+        ];
+
+  const purposeSubtitle = isHealth
+    ? 'Training ethical, practice-ready health professionals.'
+    : isEducation
+      ? 'Preparing disciplined teachers for Nigerian classrooms.'
+      : 'Two distinct colleges. One shared commitment to service.';
+
+  const purposeParagraphs = isHealth
+    ? [
+        'Adeshina College of Health Technology exists to strengthen Nigeria’s primary healthcare workforce — producing graduates who can serve clinics, communities, and health facilities with competence and character.',
+        'On our Share campus in Ifelodun LGA, students train in diagnostic labs, clinical simulation spaces, and supervised community postings. Learning stays practical, disciplined, and focused on workplace readiness across Kwara State and beyond.',
+      ]
+    : isEducation
+      ? [
+          'Adeshina College of Education exists to prepare teachers who combine strong subject knowledge with modern pedagogy and professional ethics for Nigerian schools.',
+          'On our Share campus in Ifelodun LGA, students develop classroom confidence through micro-teaching suites, instructional technology, and structured teaching practice.',
+        ]
+      : [
+          'Adeshina Group of Colleges was founded on the principle that national progress is driven by two indispensable pillars: quality basic healthcare and transformative classroom education.',
+          'Situated in Share, Ifelodun Local Government Area of Kwara State, our campus offers a focused atmosphere free from city distractions. Students learn in specialised environments — from diagnostic labs and pharmacies to teaching practice suites and digital learning laboratories.',
+        ];
+
+  const purposeImage = isHealth
+    ? '/images/health-technology/health-campus-1.jpg'
+    : '/images/campus/campus-life-1.jpg';
+
+  const purposeImageAlt = isHealth
+    ? 'Adeshina College of Health Technology campus in Share'
+    : isEducation
+      ? 'Adeshina College of Education campus in Share'
+      : 'Adeshina Group of Colleges campus in Share';
+
+  const missionIntro = isHealth
+    ? 'What drives our training, campus culture, and professional standards for health practice.'
+    : isEducation
+      ? 'What drives our teacher training, campus culture, and professional standards.'
+      : 'What drives our teaching, campus culture, and professional standards.';
+
+  const missionCard = isHealth
+    ? {
+        title: 'Competence with character in health practice',
+        body: 'To provide disciplined, career-focused health-technology education that produces ethically grounded practitioners ready for clinics, laboratories, pharmacies, and community health services.',
+      }
+    : isEducation
+      ? {
+          title: 'Competence with character in the classroom',
+          body: 'To provide disciplined, career-focused teacher education that produces ethically grounded educators equipped for Nigerian schools and instructional leadership.',
+        }
+      : {
+          title: 'Empowering practical competence & character',
+          body: 'To provide disciplined, career-focused tertiary education that produces ethically grounded healthcare practitioners and innovative educators equipped to meet contemporary community and national needs.',
+        };
+
+  const visionCard = isHealth
+    ? {
+        title: 'A trusted health-training college in Nigeria',
+        body: 'To be recognised for the practical quality of our graduates, strong laboratory and clinical preparation, and a clear standard of discipline in health-technology education.',
+      }
+    : isEducation
+      ? {
+          title: 'A trusted teacher-education college in Nigeria',
+          body: 'To be recognised for graduate classroom readiness, strong pedagogical training, and a clear standard of discipline in teacher education.',
+        }
+      : {
+          title: 'A benchmark tertiary institution in Nigeria',
+          body: 'To be recognised across Nigeria as a premier centre of vocational excellence, distinguished by the practical quality of our graduates, robust laboratory infrastructure, and unwavering standard of discipline.',
+        };
+
+  const coreValues = isHealth
+    ? [
+        {
+          title: 'Practical Competency',
+          description:
+            'Prioritising hands-on laboratory work, clinical simulation, and supervised community postings over abstract theory alone.',
+          icon: Microscope,
+        },
+        {
+          title: 'Moral Integrity & Discipline',
+          description:
+            'Building professional ethics, accountability, and the character expected of health workers who serve patients and communities.',
+          icon: ShieldCheck,
+        },
+        {
+          title: 'Community Health Impact',
+          description:
+            'Addressing workforce needs in primary healthcare clinics and community health services across Kwara State and Nigeria.',
+          icon: Users,
+        },
+        {
+          title: 'Academic Rigour',
+          description:
+            'Structured Diploma and Certificate pathways aligned with professional health-training standards and workplace readiness.',
+          icon: Award,
+        },
+      ]
+    : isEducation
+      ? [
+          {
+            title: 'Practical Competency',
+            description:
+              'Prioritising micro-teaching, instructional practice, and real-school practicums over abstract theory alone.',
+            icon: Microscope,
+          },
+          {
+            title: 'Moral Integrity & Discipline',
+            description:
+              'Fostering professional ethics, accountability, and the character expected of school educators.',
+            icon: ShieldCheck,
+          },
+          {
+            title: 'Community & Regional Impact',
+            description:
+              'Addressing teacher-workforce needs in basic education schools across Kwara State and Nigeria.',
+            icon: Users,
+          },
+          {
+            title: 'Academic Rigour',
+            description:
+              'Structured NCE pathways aligned with educational standards for classroom readiness and further study.',
+            icon: Award,
+          },
+        ]
+      : [
+          {
+            title: 'Practical Competency',
+            description:
+              'Prioritising hands-on diagnostic laboratory practice, clinical simulations, and real-school teaching practicums over abstract theory.',
+            icon: Microscope,
+          },
+          {
+            title: 'Moral Integrity & Discipline',
+            description:
+              'Fostering professional ethics, accountability, and high character benchmarks essential for healthcare practitioners and school educators.',
+            icon: ShieldCheck,
+          },
+          {
+            title: 'Community & Regional Impact',
+            description:
+              'Directly addressing workforce shortages in primary healthcare clinics and basic education schools across Kwara State and Nigeria.',
+            icon: Users,
+          },
+          {
+            title: 'Academic Rigour',
+            description:
+              'Structured curricula aligned with national vocational and educational regulatory standards for seamless career transition or Direct Entry.',
+            icon: Award,
+          },
+        ];
+
+  const valuesIntro = isHealth
+    ? 'The principles that guide our faculty, health programmes, and student life on campus.'
+    : isEducation
+      ? 'The principles that guide our faculty, teacher-education programmes, and student life.'
+      : 'The foundational pillars that guide our faculty, curricula, and student life.';
+
+  const journeySubtitle = isHealth
+    ? 'How Health Technology training has grown in Share'
+    : isEducation
+      ? 'How teacher education has grown in Share'
+      : 'Growth & impact';
+
+  const milestones = isHealth
+    ? [
+        {
+          year: '2011',
+          title: 'College foundations in Share',
+          description:
+            'Adeshina College of Health Technology began building accessible, high-standard pathways for students seeking careers in community health and health-technology practice.',
+        },
+        {
+          year: 'Growth',
+          title: 'Programmes across key health fields',
+          description:
+            'Diploma and Certificate pathways expanded across community health, laboratory science, pharmacy technology, environmental health, and related support roles.',
+        },
+        {
+          year: 'Present',
+          title: 'Practice-ready training today',
+          description:
+            'Students learn through clinical suites, diagnostic laboratories, and supervised community postings designed for real workplace readiness.',
+        },
+      ]
+    : isEducation
+      ? [
+          {
+            year: '2011',
+            title: 'College foundations in Share',
+            description:
+              'Adeshina College of Education began building accessible teacher-education pathways for students preparing for Nigerian classrooms.',
+          },
+          {
+            year: 'Growth',
+            title: 'NCE pathways across core subjects',
+            description:
+              'Programmes expanded across primary education, science and mathematics teaching, languages, vocational education, and related fields.',
+          },
+          {
+            year: 'Present',
+            title: 'Classroom-ready training today',
+            description:
+              'Students develop confidence through micro-teaching suites, instructional technology, and structured teaching practice.',
+          },
+        ]
+      : [
+          {
+            year: '2011',
+            title: 'Foundational Establishment',
+            description:
+              'Adeshina was founded in Share, Kwara State, to create accessible, high-standard tertiary pathways for students seeking careers in education and health technology.',
+          },
+          {
+            year: 'Expansion',
+            title: 'Two Specialised Academic Divisions',
+            description:
+              'Integrated the College of Health Technology and the College of Education on one unified campus sharing central administrative infrastructure.',
+          },
+          {
+            year: 'Present',
+            title: 'Over 40 Distinct Disciplines',
+            description:
+              'Delivering comprehensive Diploma, NCE, and Certificate training with modern clinical suites, computer laboratories, and extensive clinical postings.',
+          },
+        ];
+
+  const ctaTitle = isHealth
+    ? 'Train for a health career on our Share campus'
+    : isEducation
+      ? 'Train for teaching on our Share campus'
+      : 'A disciplined academic haven in Kwara State';
+
+  const ctaBody = isHealth
+    ? 'Our Share campus offers a calm setting for focused health training — diagnostic laboratories, clinical practice spaces, supervised community posting support, and student services.'
+    : isEducation
+      ? 'Our Share campus offers a calm setting for focused teacher training — micro-teaching suites, instructional technology, practicum support, and student services.'
+      : 'Our Share campus combines tranquillity with comprehensive amenities — science laboratories, micro-teaching suites, a central registry, and student support services.';
+
+  const ctaHighlights = isHealth
+    ? ['Clinical & diagnostic labs', 'Community health postings', 'Student support services']
+    : isEducation
+      ? ['Teaching simulation suites', 'Practicum preparation', 'Student support services']
+      : ['Clinical practical labs', 'Teaching simulation suites', 'Central registry support'];
 
   return (
-    <div className="bg-[#f8fbff] min-h-screen">
-      {/* Light Sky Blue / Navy Page Hero Banner */}
-      <section className="bg-[#05264c] text-white py-16 sm:py-20 border-b border-sky-900/50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#052042] via-[#073663]/90 to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-30 pointer-events-none">
-          <img
-            src="/images/education/campus-gate.jpg"
-            alt="Adeshina Campus Gate in Share"
-            className="w-full h-full object-cover object-[center_top]"
-          />
-        </div>
+    <div className="bg-white min-h-screen">
+      {/* Page hero */}
+      <section className="relative overflow-hidden bg-[#05264c] text-white">
+        <img
+          src={heroImage}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+        />
+        <div className="absolute inset-0 bg-[#05264c]/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#041c36]/92 via-[#05264c]/70 to-[#05264c]/35" />
 
-        <Container size="wide" className="relative z-20">
+        <Container size="wide" className="relative z-10 py-16 sm:py-20 lg:py-24">
           <div className="max-w-3xl">
-            {/* Back Breadcrumb */}
-            <div className="mb-3">
-              <Link
-                to="/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
-                <span>Back to Home</span>
-              </Link>
-            </div>
+            <Link
+              to={path()}
+              className="inline-flex items-center gap-2 rounded-md border border-white/35 bg-white/10 px-4 py-2.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-[#05264c] hover:border-white"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              {isGroup ? 'Back to Home' : 'Back to College Home'}
+            </Link>
 
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-sky-300 block mb-2">
-              ABOUT ADESHINA GROUP OF COLLEGES
-            </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
-              A Centre of Excellence in Healthcare & Educator Development
+            <h1 className="mt-6 font-serif font-semibold text-4xl sm:text-5xl md:text-[3.25rem] tracking-[-0.02em] leading-[1.12] text-white">
+              {heroTitle}
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
-              Located in the serene town of Share, Kwara State, Adeshina brings two dedicated institutions together on one campus to forge ethical, highly skilled professionals.
+            <p className="mt-4 text-xl sm:text-2xl font-serif text-[#e8c56a] leading-snug tracking-[-0.01em]">
+              {heroSubtitle}
+            </p>
+            <p className="mt-5 text-base sm:text-lg text-white/85 leading-relaxed max-w-2xl">
+              {heroDescription}
             </p>
 
-            {/* Quick Metrics */}
-            <div className="mt-8 flex flex-wrap gap-6 pt-6 border-t border-white/15 text-xs text-sky-100">
-              <div>
-                <span className="font-bold text-white text-base block">Est. 2011</span>
-                <span>Foundational Legacy</span>
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-white/15">
+              {heroStats.map((stat) => (
+                <div key={stat.value}>
+                  <p className="font-serif font-semibold text-xl text-white">{stat.value}</p>
+                  <p className="mt-1 text-sm text-white/65">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Purpose */}
+      <section className="py-20 lg:py-28 bg-[#f8fafc] border-b border-slate-200">
+        <Container size="wide">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+            <div className="lg:col-span-6">
+              <h2 className="font-serif font-semibold text-4xl sm:text-5xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
+                Our purpose
+              </h2>
+              <p className="mt-4 text-xl sm:text-2xl font-serif text-[#02509e] leading-snug tracking-[-0.01em]">
+                {purposeSubtitle}
+              </p>
+              {purposeParagraphs.map((paragraph, index) => (
+                <p
+                  key={paragraph.slice(0, 32)}
+                  className={`${index === 0 ? 'mt-5' : 'mt-4'} text-base sm:text-lg text-slate-600 leading-relaxed`}
+                >
+                  {paragraph}
+                </p>
+              ))}
+
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <Link
+                  to={isGroup ? '/#colleges' : path('programmes')}
+                  className="inline-flex items-center justify-center rounded-md bg-[#05264c] px-6 py-3.5 text-[14px] font-semibold text-white transition-colors duration-300 hover:bg-[#02509e]"
+                >
+                  {isGroup ? 'Explore our colleges' : 'Explore programmes'}
+                </Link>
+                {!isGroup && (
+                  <Link
+                    to={path('admissions')}
+                    className="inline-flex items-center justify-center rounded-md border border-[#05264c]/30 bg-white px-6 py-3.5 text-[14px] font-semibold text-[#05264c] transition-colors duration-300 hover:border-[#02509e] hover:bg-[#02509e] hover:text-white"
+                  >
+                    Admission
+                  </Link>
+                )}
               </div>
-              <div className="border-l border-slate-800 pl-6">
-                <span className="font-bold text-white text-base block">2 Colleges</span>
-                <span>Health Tech & Education</span>
-              </div>
-              <div className="border-l border-slate-800 pl-6">
-                <span className="font-bold text-white text-base block">40+</span>
-                <span>Academic Programmes</span>
-              </div>
-              <div className="border-l border-slate-800 pl-6">
-                <span className="font-bold text-white text-base block">Share, Kwara</span>
-                <span>Serene Campus</span>
+            </div>
+
+            <div className="lg:col-span-6">
+              <div className="overflow-hidden rounded-lg bg-white shadow-[0_8px_24px_-12px_rgba(5,38,76,0.28)] ring-1 ring-slate-200/90">
+                <div className="relative aspect-[16/11] bg-[#041c36]">
+                  <img
+                    src={purposeImage}
+                    alt={purposeImageAlt}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-[#041c36]/55 to-transparent"
+                    aria-hidden="true"
+                  />
+                </div>
+                <p className="px-5 py-3.5 text-[14px] text-slate-600 leading-relaxed border-t border-slate-100">
+                  Layout B, Plot 1, Share-Okeode Road, Beside Ifelodun LG Secretariat, Kwara State.
+                </p>
               </div>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Institutional Overview & Story */}
-      <section className="py-20 lg:py-24 bg-white border-b border-slate-200/80">
-        <Container size="wide">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Content (7 cols) */}
-            <div className="lg:col-span-7 space-y-5">
-              <span className="text-[11px] uppercase tracking-[0.2em] font-bold text-accent-gold block">
-                OUR INSTITUTIONAL PURPOSE
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-navy leading-tight">
-                Two Distinct Colleges. One Shared Commitment to Service.
-              </h2>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Adeshina Group of Colleges was founded on the principle that national progress is driven by two indispensable pillars: <strong className="text-navy font-semibold">quality basic healthcare</strong> and <strong className="text-navy font-semibold">transformative classroom education</strong>.
-              </p>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Situated in Share, Ifelodun Local Government Area of Kwara State, our campus offers a focused, quiet atmosphere free from city distractions. Our students learn in specialized environments tailored to their career callings — from diagnostic pathology labs and dispensing pharmacies to teaching practice suites and digital learning laboratories.
-              </p>
-              
-              <div className="pt-2 flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="/colleges"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-navy text-white text-xs sm:text-sm font-bold hover:bg-navy-dark transition-all shadow-sm"
+      {trainingFocusItems && (
+        <section className="border-b border-slate-200 bg-white">
+          <Container size="wide" className="py-10 sm:py-12">
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-xl">
+                <p
+                  className="text-[11px] font-semibold uppercase tracking-[0.16em]"
+                  style={{ color: isHealth ? '#0d8f6e' : '#02509e' }}
                 >
-                  <span>Explore Both Colleges</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  to="/admissions"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-100 text-navy text-xs sm:text-sm font-bold hover:bg-slate-200 transition-all"
-                >
-                  <span>Admission Guidelines</span>
-                </Link>
+                  Training focus
+                </p>
+                <h2 className="mt-2 font-serif font-semibold text-2xl sm:text-3xl text-[#05264c] tracking-[-0.02em] leading-snug">
+                  {isHealth
+                    ? 'Core areas of health-technology practice'
+                    : 'Core areas of teacher preparation'}
+                </h2>
               </div>
             </div>
-
-            {/* Right Photographic Feature Card (5 cols) */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-navy shadow-xl border border-slate-200/80">
-                <img
-                  src="/images/education/campus-gate.jpg"
-                  alt="Adeshina Group of Colleges Entrance Arch in Share"
-                  className="w-full h-full object-cover object-[center_top]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#081426] via-[#081426]/30 to-transparent pointer-events-none" />
-                <div className="absolute bottom-6 left-6 right-6 text-white z-10">
-                  <div className="flex items-center gap-2 text-accent-gold text-xs font-bold uppercase tracking-wider mb-1">
-                    <Landmark className="w-4 h-4" />
-                    <span>Main Campus Gate</span>
-                  </div>
-                  <p className="font-serif font-bold text-sm leading-snug">
-                    Layout B, Plot 1, Share-Okeode Road, Beside Ifelodun LG Secretariat, Kwara State.
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {trainingFocusItems.map((item) => (
+                <div
+                  key={item}
+                  className="rounded-lg border border-slate-200/90 bg-[#f8fafc] px-5 py-5 transition-all duration-300 hover:-translate-y-0.5"
+                  style={{
+                    boxShadow: '0 8px 24px -14px rgba(5,38,76,0.18)',
+                  }}
+                >
+                  <span
+                    className="mb-3 block h-1 w-8 rounded-full"
+                    style={{ backgroundColor: isHealth ? '#10a37f' : '#02509e' }}
+                    aria-hidden="true"
+                  />
+                  <p className="font-serif font-semibold text-lg text-[#05264c] leading-snug">
+                    {item}
                   </p>
                 </div>
-              </div>
+              ))}
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
+      )}
 
-      {/* Mission & Vision Statements */}
-      <section className="py-20 lg:py-24 bg-[#f4f7fb] border-b border-slate-200/80">
+      {/* Mission & Vision */}
+      <section className="py-20 lg:py-28 bg-white border-b border-slate-200">
         <Container size="wide">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Mission Card */}
-            <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-blue-50 text-adeshina-blue flex items-center justify-center mb-6 border border-blue-100">
-                  <Compass className="w-6 h-6 text-adeshina-blue" />
-                </div>
-                <span className="text-xs uppercase tracking-widest font-bold text-accent-gold block mb-2">
-                  OUR MISSION
-                </span>
-                <h3 className="text-2xl font-serif font-bold text-navy mb-4">
-                  Empowering Practical Competence & Character
-                </h3>
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                  To provide disciplined, career-focused tertiary education that produces ethically grounded healthcare practitioners and innovative educators equipped to meet contemporary community and national needs.
-                </p>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-400">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                <span>Dedicated to academic excellence and moral leadership</span>
-              </div>
-            </div>
-
-            {/* Vision Card */}
-            <div className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-xl bg-emerald-50 text-[#0b6b54] flex items-center justify-center mb-6 border border-emerald-100">
-                  <Award className="w-6 h-6 text-[#10a37f]" />
-                </div>
-                <span className="text-xs uppercase tracking-widest font-bold text-accent-gold block mb-2">
-                  OUR VISION
-                </span>
-                <h3 className="text-2xl font-serif font-bold text-navy mb-4">
-                  A Benchmark Tertiary Institution in Nigeria
-                </h3>
-                <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                  To be recognized across Nigeria as a premier centre of vocational excellence, distinguished by the practical quality of our graduates, robust laboratory infrastructure, and unwavering standard of discipline.
-                </p>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-400">
-                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                <span>Standardized vocational and teaching qualifications</span>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Core Institutional Values */}
-      <section className="py-20 lg:py-24 bg-white border-b border-slate-200/80">
-        <Container size="wide">
-          <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
-              GUIDING PRINCIPLES
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-navy leading-tight">
-              Our Core Institutional Values
+          <div className="mb-10 md:mb-12 max-w-3xl">
+            <h2 className="font-serif font-semibold text-4xl sm:text-5xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
+              Mission & vision
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-600">
-              The foundational pillars that guide our faculty, curricula, and student life.
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+              {missionIntro}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+            <div className="rounded-lg bg-[#f8fafc] p-8 sm:p-9 ring-1 ring-slate-200/90 shadow-[0_8px_24px_-12px_rgba(5,38,76,0.18)]">
+              <div
+                className="flex h-11 w-11 items-center justify-center rounded-md bg-[#05264c]"
+                style={{ color: accent }}
+              >
+                <Compass className="w-5 h-5" />
+              </div>
+              <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#c68a18]">
+                Our mission
+              </p>
+              <h3 className="mt-3 font-serif font-semibold text-2xl text-[#05264c] leading-snug">
+                {missionCard.title}
+              </h3>
+              <p className="mt-4 text-[15px] sm:text-base text-slate-600 leading-relaxed">
+                {missionCard.body}
+              </p>
+            </div>
+
+            <div className="rounded-lg bg-[#f8fafc] p-8 sm:p-9 ring-1 ring-slate-200/90 shadow-[0_8px_24px_-12px_rgba(5,38,76,0.18)]">
+              <div
+                className="flex h-11 w-11 items-center justify-center rounded-md bg-[#05264c]"
+                style={{ color: accent }}
+              >
+                <Award className="w-5 h-5" />
+              </div>
+              <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#c68a18]">
+                Our vision
+              </p>
+              <h3 className="mt-3 font-serif font-semibold text-2xl text-[#05264c] leading-snug">
+                {visionCard.title}
+              </h3>
+              <p className="mt-4 text-[15px] sm:text-base text-slate-600 leading-relaxed">
+                {visionCard.body}
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Core values */}
+      <section className="py-20 lg:py-28 bg-[#f8fafc] border-b border-slate-200">
+        <Container size="wide">
+          <div className="mb-10 md:mb-12 max-w-3xl">
+            <h2 className="font-serif font-semibold text-4xl sm:text-5xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
+              Our values
+            </h2>
+            <p className="mt-4 text-xl sm:text-2xl font-serif text-[#02509e] leading-snug tracking-[-0.01em]">
+              Guiding principles
+            </p>
+            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+              {valuesIntro}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
             {coreValues.map((val) => {
               const Icon = val.icon;
               return (
                 <div
                   key={val.title}
-                  className="bg-[#f8fafc] p-6 sm:p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-adeshina-blue/30 transition-all flex flex-col justify-between"
+                  className={`flex h-full flex-col rounded-lg bg-white p-6 sm:p-7 ring-1 ring-slate-200/90 shadow-[0_8px_24px_-12px_rgba(5,38,76,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_32px_-16px_rgba(5,38,76,0.28)] ${hoverRingClass}`}
                 >
-                  <div>
-                    <div className="w-12 h-12 rounded-xl bg-navy text-white flex items-center justify-center mb-4 shadow-sm">
-                      <Icon className="w-6 h-6 text-accent-gold" />
-                    </div>
-                    <h3 className="font-serif font-bold text-navy text-lg mb-2">
-                      {val.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                      {val.description}
-                    </p>
+                  <div
+                    className="flex h-11 w-11 items-center justify-center rounded-md bg-[#05264c]"
+                    style={{ color: accent }}
+                  >
+                    <Icon className="w-5 h-5" />
                   </div>
+                  <h3 className="mt-5 font-serif font-semibold text-lg text-[#05264c] leading-snug">
+                    {val.title}
+                  </h3>
+                  <p className="mt-3 text-[14px] sm:text-[15px] text-slate-600 leading-relaxed">
+                    {val.description}
+                  </p>
                 </div>
               );
             })}
@@ -257,83 +554,60 @@ export function AboutPage() {
         </Container>
       </section>
 
-      {/* Institutional Milestones & Story */}
-      <section className="py-20 lg:py-24 bg-[#f8fafc] border-b border-slate-200/80">
+      {/* Milestones */}
+      <section className="py-20 lg:py-28 bg-white border-b border-slate-200">
         <Container size="wide">
-          <div className="max-w-2xl mb-14">
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
-              HISTORICAL JOURNEY
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-navy leading-tight">
-              Our Path of Growth & Impact
+          <div className="mb-10 md:mb-12 max-w-3xl">
+            <h2 className="font-serif font-semibold text-4xl sm:text-5xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
+              Our journey
             </h2>
+            <p className="mt-4 text-xl sm:text-2xl font-serif text-[#02509e] leading-snug tracking-[-0.01em]">
+              {journeySubtitle}
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {milestones.map((item) => (
               <div
                 key={item.title}
-                className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col justify-between"
+                className="flex h-full flex-col rounded-lg bg-[#f8fafc] p-6 sm:p-8 ring-1 ring-slate-200/90 shadow-[0_8px_24px_-12px_rgba(5,38,76,0.18)]"
               >
-                <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-adeshina-blue bg-blue-50 border border-blue-100 px-3 py-1 rounded-md inline-block mb-4">
-                    {item.year}
-                  </span>
-                  <h3 className="text-xl font-serif font-bold text-navy mb-3">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                <span className="inline-flex w-fit rounded-md bg-[#05264c] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white">
+                  {item.year}
+                </span>
+                <h3 className="mt-5 font-serif font-semibold text-xl text-[#05264c] leading-snug">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-[15px] text-slate-600 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* Campus Infrastructure & Shared Environment */}
-      <section className="py-20 lg:py-24 bg-white border-b border-slate-200/80">
+      {/* Campus CTA */}
+      <section className="py-20 lg:py-24 bg-[#f8fafc] border-b border-slate-200">
         <Container size="wide">
-          <div className="p-8 sm:p-12 rounded-3xl bg-[#081426] text-white relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-10">
-            <div className="space-y-4 max-w-2xl relative z-10">
-              <span className="text-[11px] uppercase tracking-[0.2em] font-bold text-accent-gold">
-                CAMPUS ENVIRONMENT IN SHARE
-              </span>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-white leading-tight">
-                A Disciplined Academic Haven in Kwara State
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center rounded-lg bg-white p-8 sm:p-10 lg:p-12 ring-1 ring-slate-200/90 shadow-[0_8px_24px_-12px_rgba(5,38,76,0.22)]">
+            <div className="lg:col-span-7">
+              <h2 className="font-serif font-semibold text-3xl sm:text-4xl text-[#05264c] tracking-[-0.02em] leading-snug">
+                {ctaTitle}
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Our Share campus is purpose-built to combine tranquility with comprehensive educational amenities — including modern science laboratories, micro-teaching suites, a central administrative registry, and student support services.
+              <p className="mt-5 text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+                {ctaBody}
               </p>
-              <div className="pt-2 flex flex-wrap gap-4 text-xs text-blue-200">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-accent-gold" />
-                  <span>Clinical Practical Labs</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-accent-gold" />
-                  <span>Teaching Simulation Suites</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-accent-gold" />
-                  <span>Central Registry Support</span>
-                </div>
-              </div>
+              <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-slate-500">
+                {ctaHighlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 shrink-0 relative z-10">
+            <div className="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3 lg:items-stretch">
               <Link
-                to="/apply"
-                className="px-6 py-3.5 rounded-xl bg-white text-[#081426] hover:bg-slate-100 font-bold text-xs sm:text-sm shadow-md transition-all text-center"
+                to={isGroup ? '/#colleges' : path('apply')}
+                className="inline-flex items-center justify-center rounded-md bg-[#05264c] px-6 py-3.5 text-[14px] font-semibold text-white transition-colors duration-300 hover:bg-[#02509e]"
               >
-                Apply for Admission
-              </Link>
-              <Link
-                to="/contact"
-                className="px-6 py-3.5 rounded-xl bg-adeshina-blue text-white hover:bg-adeshina-blue-dark font-bold text-xs sm:text-sm shadow-md transition-all text-center"
-              >
-                Visit Our Campus
+                {isGroup ? 'Choose a college to apply' : 'Apply for admission'}
               </Link>
             </div>
           </div>

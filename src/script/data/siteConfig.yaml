@@ -35,7 +35,7 @@ portals:
     path: /portal
   applyNow:
     label: Apply Now
-    path: /apply
+    path: /
 
 # Shown in the footer and on the contact page
 contact:

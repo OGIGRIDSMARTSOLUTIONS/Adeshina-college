@@ -280,10 +280,10 @@ export function PortalPage() {
                 Are you a prospective applicant seeking admission?
               </p>
               <Link
-                to="/apply"
+                to="/"
                 className="inline-block mt-1 text-xs font-bold text-adeshina-blue hover:underline"
               >
-                Go to Online Application Form &rarr;
+                Go to College Gateway & Apply &rarr;
               </Link>
             </div>
           </div>

@@ -11,6 +11,7 @@ export interface Programme {
   duration: string;
   mode: StudyMode[];
   description?: string;
+  image?: string;
   entryRequirements?: string[];
   careerOpportunities?: string[];
   verificationStatus?: VerificationStatus;

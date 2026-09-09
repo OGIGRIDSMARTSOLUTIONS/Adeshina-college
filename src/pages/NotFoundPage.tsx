@@ -1,8 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Home, ArrowLeft, Compass } from 'lucide-react';
 import { Container } from '@/components/common/Container';
+import { isCollegeId, collegePath } from '@/lib/collegePaths';
 
 export function NotFoundPage() {
+  const { collegeId } = useParams<{ collegeId?: string }>();
+  const homePath = isCollegeId(collegeId) ? collegePath(collegeId) : '/';
+  const programmesPath = isCollegeId(collegeId) ? collegePath(collegeId, 'programmes') : '/';
+
   return (
     <div className="py-24 sm:py-32 bg-[#f8fafc] min-h-[70vh] flex items-center">
       <Container size="default" className="text-center">
@@ -21,19 +26,19 @@ export function NotFoundPage() {
 
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
-            to="/"
+            to={homePath}
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-navy text-white text-xs sm:text-sm font-bold hover:bg-navy-dark transition-all shadow-md"
           >
             <Home className="w-4 h-4" />
-            <span>Return to Homepage</span>
+            <span>{isCollegeId(collegeId) ? 'College Home' : 'Choose a College'}</span>
           </Link>
 
           <Link
-            to="/programmes"
+            to={programmesPath}
             className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white text-navy border border-slate-300 hover:bg-slate-50 text-xs sm:text-sm font-bold transition-all shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Explore Programmes</span>
+            <span>{isCollegeId(collegeId) ? 'Explore Programmes' : 'Group Gateway'}</span>
           </Link>
         </div>
       </Container>

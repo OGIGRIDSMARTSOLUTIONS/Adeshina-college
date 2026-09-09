@@ -1,389 +1,214 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, ChevronDown, ChevronUp, MapPin, ShieldCheck, ArrowLeft } from 'lucide-react';
+import { ArrowRight, CheckCircle2, MapPin, ArrowLeft } from 'lucide-react';
 import { admissionInfo } from '@/data/admissions';
+import { siteConfig } from '@/data/siteConfig';
 import { Container } from '@/components/common/Container';
+import { useCollege } from '@/context/CollegeContext';
 
 export function AdmissionsPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [selectedCollegeReq, setSelectedCollegeReq] = useState<string>('all');
-
-  const filteredRequirements = selectedCollegeReq === 'all'
-    ? admissionInfo.requirements
-    : admissionInfo.requirements.filter((r) => r.collegeId === selectedCollegeReq);
+  const { college, collegeId, path } = useCollege();
+  const isHealth = collegeId === 'health-technology';
+  const requirement = admissionInfo.requirements.find((r) => r.collegeId === collegeId);
+  const applyClass = isHealth
+    ? 'bg-[#10a37f] hover:bg-[#0a7a5c]'
+    : 'bg-[#02509e] hover:bg-[#013a75]';
 
   return (
-    <div className="bg-[#f8fbff] min-h-screen">
-      {/* Light Sky Blue / Navy Page Hero Banner */}
-      <section className="bg-[#05264c] text-white py-16 sm:py-20 border-b border-sky-900/50 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#052042] via-[#073663]/90 to-transparent z-10 pointer-events-none" />
-        <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full opacity-30 pointer-events-none">
-          <img
-            src="/images/education/campus-gate.jpg"
-            alt="Adeshina Campus Gate"
-            className="w-full h-full object-cover object-[center_top]"
-          />
-        </div>
+    <div className="bg-white min-h-screen">
+      {/* Page hero */}
+      <section className="relative overflow-hidden bg-[#05264c] text-white">
+        <img
+          src={
+            isHealth
+              ? '/images/health-technology/health-campus-1.jpg'
+              : '/images/education/campus-gate.jpg'
+          }
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+        />
+        <div className="absolute inset-0 bg-[#05264c]/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#041c36]/92 via-[#05264c]/70 to-[#05264c]/35" />
 
-        <Container size="wide" className="relative z-20">
+        <Container size="wide" className="relative z-10 py-16 sm:py-20 lg:py-24">
           <div className="max-w-3xl">
-            {/* Back to Home Breadcrumb */}
-            <div className="mb-4">
-              <Link
-                to="/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
-              >
-                <ArrowLeft className="w-3.5 h-3.5 text-sky-300" />
-                <span>Back to Home</span>
-              </Link>
-            </div>
+            <Link
+              to={path()}
+              className="inline-flex items-center gap-2 rounded-md border border-white/35 bg-white/10 px-4 py-2.5 text-[13px] font-semibold text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-[#05264c] hover:border-white"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to College Home
+            </Link>
 
-            {/* Session Open Badge */}
-            <div className="mb-4">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Admissions Open · {admissionInfo.session}</span>
+            <div className="mt-6">
+              <span
+                className={`inline-flex items-center gap-2 rounded-md px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] ring-1 ${
+                  isHealth
+                    ? 'bg-[#10a37f]/20 text-[#b8f0dc] ring-[#10a37f]/35'
+                    : 'bg-[#02509e]/25 text-[#9ec5e8] ring-[#02509e]/40'
+                }`}
+              >
+                <span
+                  className={`h-2 w-2 rounded-full ${isHealth ? 'bg-[#10a37f]' : 'bg-[#5ba3e0]'}`}
+                  aria-hidden="true"
+                />
+                Admissions Open · {admissionInfo.session}
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight">
-              Admissions at Adeshina Group of Colleges
+            <h1 className="mt-6 font-serif font-semibold text-4xl sm:text-5xl md:text-[3.25rem] tracking-[-0.02em] leading-[1.12] text-white">
+              Admissions at {college.shortName}
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-sky-100 leading-relaxed max-w-2xl">
-              Complete entry benchmarks, application workflow, and academic guidelines for candidates applying to Adeshina College of Health Technology and Adeshina College of Education.
+            <p className="mt-5 text-base sm:text-lg text-white/85 leading-relaxed max-w-2xl">
+              {isHealth
+                ? 'Entry requirements, application steps, and guidance for candidates applying to Adeshina College of Health Technology, Share.'
+                : 'Entry requirements, application steps, and guidance for candidates applying to Adeshina College of Education, Share.'}
             </p>
 
-            {/* Quick Actions */}
-            <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <div className="mt-8">
               <Link
-                to="/apply"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-[#052042] text-sm font-extrabold uppercase tracking-wider shadow-lg shadow-sky-500/20 transition-all duration-200"
+                to={path('apply')}
+                className={`inline-flex items-center justify-center gap-2 rounded-md px-7 py-3.5 text-[14px] font-semibold text-white transition-colors duration-300 ${applyClass}`}
               >
-                <span>Apply Now (Online Form)</span>
+                Apply Now
                 <ArrowRight className="w-4 h-4" />
               </Link>
-
-              <a
-                href="#application-steps"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white text-[#05264c] text-sm font-bold hover:bg-sky-50 transition-all shadow-md"
-              >
-                <span>Application Steps</span>
-              </a>
-
-              <a
-                href="#entry-requirements"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-bold transition-all"
-              >
-                <span>Requirements</span>
-              </a>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* General Admissions Notice Card */}
-      <section className="py-8 bg-white border-b border-slate-200/80">
+      {/* How to apply */}
+      <section className="py-14 lg:py-16 bg-[#f8fafc] border-b border-slate-200">
         <Container size="wide">
-          <div className="p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-xl bg-navy text-white flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-6 h-6 text-accent-gold" />
-              </div>
-              <div>
-                <h2 className="font-serif font-bold text-navy text-base sm:text-lg">
-                  Official Central Registry Announcement
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-3xl leading-relaxed">
-                  {admissionInfo.generalNotice}
-                </p>
-              </div>
-            </div>
-
-            <Link
-              to="/apply"
-              className="px-6 py-3 rounded-xl bg-adeshina-blue text-white text-xs font-bold hover:bg-navy shrink-0 transition-all shadow-sm"
-            >
-              Start Application
-            </Link>
-          </div>
-        </Container>
-      </section>
-
-      {/* Step-by-Step Application Process */}
-      <section id="application-steps" className="py-20 lg:py-24 border-b border-slate-200/80">
-        <Container size="wide">
-          <div className="max-w-2xl mb-14">
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
-              APPLICATION WORKFLOW
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-navy leading-tight">
-              Four Clear Steps to Enrolment
+          <div className="max-w-2xl mb-8">
+            <h2 className="font-serif font-semibold text-3xl sm:text-4xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
+              How to apply
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-slate-600">
-              Follow this structured sequence to apply, verify your credentials, and secure your admission.
+            <p className="mt-3 text-base text-slate-600 leading-relaxed">
+              The same five steps you will complete on the online application form.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <ol className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 md:gap-5">
             {admissionInfo.steps.map((item) => (
-              <div
+              <li
                 key={item.step}
-                className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/90 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.04)] hover:shadow-lg transition-all flex flex-col justify-between group"
+                className="flex min-h-[220px] flex-col rounded-lg bg-white p-6 sm:p-7 ring-1 ring-slate-200/90 shadow-[0_10px_28px_-10px_rgba(5,38,76,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-12px_rgba(5,38,76,0.34)] hover:ring-[#02509e]/30"
               >
-                <div>
-                  {/* Step Number Badge */}
-                  <div className="w-12 h-12 rounded-xl bg-navy text-white font-serif font-black text-lg flex items-center justify-center mb-5 shadow-sm group-hover:bg-adeshina-blue transition-colors">
-                    {item.step}
-                  </div>
-
-                  <h3 className="font-serif font-bold text-navy text-lg leading-snug mb-2">
-                    {item.title}
-                  </h3>
-
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
-                    {item.description}
-                  </p>
-                </div>
-
-                {item.details && (
-                  <div className="pt-3 border-t border-slate-100 text-[11px] text-slate-500 italic leading-relaxed">
-                    {item.details}
-                  </div>
-                )}
-              </div>
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-md bg-[#05264c] text-[13px] font-semibold text-white">
+                  {item.step}
+                </span>
+                <h3 className="mt-5 font-serif font-semibold text-lg text-[#05264c] leading-snug">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-[14px] text-slate-600 leading-relaxed flex-1">
+                  {item.description}
+                </p>
+              </li>
             ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <Link
-              to="/apply"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-navy text-white hover:bg-adeshina-blue font-bold text-sm shadow-md hover:shadow-lg transition-all"
-            >
-              <span>Begin Step 1: Online Application</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
+          </ol>
         </Container>
       </section>
 
-      {/* Detailed Entry Requirements Matrix */}
-      <section id="entry-requirements" className="py-20 lg:py-24 bg-white border-b border-slate-200/80">
-        <Container size="wide">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
-                ACADEMIC ELIGIBILITY
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-navy leading-tight">
-                General Entry Requirements
+      {/* Entry requirements */}
+      {requirement && (
+        <section className="py-14 lg:py-16 bg-[#f1f5f9] border-b border-slate-200">
+          <Container size="wide">
+            <div className="max-w-2xl mb-8">
+              <h2 className="font-serif font-semibold text-3xl sm:text-4xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
+                Entry requirements
               </h2>
-              <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-xl">
-                O'Level benchmarks required for admission into each respective college.
+              <p className="mt-3 text-base text-slate-600 leading-relaxed">
+                O&apos;Level benchmarks for admission into {college.shortName}.
               </p>
             </div>
 
-            {/* Filter */}
-            <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200/90 shrink-0 self-start md:self-auto">
-              <button
-                type="button"
-                onClick={() => setSelectedCollegeReq('all')}
-                className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                  selectedCollegeReq === 'all'
-                    ? 'bg-navy text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy'
+            <div className="rounded-lg border border-slate-300 bg-white p-7 sm:p-9 shadow-[0_14px_36px_-12px_rgba(5,38,76,0.32)] ring-1 ring-slate-200/80">
+              <p
+                className={`inline-flex rounded-md px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] ${
+                  isHealth
+                    ? 'bg-[#10a37f]/15 text-[#0a7a5c] ring-1 ring-[#10a37f]/35'
+                    : 'bg-[#02509e]/10 text-[#02509e] ring-1 ring-[#02509e]/25'
                 }`}
               >
-                All Colleges
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedCollegeReq('health-technology')}
-                className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                  selectedCollegeReq === 'health-technology'
-                    ? 'bg-navy text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy'
-                }`}
-              >
-                Health Technology
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedCollegeReq('education')}
-                className={`px-3.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
-                  selectedCollegeReq === 'education'
-                    ? 'bg-navy text-white shadow-sm'
-                    : 'text-slate-600 hover:text-navy'
-                }`}
-              >
-                Education
-              </button>
-            </div>
-          </div>
+                {requirement.qualification}
+              </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {filteredRequirements.map((req) => {
-              const isHealth = req.collegeId === 'health-technology';
-              return (
-                <div
-                  key={req.collegeId}
-                  className="bg-[#f8fafc] rounded-2xl p-6 sm:p-8 border border-slate-200/90 shadow-sm flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Header */}
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <span
-                        className={`text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-md ${
-                          isHealth
-                            ? 'bg-emerald-50 text-[#0b6b54] border border-emerald-200/80'
-                            : 'bg-blue-50 text-adeshina-blue border border-blue-200/80'
+              <div className="mt-7">
+                <h3 className="text-[12px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                  Core subject credits
+                </h3>
+                <ul className="mt-3.5 flex flex-wrap gap-2.5">
+                  {requirement.mandatorySubjects.map((subject) => (
+                    <li
+                      key={subject}
+                      className="rounded-md border border-slate-300 bg-[#f8fafc] px-3.5 py-2 text-[13px] font-semibold text-[#05264c] shadow-[0_1px_2px_rgba(5,38,76,0.06)]"
+                    >
+                      {subject}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-8 pt-7 border-t border-slate-300">
+                <h3 className="text-[12px] font-semibold uppercase tracking-[0.14em] text-slate-500">
+                  Eligibility
+                </h3>
+                <ul className="mt-4 space-y-3.5">
+                  {requirement.requirements.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-[15px] text-slate-700">
+                      <CheckCircle2
+                        className={`mt-0.5 h-5 w-5 shrink-0 ${
+                          isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'
                         }`}
-                      >
-                        {req.qualification}
-                      </span>
-                    </div>
-
-                    <h3 className="text-xl sm:text-2xl font-serif font-bold text-navy mb-4">
-                      {req.collegeName}
-                    </h3>
-
-                    {/* Mandatory subjects */}
-                    <div className="mb-6">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                        Core Subject Credits Required
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {req.mandatorySubjects.map((sub, i) => (
-                          <span
-                            key={i}
-                            className="px-2.5 py-1 rounded-md text-xs font-semibold bg-white border border-slate-200 text-navy"
-                          >
-                            {sub}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Requirements checklist */}
-                    <div className="space-y-3 pt-4 border-t border-slate-200/80">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
-                        Eligibility Criteria
-                      </h4>
-                      {req.requirements.map((item, idx) => (
-                        <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600">
-                          <CheckCircle2
-                            className={`w-4 h-4 shrink-0 mt-0.5 ${
-                              isHealth ? 'text-[#10a37f]' : 'text-adeshina-blue'
-                            }`}
-                          />
-                          <span className="leading-relaxed">{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Footer links */}
-                  <div className="mt-8 pt-4 border-t border-slate-200/80 flex items-center justify-between gap-2">
-                    <Link
-                      to={`/colleges/${req.collegeId}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-navy hover:text-adeshina-blue transition-colors"
-                    >
-                      <span>View Departments</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-adeshina-blue" />
-                    </Link>
-
-                    <Link
-                      to="/apply"
-                      className="px-4 py-2 rounded-lg bg-adeshina-blue text-white text-xs font-bold hover:bg-navy transition-all shadow-sm"
-                    >
-                      Apply Now
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
-      {/* Admissions FAQ Accordion */}
-      <section className="py-20 lg:py-24 border-b border-slate-200/80">
-        <Container size="wide">
-          <div className="max-w-2xl mb-12">
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.2em] font-bold text-accent-gold block mb-2">
-              FREQUENTLY ASKED QUESTIONS
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-navy leading-tight">
-              Admissions Questions & Answers
-            </h2>
-          </div>
-
-          <div className="max-w-3xl space-y-4">
-            {admissionInfo.faqs.map((faq, index) => {
-              const isOpen = openFaq === index;
-              return (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl border border-slate-200/90 shadow-sm overflow-hidden"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors"
-                    aria-expanded={isOpen}
-                  >
-                    <span className="font-serif font-bold text-navy text-base sm:text-lg">
-                      {faq.question}
-                    </span>
-                    <span className="shrink-0 text-slate-400">
-                      {isOpen ? <ChevronUp className="w-5 h-5 text-navy" /> : <ChevronDown className="w-5 h-5" />}
-                    </span>
-                  </button>
-
-                  {isOpen && (
-                    <div className="px-5 pb-6 sm:px-6 pt-0 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 mt-2 pt-4">
-                      {faq.answer}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </Container>
-      </section>
-
-      {/* Campus Physical Registry Desk Callout */}
-      <section className="py-16 bg-[#081426] text-white">
-        <Container size="wide">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="space-y-3 max-w-2xl text-center lg:text-left">
-              <span className="text-[11px] uppercase tracking-[0.2em] font-bold text-accent-gold">
-                PHYSICAL ENROLLMENT & ASSISTANCE
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-serif font-black text-white">
-                Visit the Admissions Registry in Share
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Admissions officers are available at the Share Campus to provide physical admission application forms, O'Level subject consultations, and guided orientation.
-              </p>
-              <div className="flex items-center justify-center lg:justify-start gap-2 text-xs text-slate-400 pt-2">
-                <MapPin className="w-4 h-4 text-accent-gold shrink-0" />
-                <span>Share-Okeode Road, Beside Ifelodun LG Secretariat, Share, Kwara State</span>
+                      />
+                      <span className="leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
+          </Container>
+        </section>
+      )}
 
-            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
+      {/* Closing CTA */}
+      <section className="py-12 lg:py-14 bg-[#f8fafc] border-b border-slate-200">
+        <Container size="wide">
+          <div className="flex flex-col gap-6 rounded-lg bg-white p-6 sm:p-8 ring-1 ring-slate-200/90 shadow-[0_8px_24px_-12px_rgba(5,38,76,0.16)] lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-xl">
+              <h2 className="font-serif font-semibold text-2xl sm:text-3xl text-[#05264c] tracking-[-0.02em] leading-snug">
+                Ready to apply?
+              </h2>
+              <p className="mt-2 text-[15px] text-slate-600 leading-relaxed">
+                Start your online application, or contact Support if you need help with subjects or
+                screening.
+              </p>
+              <p className="mt-3 inline-flex items-start gap-2 text-[13px] text-slate-500">
+                <MapPin
+                  className="mt-0.5 h-3.5 w-3.5 shrink-0"
+                  style={{ color: isHealth ? '#10a37f' : '#02509e' }}
+                />
+                <span>
+                  {siteConfig.contact.campusAddress}, {siteConfig.contact.stateCountry}
+                </span>
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
               <Link
-                to="/apply"
-                className="px-6 py-3.5 rounded-xl bg-adeshina-blue hover:bg-navy font-bold text-xs sm:text-sm shadow-md transition-all text-center"
+                to={path('apply')}
+                className={`inline-flex items-center justify-center gap-2 rounded-md px-6 py-3.5 text-[14px] font-semibold text-white transition-colors duration-300 ${applyClass}`}
               >
-                Apply Online Now
+                Apply Now
+                <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                to="/contact"
-                className="px-6 py-3.5 rounded-xl bg-white text-[#081426] hover:bg-slate-100 font-bold text-xs sm:text-sm shadow-md transition-all text-center"
+                to={path('contact')}
+                className="inline-flex items-center justify-center rounded-md border border-[#05264c]/30 bg-white px-6 py-3.5 text-[14px] font-semibold text-[#05264c] transition-colors duration-300 hover:border-[#02509e] hover:bg-[#02509e] hover:text-white"
               >
-                Contact Admissions Desk
+                Support
               </Link>
             </div>
           </div>

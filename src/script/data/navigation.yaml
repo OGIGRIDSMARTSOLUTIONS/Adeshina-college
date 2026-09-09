@@ -1,30 +1,14 @@
 # =============================================================================
-# navigation.yaml  =  MENU LINKS (header + footer)
+# navigation.yaml  =  MENU LINKS (gateway + college factories mirrored in .ts)
 # =============================================================================
-# mainNavItems  → top website menu
-# footerSections → footer link groups
-# Edit here, then:  npm run sync:navigation -- load navigation.yaml
+# Source of truth for sync: npm run sync:navigation
+# Runtime college nav is built in src/data/navigation.ts via getCollegeNavItems()
 #
 mainNavItems:
   - label: Home
     path: /
-  - label: About
-    path: /about
-  - label: Colleges
-    path: /colleges
-    children:
-      - label: College of Health Technology
-        path: /colleges/health-technology
-      - label: College of Education
-        path: /colleges/education
-  - label: Programmes
-    path: /programmes
-  - label: Admissions
-    path: /admissions
-  - label: News
-    path: /news
-  - label: Contact
-    path: /contact
+  - label: Student Portal
+    path: /portal
 footerSections:
   - title: Colleges
     items:
@@ -34,15 +18,7 @@ footerSections:
         path: /colleges/education
   - title: Quick Links
     items:
-      - label: About Us
-        path: /about
-      - label: All Programmes
-        path: /programmes
-      - label: Admissions
-        path: /admissions
       - label: Student Portal
         path: /portal
-      - label: News & Updates
-        path: /news
-      - label: Contact & Campus
-        path: /contact
+      - label: Group Gateway
+        path: /

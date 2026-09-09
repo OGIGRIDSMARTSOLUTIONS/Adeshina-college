@@ -16,6 +16,8 @@ import {
 import { programmes } from '@/data/programmes';
 import { siteConfig } from '@/data/siteConfig';
 import { Container } from '@/components/common/Container';
+import { useCollege } from '@/context/CollegeContext';
+import { CollegeId } from '@/lib/collegePaths';
 
 interface SubjectGrade {
   id: string;
@@ -47,6 +49,21 @@ const GRADE_OPTIONS = ['Grade', 'A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 
 
 export function ApplyPage() {
   const navigate = useNavigate();
+  const { college, collegeId, path } = useCollege();
+  const isHealth = collegeId === 'health-technology';
+  const primaryBtn = isHealth
+    ? 'bg-[#10a37f] hover:bg-[#0a7a5c]'
+    : 'bg-[#02509e] hover:bg-[#013a75]';
+  const progressBar = isHealth ? 'bg-[#10a37f]' : 'bg-[#02509e]';
+  const focusRing = isHealth
+    ? 'focus:border-[#10a37f] focus:ring-1 focus:ring-[#10a37f]'
+    : 'focus:border-[#02509e] focus:ring-1 focus:ring-[#02509e]';
+  const inputClass = `w-full rounded-md border border-slate-300 bg-white px-4 py-2.5 text-[14px] text-[#05264c] outline-none transition-colors placeholder:text-slate-400 ${focusRing}`;
+  const labelClass =
+    'mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500';
+  const outlineBtn =
+    'inline-flex items-center gap-2 rounded-md border border-[#05264c]/20 bg-white px-4 py-2.5 text-[13px] font-semibold text-[#05264c] transition-colors hover:border-[#05264c]/40 hover:bg-slate-50';
+  const cardClass = 'rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8';
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   // Step 1: Personal Info
@@ -59,10 +76,10 @@ export function ApplyPage() {
   const [stateOfOrigin, setStateOfOrigin] = useState('');
   const [address, setAddress] = useState('');
 
-  // Step 2: Programme Selection
-  const [selectedCollege, setSelectedCollege] = useState<'health-technology' | 'education'>('health-technology');
+  // Step 2: Programme Selection — college locked by route
+  const selectedCollege = collegeId as CollegeId;
   const [selectedProgramme, setSelectedProgramme] = useState('');
-  const [intakePeriod, setIntakePeriod] = useState('2024/2025 Regular Session');
+  const [intakePeriod, setIntakePeriod] = useState('2025/2026 Academic Session');
 
   // Step 3: Academic Background
   const [examType, setExamType] = useState('WAEC (SSCE)');
@@ -191,178 +208,183 @@ export function ApplyPage() {
           /* ============================================================ */
           /* OFFICIAL INSTITUTIONAL PRINTABLE SLIP VIEW                   */
           /* ============================================================ */
-          <div className="max-w-3xl mx-auto space-y-6">
+          <div className="mx-auto max-w-3xl space-y-6">
             {/* Top Action Bar (hidden in print) */}
-            <div className="flex items-center justify-between bg-white p-4 rounded-2xl border border-slate-200 shadow-sm print:hidden">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm print:hidden">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-bold text-slate-700">
-                  Application Slip Generated Successfully
+                <span className={`h-2.5 w-2.5 rounded-full ${isHealth ? 'bg-[#10a37f]' : 'bg-emerald-500'}`} />
+                <span className="text-[13px] font-semibold text-slate-700">
+                  Application slip ready
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-navy hover:bg-adeshina-blue text-white text-xs font-bold transition-all shadow-sm"
+                  className={`inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-[13px] font-semibold text-white transition-colors ${primaryBtn}`}
                 >
-                  <Printer className="w-4 h-4" />
+                  <Printer className="h-4 w-4" />
                   <span>Print Official Slip</span>
                 </button>
-                <Link
-                  to="/"
-                  className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all"
-                >
-                  Return to Home
+                <Link to={path()} className={outlineBtn}>
+                  College Home
                 </Link>
               </div>
             </div>
 
             {/* Official Institutional Slip Paper */}
-            <div className="bg-white rounded-2xl border-2 border-slate-300/80 shadow-xl p-6 sm:p-10 space-y-6 relative overflow-hidden print:border-none print:shadow-none print:p-0">
-              {/* Decorative Corner Watermark */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-bl-full pointer-events-none -z-0 opacity-60" />
-
+            <div className="relative space-y-6 overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-10 print:border-none print:p-0 print:shadow-none">
               {/* Institutional Header with Official Emblem */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b-2 border-slate-800 relative z-10 text-center sm:text-left">
+              <div className="relative z-10 flex flex-col items-center justify-between gap-4 border-b border-slate-200 pb-6 text-center sm:flex-row sm:text-left">
                 <div className="flex items-center gap-4">
                   {siteConfig.brand.logoUrl ? (
                     <img
                       src={siteConfig.brand.logoUrl}
                       alt={siteConfig.institutionName}
-                      className="w-16 h-16 sm:w-20 sm:h-20 object-contain rounded-xl border border-slate-200 p-1 bg-white shadow-sm"
+                      className="h-16 w-16 rounded-md border border-slate-200 bg-white object-contain p-1 sm:h-20 sm:w-20"
                     />
                   ) : (
-                    <div className="w-16 h-16 rounded-xl bg-navy text-white font-serif font-black text-2xl flex items-center justify-center">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-md bg-[#05264c] font-serif text-2xl font-semibold text-white">
                       A
                     </div>
                   )}
                   <div>
-                    <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-bold text-sky-700 block">
-                      OFFICIAL ADMISSION REGISTRY
+                    <span
+                      className={`block text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-[11px] ${
+                        isHealth ? 'text-[#0a7a5c]' : 'text-[#02509e]'
+                      }`}
+                    >
+                      Official Admission Registry
                     </span>
-                    <h1 className="text-xl sm:text-2xl font-serif font-black text-navy tracking-tight leading-tight">
+                    <h1 className="font-serif text-xl font-semibold leading-tight tracking-tight text-[#05264c] sm:text-2xl">
                       {siteConfig.institutionName}
                     </h1>
-                    <p className="text-xs text-slate-600 mt-0.5">
+                    <p className="mt-0.5 text-xs text-slate-600">
                       Share Campus, Ifelodun LGA, Kwara State · {siteConfig.contact.email}
                     </p>
                   </div>
                 </div>
 
-                {/* Passport Box (Top Right) */}
-                <div className="w-24 h-28 sm:w-28 sm:h-32 rounded-lg border-2 border-dashed border-slate-400 bg-slate-50 flex flex-col items-center justify-center text-center p-2 shrink-0">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase leading-tight">
-                    APPLICANT PASSPORT
+                <div className="flex h-28 w-24 shrink-0 flex-col items-center justify-center rounded-md border border-dashed border-slate-300 bg-slate-50 p-2 text-center sm:h-32 sm:w-28">
+                  <span className="text-[10px] font-semibold uppercase leading-tight text-slate-400">
+                    Applicant Passport
                   </span>
-                  <span className="text-[9px] text-slate-400 mt-1">
+                  <span className="mt-1 text-[9px] text-slate-400">
                     {passportFileName ? 'Uploaded' : 'Affix Photo'}
                   </span>
                 </div>
               </div>
 
-              {/* Slip Title & Verification Metadata */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-3 px-4 rounded-xl bg-sky-50/70 border border-sky-100">
+              <div
+                className={`flex flex-col items-center justify-between gap-4 rounded-md border px-4 py-3 sm:flex-row ${
+                  isHealth
+                    ? 'border-[#10a37f]/25 bg-[#10a37f]/5'
+                    : 'border-[#02509e]/20 bg-[#02509e]/5'
+                }`}
+              >
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-sky-800 block">
-                    DOCUMENT TYPE
+                  <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Document Type
                   </span>
-                  <span className="text-sm font-serif font-bold text-navy">
+                  <span className="font-serif text-sm font-semibold text-[#05264c]">
                     Provisional Online Application Registration Slip
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
-                    APPLICATION REFERENCE ID
+                  <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+                    Application Reference ID
                   </span>
-                  <span className="font-mono text-base sm:text-lg font-black text-sky-700 tracking-widest">
+                  <span
+                    className={`font-mono text-base tracking-widest sm:text-lg ${
+                      isHealth ? 'font-semibold text-[#0a7a5c]' : 'font-semibold text-[#02509e]'
+                    }`}
+                  >
                     {submittedRef}
                   </span>
                 </div>
               </div>
 
-              {/* Section 1: Candidate Personal Details */}
               <div className="space-y-3">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-navy bg-slate-100 py-1.5 px-3 rounded-md">
+                <h2 className="rounded-md bg-slate-100 px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-[#05264c]">
                   1. Candidate Personal Information
                 </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+                <div className="grid grid-cols-2 gap-3 text-xs sm:grid-cols-3">
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Full Name:</span>
-                    <span className="font-bold text-navy">{firstName} {lastName}</span>
+                    <span className="block text-[11px] text-slate-400">Full Name:</span>
+                    <span className="font-semibold text-[#05264c]">{firstName} {lastName}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Phone Number:</span>
-                    <span className="font-bold text-navy">{phone}</span>
+                    <span className="block text-[11px] text-slate-400">Phone Number:</span>
+                    <span className="font-semibold text-[#05264c]">{phone}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Email Address:</span>
-                    <span className="font-bold text-navy">{email || 'N/A'}</span>
+                    <span className="block text-[11px] text-slate-400">Email Address:</span>
+                    <span className="font-semibold text-[#05264c]">{email || 'N/A'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Gender:</span>
-                    <span className="font-bold text-navy">{gender}</span>
+                    <span className="block text-[11px] text-slate-400">Gender:</span>
+                    <span className="font-semibold text-[#05264c]">{gender}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">State of Origin:</span>
-                    <span className="font-bold text-navy">{stateOfOrigin || 'N/A'}</span>
+                    <span className="block text-[11px] text-slate-400">State of Origin:</span>
+                    <span className="font-semibold text-[#05264c]">{stateOfOrigin || 'N/A'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Submission Date:</span>
-                    <span className="font-bold text-navy">{submissionDate}</span>
+                    <span className="block text-[11px] text-slate-400">Submission Date:</span>
+                    <span className="font-semibold text-[#05264c]">{submissionDate}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Section 2: Programme Selection */}
               <div className="space-y-3">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-navy bg-slate-100 py-1.5 px-3 rounded-md">
+                <h2 className="rounded-md bg-slate-100 px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-[#05264c]">
                   2. Academic Choice & College Information
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div className="grid grid-cols-1 gap-3 text-xs sm:grid-cols-3">
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Chosen College:</span>
-                    <span className="font-bold text-navy">
+                    <span className="block text-[11px] text-slate-400">Chosen College:</span>
+                    <span className="font-semibold text-[#05264c]">
                       {selectedCollege === 'health-technology' ? 'Adeshina College of Health Technology' : 'Adeshina College of Education'}
                     </span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Programme Applied:</span>
-                    <span className="font-bold text-navy">{selectedProgramme}</span>
+                    <span className="block text-[11px] text-slate-400">Programme Applied:</span>
+                    <span className="font-semibold text-[#05264c]">{selectedProgramme}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[11px]">Mode / Session:</span>
-                    <span className="font-bold text-navy">Full-Time · {intakePeriod}</span>
+                    <span className="block text-[11px] text-slate-400">Mode / Session:</span>
+                    <span className="font-semibold text-[#05264c]">Full-Time · {intakePeriod}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Section 3: O'Level Academic Qualifications */}
               <div className="space-y-3">
-                <h2 className="text-xs font-bold uppercase tracking-wider text-navy bg-slate-100 py-1.5 px-3 rounded-md">
+                <h2 className="rounded-md bg-slate-100 px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-[#05264c]">
                   3. O'Level Academic Credentials
                 </h2>
-                <div className="text-xs mb-2">
+                <div className="mb-2 text-xs">
                   <span className="text-slate-500">Examination Body & Sittings: </span>
-                  <strong className="text-navy">{examType} ({sittings})</strong>
-                  {schoolName && <span className="text-slate-500"> · School: <strong className="text-navy">{schoolName}</strong></span>}
+                  <strong className="text-[#05264c]">{examType} ({sittings})</strong>
+                  {schoolName && <span className="text-slate-500"> · School: <strong className="text-[#05264c]">{schoolName}</strong></span>}
                 </div>
 
-                <div className="border border-slate-200 rounded-lg overflow-hidden">
+                <div className="overflow-hidden rounded-md border border-slate-200">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+                    <thead className="border-b border-slate-200 bg-slate-50 font-semibold text-slate-600">
                       <tr>
-                        <th className="px-3 py-2 w-12 text-center">S/N</th>
+                        <th className="w-12 px-3 py-2 text-center">S/N</th>
                         <th className="px-3 py-2">Subject</th>
-                        <th className="px-3 py-2 w-28 text-center">Grade Awarded</th>
+                        <th className="w-28 px-3 py-2 text-center">Grade Awarded</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {subjects.map((sub, idx) => (
-                        <tr key={sub.id} className="hover:bg-slate-50/50">
+                        <tr key={sub.id}>
                           <td className="px-3 py-2 text-center font-mono text-slate-400">{idx + 1}</td>
-                          <td className="px-3 py-2 font-medium text-navy">{sub.subject || 'Not Specified'}</td>
-                          <td className="px-3 py-2 text-center font-bold font-mono text-sky-800">{sub.grade}</td>
+                          <td className="px-3 py-2 font-medium text-[#05264c]">{sub.subject || 'Not Specified'}</td>
+                          <td className={`px-3 py-2 text-center font-mono font-semibold ${isHealth ? 'text-[#0a7a5c]' : 'text-[#02509e]'}`}>
+                            {sub.grade}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -370,29 +392,27 @@ export function ApplyPage() {
                 </div>
               </div>
 
-              {/* Registry Verification & Instructions */}
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
-                <div className="flex items-center gap-2 font-bold text-navy">
-                  <ShieldCheck className="w-4 h-4 text-sky-600" />
+              <div className="space-y-2 rounded-md border border-slate-200 bg-slate-50 p-4 text-xs">
+                <div className="flex items-center gap-2 font-semibold text-[#05264c]">
+                  <ShieldCheck className={`h-4 w-4 ${isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'}`} />
                   <span>Important Instructions for Physical Verification & Screening</span>
                 </div>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="leading-relaxed text-slate-600">
                   1. Print two (2) coloured copies of this registration slip and bring them along with your original O'Level certificate/statement of result and birth certificate.
                 </p>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="leading-relaxed text-slate-600">
                   2. Screening venue: Admissions Registry, Adeshina Group of Colleges, Layout B, Plot 1, Share-Okeode Road, Share, Kwara State.
                 </p>
               </div>
 
-              {/* Signature Blocks */}
-              <div className="grid grid-cols-2 gap-8 pt-6 border-t border-slate-200 text-xs">
+              <div className="grid grid-cols-2 gap-8 border-t border-slate-200 pt-6 text-xs">
                 <div className="space-y-10">
-                  <div className="border-b border-slate-400 w-48" />
-                  <span className="font-bold text-slate-700 block">Candidate Signature & Date</span>
+                  <div className="w-48 border-b border-slate-400" />
+                  <span className="block font-semibold text-slate-700">Candidate Signature & Date</span>
                 </div>
                 <div className="space-y-10 text-right">
-                  <div className="border-b border-slate-400 w-48 ml-auto" />
-                  <span className="font-bold text-slate-700 block">Admissions Officer Stamp & Date</span>
+                  <div className="ml-auto w-48 border-b border-slate-400" />
+                  <span className="block font-semibold text-slate-700">Admissions Officer Stamp & Date</span>
                 </div>
               </div>
             </div>
@@ -401,67 +421,52 @@ export function ApplyPage() {
           /* ============================================================ */
           /* 5-STEP APPLICATION WIZARD (Matching Reference Layout)        */
           /* ============================================================ */
-          <div className="space-y-4">
+          <div className="space-y-6">
             {/* Top Back Navigation Bar */}
-            <div className="flex items-center justify-between pb-2">
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-1">
               <button
                 type="button"
-                onClick={() => (currentStep > 1 ? handlePrevStep() : navigate('/admissions'))}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-200/70 hover:bg-slate-300/80 text-navy text-xs font-bold transition-all shadow-sm"
+                onClick={() => (currentStep > 1 ? handlePrevStep() : navigate(path('admissions')))}
+                className={outlineBtn}
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>{currentStep > 1 ? 'Go to Previous Step' : 'Back to Admissions'}</span>
+                <ArrowLeft className="w-4 h-4" />
+                <span>{currentStep > 1 ? 'Previous Step' : 'Back to Admissions'}</span>
               </button>
 
-              <Link
-                to="/"
-                className="text-xs font-bold text-slate-500 hover:text-navy transition-colors"
-              >
-                Return to Home &rarr;
+              <Link to={path()} className={`${outlineBtn} border-transparent bg-transparent hover:bg-slate-100`}>
+                College Home
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
             {/* Left Column: Active Form Step */}
             <div className="lg:col-span-8">
               {/* Header Title & Progress Counter */}
               <div className="mb-6">
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex items-end justify-between gap-4">
                   <div>
-                    <h1 className="text-2xl sm:text-3xl font-serif font-black tracking-tight text-navy">
+                    <h1 className="font-serif text-2xl font-semibold tracking-tight text-[#05264c] sm:text-3xl">
                       {getStepTitle().main}
                     </h1>
-                    <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+                    <p className="mt-1 text-sm text-slate-500">
                       {getStepTitle().sub}
                     </p>
                   </div>
-                  <div className="text-right">
-                    <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-400 block">
-                      PROGRESS
-                    </span>
-                    <span className="text-sm sm:text-base font-serif font-black text-navy">
-                      {currentStep} of 5
-                    </span>
-                  </div>
+                  <p className="shrink-0 text-sm font-semibold text-slate-500">
+                    Step {currentStep} of 5
+                  </p>
                 </div>
 
-                {/* Blue Progress Bar */}
-                <div className="w-full bg-slate-200 h-1.5 rounded-full mt-3 overflow-hidden">
-                  <div 
-                    className="bg-adeshina-blue h-full transition-all duration-300"
+                <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+                  <div
+                    className={`h-full transition-all duration-300 ${progressBar}`}
                     style={{ width: `${(currentStep / 5) * 100}%` }}
                   />
-                </div>
-
-                {/* Autosaved Indicator */}
-                <div className="flex items-center gap-1.5 text-[11px] text-emerald-600 mt-2">
-                  <Check className="w-3.5 h-3.5" />
-                  <span>All changes saved to session</span>
                 </div>
               </div>
 
               {/* Main Step Form Card */}
-              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 sm:p-8">
+              <div className={cardClass}>
                 {/* -------------------------------------------------- */}
                 {/* STEP 1: Personal Information                       */}
                 {/* -------------------------------------------------- */}
@@ -469,7 +474,7 @@ export function ApplyPage() {
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           First Name <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -478,11 +483,11 @@ export function ApplyPage() {
                           placeholder="Enter first name"
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           Last Name <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -491,13 +496,13 @@ export function ApplyPage() {
                           placeholder="Enter last name"
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                      <label className={labelClass}>
                         Email Address
                       </label>
                       <input
@@ -505,13 +510,13 @@ export function ApplyPage() {
                         placeholder="example@college.edu"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                        className={inputClass}
                       />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           Phone Number <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -520,17 +525,17 @@ export function ApplyPage() {
                           placeholder="+234 803 000 0000"
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           Gender
                         </label>
                         <select
                           value={gender}
                           onChange={(e) => setGender(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         >
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
@@ -540,19 +545,19 @@ export function ApplyPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           Date of Birth
                         </label>
                         <input
                           type="date"
                           value={dob}
                           onChange={(e) => setDob(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         />
                         <span className="text-[10px] text-slate-400 mt-1 block">Use Day / Month / Year format</span>
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           State of Origin
                         </label>
                         <input
@@ -560,13 +565,13 @@ export function ApplyPage() {
                           placeholder="e.g. Kwara State"
                           value={stateOfOrigin}
                           onChange={(e) => setStateOfOrigin(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                      <label className={labelClass}>
                         Permanent Residential Address
                       </label>
                       <input
@@ -574,12 +579,12 @@ export function ApplyPage() {
                         placeholder="Street name, City, State"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                        className={inputClass}
                       />
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-100 flex items-start gap-2.5 text-xs text-slate-600 mt-4">
-                      <ShieldCheck className="w-4 h-4 text-adeshina-blue shrink-0 mt-0.5" />
+                    <div className="mt-4 flex items-start gap-2.5 rounded-md border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-600">
+                      <ShieldCheck className={`mt-0.5 h-4 w-4 shrink-0 ${isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'}`} />
                       <span>Please ensure your details match your government-issued ID or birth certificate. You will present original copies for screening.</span>
                     </div>
                   </div>
@@ -591,66 +596,38 @@ export function ApplyPage() {
                 {currentStep === 2 && (
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
-                        Select Academic College / Faculty
+                      <label className={labelClass}>
+                        Academic College
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedCollege('health-technology');
-                            setSelectedProgramme('');
-                          }}
-                          className={`p-4 rounded-xl border-2 text-left transition-all ${
-                            selectedCollege === 'health-technology'
-                              ? 'border-adeshina-blue bg-blue-50/50 shadow-sm'
-                              : 'border-slate-200 bg-white hover:border-slate-300'
+                      <div
+                        className={`rounded-md border p-4 text-left ${
+                          isHealth
+                            ? 'border-[#10a37f]/40 bg-[#10a37f]/5'
+                            : 'border-[#02509e]/35 bg-[#02509e]/5'
+                        }`}
+                      >
+                        <span
+                          className={`mb-1 block text-[11px] font-semibold uppercase tracking-[0.12em] ${
+                            isHealth ? 'text-[#0a7a5c]' : 'text-[#02509e]'
                           }`}
                         >
-                          <span className="block text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">
-                            College 01
-                          </span>
-                          <span className="block font-serif font-bold text-navy text-sm sm:text-base">
-                            Adeshina College of Health Technology
-                          </span>
-                          <span className="block text-xs text-slate-500 mt-1">
-                            CHEW, MLT, Pharmacy Tech, Environmental Health
-                          </span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedCollege('education');
-                            setSelectedProgramme('');
-                          }}
-                          className={`p-4 rounded-xl border-2 text-left transition-all ${
-                            selectedCollege === 'education'
-                              ? 'border-adeshina-blue bg-blue-50/50 shadow-sm'
-                              : 'border-slate-200 bg-white hover:border-slate-300'
-                          }`}
-                        >
-                          <span className="block text-xs font-bold text-adeshina-blue uppercase tracking-wider mb-1">
-                            College 02
-                          </span>
-                          <span className="block font-serif font-bold text-navy text-sm sm:text-base">
-                            Adeshina College of Education
-                          </span>
-                          <span className="block text-xs text-slate-500 mt-1">
-                            Nigeria Certificate in Education (NCE)
-                          </span>
-                        </button>
+                          Applying to
+                        </span>
+                        <span className="block font-serif text-base font-semibold text-[#05264c]">
+                          {college.name}
+                        </span>
+                        <span className="mt-1 block text-xs text-slate-500">{college.tagline}</span>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
+                      <label className={labelClass}>
                         Select Programme of Study <span className="text-red-500">*</span>
                       </label>
                       <select
                         value={selectedProgramme}
                         onChange={(e) => setSelectedProgramme(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-navy text-sm font-medium focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                        className={inputClass}
                       >
                         <option value="">-- Select Programme ({availableProgrammes.length} Available) --</option>
                         {availableProgrammes.map((p) => (
@@ -662,31 +639,31 @@ export function ApplyPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
+                      <label className={labelClass}>
                         Intake Period / Session
                       </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <button
-                          type="button"
-                          onClick={() => setIntakePeriod('2024/2025 Regular Session')}
-                          className={`p-3.5 rounded-xl border text-xs font-bold transition-all ${
-                            intakePeriod === '2024/2025 Regular Session'
-                              ? 'border-navy bg-navy text-white shadow-sm'
-                              : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
-                          }`}
-                        >
-                          2024/2025 Regular Session
-                        </button>
+                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                         <button
                           type="button"
                           onClick={() => setIntakePeriod('2025/2026 Academic Session')}
-                          className={`p-3.5 rounded-xl border text-xs font-bold transition-all ${
+                          className={`rounded-md border px-4 py-3 text-left text-[13px] font-semibold transition-colors ${
                             intakePeriod === '2025/2026 Academic Session'
-                              ? 'border-navy bg-navy text-white shadow-sm'
-                              : 'border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100'
+                              ? 'border-[#05264c] bg-[#05264c] text-white'
+                              : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                           }`}
                         >
                           2025/2026 Academic Session
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setIntakePeriod('2026/2027 Academic Session')}
+                          className={`rounded-md border px-4 py-3 text-left text-[13px] font-semibold transition-colors ${
+                            intakePeriod === '2026/2027 Academic Session'
+                              ? 'border-[#05264c] bg-[#05264c] text-white'
+                              : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                          }`}
+                        >
+                          2026/2027 Academic Session
                         </button>
                       </div>
                     </div>
@@ -700,13 +677,13 @@ export function ApplyPage() {
                   <div className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           Examination Type
                         </label>
                         <select
                           value={examType}
                           onChange={(e) => setExamType(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         >
                           <option value="WAEC (SSCE)">WAEC (SSCE)</option>
                           <option value="NECO (SSCE)">NECO (SSCE)</option>
@@ -717,13 +694,13 @@ export function ApplyPage() {
                       </div>
 
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           Number of Sittings
                         </label>
                         <select
                           value={sittings}
                           onChange={(e) => setSittings(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         >
                           <option value="1 Sitting">1 Sitting</option>
                           <option value="2 Sittings">2 Sittings</option>
@@ -733,7 +710,7 @@ export function ApplyPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="sm:col-span-2">
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           Name of Secondary School Attended
                         </label>
                         <input
@@ -741,11 +718,11 @@ export function ApplyPage() {
                           placeholder="Enter secondary school name"
                           value={schoolName}
                           onChange={(e) => setSchoolName(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-1.5">
+                        <label className={labelClass}>
                           Year of Result
                         </label>
                         <input
@@ -753,7 +730,7 @@ export function ApplyPage() {
                           placeholder="e.g. 2024"
                           value={yearOfResult}
                           onChange={(e) => setYearOfResult(e.target.value)}
-                          className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-navy text-sm focus:ring-2 focus:ring-adeshina-blue outline-none transition-all"
+                          className={inputClass}
                         />
                       </div>
                     </div>
@@ -761,7 +738,7 @@ export function ApplyPage() {
                     {/* O'Level Subject Rows */}
                     <div className="pt-2">
                       <div className="mb-2">
-                        <label className="block text-xs font-bold uppercase tracking-wider text-navy">
+                        <label className={labelClass}>
                           O'Level Subjects & Grades
                         </label>
                         <span className="text-[11px] text-slate-500">
@@ -769,7 +746,7 @@ export function ApplyPage() {
                         </span>
                       </div>
 
-                      <div className="space-y-2 mt-3">
+                      <div className="mt-3 space-y-2">
                         {subjects.map((item, index) => {
                           const isMandatory = index < 2;
                           return (
@@ -780,13 +757,13 @@ export function ApplyPage() {
                                     type="text"
                                     disabled
                                     value={item.subject}
-                                    className="w-full px-3.5 py-2.5 rounded-lg bg-slate-50 border border-slate-300 text-slate-700 text-xs sm:text-sm font-medium shadow-sm"
+                                    className="w-full rounded-md border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-[13px] font-medium text-slate-700"
                                   />
                                 ) : (
                                   <select
                                     value={item.subject}
                                     onChange={(e) => handleSubjectChange(item.id, 'subject', e.target.value)}
-                                    className="w-full px-3.5 py-2.5 rounded-lg bg-white border border-slate-300 text-navy text-xs sm:text-sm font-medium focus:ring-2 focus:ring-adeshina-blue focus:border-adeshina-blue outline-none transition-all shadow-sm"
+                                    className={inputClass}
                                   >
                                     <option value="">Select Subject...</option>
                                     {COMMON_SUBJECTS.map((sub) => (
@@ -796,12 +773,12 @@ export function ApplyPage() {
                                 )}
                               </div>
 
-                              <div className="w-28 sm:w-36 shrink-0">
+                              <div className="w-28 shrink-0 sm:w-36">
                                 <select
                                   value={item.grade}
                                   onChange={(e) => handleSubjectChange(item.id, 'grade', e.target.value)}
-                                  className={`w-full px-3 py-2.5 rounded-lg bg-white border border-slate-300 text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-adeshina-blue focus:border-adeshina-blue outline-none transition-all shadow-sm ${
-                                    item.grade === 'Grade' || !item.grade ? 'text-slate-400 font-normal' : 'text-navy'
+                                  className={`${inputClass} ${
+                                    item.grade === 'Grade' || !item.grade ? 'text-slate-400' : ''
                                   }`}
                                 >
                                   {GRADE_OPTIONS.map((gr) => (
@@ -810,16 +787,16 @@ export function ApplyPage() {
                                 </select>
                               </div>
 
-                              <div className="w-8 shrink-0 flex items-center justify-center">
+                              <div className="flex w-8 shrink-0 items-center justify-center">
                                 {!isMandatory ? (
                                   <button
                                     type="button"
                                     onClick={() => handleRemoveSubject(item.id)}
-                                    className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 rounded transition-colors"
+                                    className="rounded p-1 text-red-500 transition-colors hover:bg-red-50 hover:text-red-700"
                                     title="Remove subject"
                                     aria-label="Remove subject"
                                   >
-                                    <X className="w-4 h-4 stroke-[2.5]" />
+                                    <X className="h-4 w-4 stroke-[2.5]" />
                                   </button>
                                 ) : (
                                   <span className="w-4" />
@@ -833,9 +810,13 @@ export function ApplyPage() {
                       <button
                         type="button"
                         onClick={handleAddSubject}
-                        className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-bold text-adeshina-blue hover:text-navy transition-colors py-1.5 px-3 rounded-lg border border-dashed border-slate-300 hover:border-adeshina-blue hover:bg-blue-50/60"
+                        className={`mt-3.5 inline-flex items-center gap-1.5 rounded-md border border-dashed px-3 py-2 text-[12px] font-semibold transition-colors ${
+                          isHealth
+                            ? 'border-[#10a37f]/40 text-[#0a7a5c] hover:border-[#10a37f] hover:bg-[#10a37f]/5'
+                            : 'border-[#02509e]/35 text-[#02509e] hover:border-[#02509e] hover:bg-[#02509e]/5'
+                        }`}
                       >
-                        <Plus className="w-3.5 h-3.5" />
+                        <Plus className="h-3.5 w-3.5" />
                         <span>Add Subject</span>
                       </button>
                     </div>
@@ -849,25 +830,29 @@ export function ApplyPage() {
                   <div className="space-y-6">
                     {/* Transcript / O'Level Slip */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
+                      <label className={labelClass}>
                         Transcript / O'Level Result Slip
                       </label>
-                      <div className="p-5 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+                      <div className="flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-slate-300 bg-slate-50/80 p-5 sm:flex-row">
                         <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-xl bg-blue-100 text-adeshina-blue flex items-center justify-center shrink-0">
-                            <FileText className="w-6 h-6" />
+                          <div
+                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-md ${
+                              isHealth ? 'bg-[#10a37f]/15 text-[#0a7a5c]' : 'bg-[#02509e]/10 text-[#02509e]'
+                            }`}
+                          >
+                            <FileText className="h-5 w-5" />
                           </div>
                           <div>
-                            <span className="text-sm font-bold text-navy block">
+                            <span className="block text-sm font-semibold text-[#05264c]">
                               {olevelFileName ? olevelFileName : "O'Level Result Statement"}
                             </span>
-                            <span className="text-xs text-slate-400 block">
+                            <span className="block text-xs text-slate-400">
                               PDF, JPG, or PNG up to 5MB
                             </span>
                           </div>
                         </div>
 
-                        <label className="px-5 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-adeshina-blue text-navy hover:text-adeshina-blue text-xs font-bold transition-all cursor-pointer shadow-sm">
+                        <label className={`${outlineBtn} cursor-pointer`}>
                           <span>{olevelFileName ? 'Replace File' : 'Upload File'}</span>
                           <input
                             type="file"
@@ -885,25 +870,25 @@ export function ApplyPage() {
 
                     {/* Passport / ID Copy */}
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-navy mb-2">
+                      <label className={labelClass}>
                         Passport / Identity Document
                       </label>
-                      <div className="p-5 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+                      <div className="flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-slate-300 bg-slate-50/80 p-5 sm:flex-row">
                         <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                            <Upload className="w-6 h-6" />
+                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-slate-200/80 text-slate-600">
+                            <Upload className="h-5 w-5" />
                           </div>
                           <div>
-                            <span className="text-sm font-bold text-navy block">
+                            <span className="block text-sm font-semibold text-[#05264c]">
                               {passportFileName ? passportFileName : 'Recent Passport Photograph'}
                             </span>
-                            <span className="text-xs text-slate-400 block">
+                            <span className="block text-xs text-slate-400">
                               Clear color photograph or ID scan (up to 5MB)
                             </span>
                           </div>
                         </div>
 
-                        <label className="px-5 py-2.5 rounded-xl bg-white border border-slate-300 hover:border-adeshina-blue text-navy hover:text-adeshina-blue text-xs font-bold transition-all cursor-pointer shadow-sm">
+                        <label className={`${outlineBtn} cursor-pointer`}>
                           <span>{passportFileName ? 'Replace File' : 'Upload File'}</span>
                           <input
                             type="file"
@@ -919,8 +904,8 @@ export function ApplyPage() {
                       </div>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-600 flex items-start gap-2">
-                      <ShieldCheck className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
+                    <div className="flex items-start gap-2 rounded-md border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-600">
+                      <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" />
                       <span>Ensure all text and stamps are clearly legible before submitting. Document upload is optional during online pre-registration and can be verified physically on campus.</span>
                     </div>
                   </div>
@@ -932,39 +917,36 @@ export function ApplyPage() {
                 {currentStep === 5 && (
                   <form onSubmit={handleFinalSubmit} className="space-y-6">
                     <div className="space-y-4">
-                      <h2 className="font-serif font-bold text-navy text-base">
+                      <h2 className="font-serif text-base font-semibold text-[#05264c]">
                         Please review your application summary before final submission:
                       </h2>
 
-                      {/* Personal block */}
-                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1.5">
-                        <span className="font-bold text-navy uppercase tracking-wider block text-[11px] mb-1">
+                      <div className="space-y-1.5 rounded-md border border-slate-200 bg-slate-50 p-4 text-xs">
+                        <span className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">
                           1. Personal Details
                         </span>
-                        <p><span className="text-slate-400">Name:</span> <span className="font-semibold text-navy">{firstName} {lastName}</span></p>
-                        <p><span className="text-slate-400">Phone / Email:</span> <span className="font-semibold text-navy">{phone} {email && `· ${email}`}</span></p>
-                        <p><span className="text-slate-400">State / Gender:</span> <span className="font-semibold text-navy">{stateOfOrigin || 'N/A'} · {gender}</span></p>
+                        <p><span className="text-slate-400">Name:</span> <span className="font-semibold text-[#05264c]">{firstName} {lastName}</span></p>
+                        <p><span className="text-slate-400">Phone / Email:</span> <span className="font-semibold text-[#05264c]">{phone} {email && `· ${email}`}</span></p>
+                        <p><span className="text-slate-400">State / Gender:</span> <span className="font-semibold text-[#05264c]">{stateOfOrigin || 'N/A'} · {gender}</span></p>
                       </div>
 
-                      {/* Programme block */}
-                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1.5">
-                        <span className="font-bold text-navy uppercase tracking-wider block text-[11px] mb-1">
+                      <div className="space-y-1.5 rounded-md border border-slate-200 bg-slate-50 p-4 text-xs">
+                        <span className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">
                           2. Chosen Academic Programme
                         </span>
-                        <p><span className="text-slate-400">College:</span> <span className="font-semibold text-navy">{selectedCollege === 'health-technology' ? 'Adeshina College of Health Technology' : 'Adeshina College of Education'}</span></p>
-                        <p><span className="text-slate-400">Programme:</span> <span className="font-semibold text-navy">{selectedProgramme || 'Not selected'} (Full-time)</span></p>
-                        <p><span className="text-slate-400">Intake Session:</span> <span className="font-semibold text-navy">{intakePeriod}</span></p>
+                        <p><span className="text-slate-400">College:</span> <span className="font-semibold text-[#05264c]">{selectedCollege === 'health-technology' ? 'Adeshina College of Health Technology' : 'Adeshina College of Education'}</span></p>
+                        <p><span className="text-slate-400">Programme:</span> <span className="font-semibold text-[#05264c]">{selectedProgramme || 'Not selected'} (Full-time)</span></p>
+                        <p><span className="text-slate-400">Intake Session:</span> <span className="font-semibold text-[#05264c]">{intakePeriod}</span></p>
                       </div>
 
-                      {/* Academic block */}
-                      <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1.5">
-                        <span className="font-bold text-navy uppercase tracking-wider block text-[11px] mb-1">
+                      <div className="space-y-1.5 rounded-md border border-slate-200 bg-slate-50 p-4 text-xs">
+                        <span className="mb-1 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">
                           3. Academic Credentials
                         </span>
-                        <p><span className="text-slate-400">Exam & Sittings:</span> <span className="font-semibold text-navy">{examType} ({sittings}) · School: {schoolName || 'N/A'}</span></p>
+                        <p><span className="text-slate-400">Exam & Sittings:</span> <span className="font-semibold text-[#05264c]">{examType} ({sittings}) · School: {schoolName || 'N/A'}</span></p>
                         <div className="flex flex-wrap gap-1.5 pt-1">
                           {subjects.map((sub) => (
-                            <span key={sub.id} className="px-2 py-0.5 rounded bg-white border border-slate-200 font-medium text-navy text-[11px]">
+                            <span key={sub.id} className="rounded border border-slate-200 bg-white px-2 py-0.5 text-[11px] font-medium text-[#05264c]">
                               {sub.subject}: <strong>{sub.grade}</strong>
                             </span>
                           ))}
@@ -972,35 +954,35 @@ export function ApplyPage() {
                       </div>
                     </div>
 
-                    {/* Confirmation Checkbox */}
-                    <div className="pt-2 border-t border-slate-100">
-                      <label className="flex items-start gap-3 cursor-pointer">
+                    <div className="border-t border-slate-100 pt-2">
+                      <label className="flex cursor-pointer items-start gap-3">
                         <input
                           type="checkbox"
                           required
                           checked={termsAccepted}
                           onChange={(e) => setTermsAccepted(e.target.checked)}
-                          className="w-4 h-4 mt-0.5 rounded text-adeshina-blue focus:ring-adeshina-blue border-slate-300"
+                          className={`mt-0.5 h-4 w-4 rounded border-slate-300 ${
+                            isHealth ? 'text-[#10a37f] focus:ring-[#10a37f]' : 'text-[#02509e] focus:ring-[#02509e]'
+                          }`}
                         />
-                        <span className="text-xs text-slate-600 leading-relaxed">
+                        <span className="text-xs leading-relaxed text-slate-600">
                           I hereby certify that all information supplied above is complete, accurate, and represents my true academic and personal records.
                         </span>
                       </label>
                     </div>
 
-                    {/* Submit Button & Go Back */}
-                    <div className="pt-2 flex flex-col items-center">
+                    <div className="flex flex-col items-center pt-2">
                       <button
                         type="submit"
                         disabled={isSubmitting || !termsAccepted}
-                        className="w-full py-3.5 px-6 rounded-xl bg-adeshina-blue hover:bg-navy active:bg-navy-dark text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
+                        className={`flex w-full items-center justify-center gap-2 rounded-md px-6 py-3.5 text-[14px] font-semibold text-white transition-colors disabled:opacity-50 ${primaryBtn}`}
                       >
                         {isSubmitting ? (
                           <span>Generating Official Slip...</span>
                         ) : (
                           <>
                             <span>Submit Application & Generate Slip</span>
-                            <ArrowRight className="w-4 h-4" />
+                            <ArrowRight className="h-4 w-4" />
                           </>
                         )}
                       </button>
@@ -1008,66 +990,69 @@ export function ApplyPage() {
                       <button
                         type="button"
                         onClick={handlePrevStep}
-                        className="mt-3 text-xs sm:text-sm font-semibold text-slate-500 hover:text-navy hover:underline transition-colors py-1"
+                        className="mt-3 py-1 text-[13px] font-semibold text-slate-500 transition-colors hover:text-[#05264c]"
                       >
-                        Go Back to Previous Step
+                        Previous Step
                       </button>
                     </div>
                   </form>
                 )}
 
-                {/* Bottom Stepper Action Buttons (Matching Reference Design) */}
                 {currentStep < 5 && (
-                  <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col items-center">
+                  <div className="mt-8 flex flex-col items-center border-t border-slate-100 pt-6">
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className="w-full py-3.5 px-6 rounded-xl bg-adeshina-blue hover:bg-navy text-white text-sm font-bold shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2"
+                      className={`flex w-full items-center justify-center gap-2 rounded-md px-6 py-3.5 text-[14px] font-semibold text-white transition-colors ${primaryBtn}`}
                     >
-                      <span>Save & Continue</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <span>Continue</span>
+                      <ArrowRight className="h-4 w-4" />
                     </button>
 
                     <button
                       type="button"
-                      onClick={() => (currentStep > 1 ? handlePrevStep() : navigate('/admissions'))}
-                      className="mt-3 text-xs sm:text-sm font-semibold text-slate-500 hover:text-navy hover:underline transition-colors py-1"
+                      onClick={() => (currentStep > 1 ? handlePrevStep() : navigate(path('admissions')))}
+                      className="mt-3 py-1 text-[13px] font-semibold text-slate-500 transition-colors hover:text-[#05264c]"
                     >
-                      Go Back
+                      {currentStep > 1 ? 'Previous Step' : 'Back to Admissions'}
                     </button>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Right Column: Steps Progress & Support Card */}
-            <div className="lg:col-span-4 space-y-6">
-              {/* Photo Card */}
-              <div className="rounded-2xl overflow-hidden aspect-[16/10] bg-navy relative shadow-sm border border-slate-200/90">
+            {/* Right Column: Steps Progress & Support */}
+            <div className="space-y-6 lg:col-span-4">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-slate-200 bg-[#05264c] shadow-sm">
                 <img
-                  src="/images/education/campus-gate.jpg"
-                  alt="Adeshina Campus Gate"
-                  className="w-full h-full object-cover"
+                  src={
+                    collegeId === 'health-technology'
+                      ? '/images/health-technology/health-campus-1.jpg'
+                      : '/images/education/campus-gate.jpg'
+                  }
+                  alt=""
+                  className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent flex items-end p-4 text-white">
+                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-[#05264c] via-[#05264c]/45 to-transparent p-4 text-white">
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-accent-gold block">
-                      CAMPUS ENROLLMENT
+                    <span
+                      className={`mb-0.5 block text-[10px] font-semibold uppercase tracking-[0.14em] ${
+                        isHealth ? 'text-[#b8f0dc]' : 'text-amber-200'
+                      }`}
+                    >
+                      Campus Enrollment
                     </span>
-                    <span className="font-serif font-bold text-sm">
-                      {siteConfig.institutionName}
-                    </span>
+                    <span className="font-serif text-sm font-semibold">{college.name}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Vertical Steps List Card (Grand-Plus style) */}
-              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-navy mb-4">
+              <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+                <h3 className="mb-4 text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500">
                   Application Steps
                 </h3>
 
-                <div className="space-y-4">
+                <div className="space-y-3.5">
                   {stepsList.map((step) => {
                     const isPassed = currentStep > step.num;
                     const isCurrent = currentStep === step.num;
@@ -1075,22 +1060,24 @@ export function ApplyPage() {
                     return (
                       <div key={step.num} className="flex items-center gap-3">
                         <div
-                          className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all ${
+                          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors ${
                             isPassed
-                              ? 'bg-emerald-500 text-white'
+                              ? isHealth
+                                ? 'bg-[#10a37f] text-white'
+                                : 'bg-[#02509e] text-white'
                               : isCurrent
-                              ? 'bg-navy text-white shadow-sm ring-4 ring-blue-100'
+                              ? 'bg-[#05264c] text-white'
                               : 'bg-slate-100 text-slate-400'
                           }`}
                         >
-                          {isPassed ? <Check className="w-4 h-4 stroke-[3]" /> : step.num}
+                          {isPassed ? <Check className="h-4 w-4 stroke-[3]" /> : step.num}
                         </div>
                         <span
-                          className={`text-xs sm:text-sm font-medium ${
+                          className={`text-sm ${
                             isCurrent
-                              ? 'text-navy font-bold'
+                              ? 'font-semibold text-[#05264c]'
                               : isPassed
-                              ? 'text-slate-700'
+                              ? 'font-medium text-slate-700'
                               : 'text-slate-400'
                           }`}
                         >
@@ -1102,29 +1089,28 @@ export function ApplyPage() {
                 </div>
               </div>
 
-              {/* Need Help Card (Grand-Plus style) */}
-              <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 text-center space-y-3">
-                <h3 className="font-serif font-bold text-navy text-sm">
+              <div className="space-y-3 rounded-lg border border-slate-200 bg-white p-6 text-center shadow-sm">
+                <h3 className="font-serif text-sm font-semibold text-[#05264c]">
                   Need Help Applying?
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs leading-relaxed text-slate-500">
                   Our admissions officers can walk you through any step of the form.
                 </p>
 
                 <div className="space-y-2 pt-1">
                   <a
                     href="tel:08135131503"
-                    className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50 text-xs font-bold text-navy hover:text-adeshina-blue border border-slate-200/80 transition-colors"
+                    className="flex items-center justify-center gap-2 rounded-md border border-slate-200 bg-slate-50 p-2.5 text-xs font-semibold text-[#05264c] transition-colors hover:border-slate-300 hover:bg-white"
                   >
-                    <Phone className="w-3.5 h-3.5 text-accent-gold" />
+                    <Phone className={`h-3.5 w-3.5 ${isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'}`} />
                     <span>0813 513 1503</span>
                   </a>
 
                   <a
                     href={`mailto:${siteConfig.contact.email}`}
-                    className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50 text-xs font-bold text-navy hover:text-adeshina-blue border border-slate-200/80 transition-colors truncate"
+                    className="flex items-center justify-center gap-2 truncate rounded-md border border-slate-200 bg-slate-50 p-2.5 text-xs font-semibold text-[#05264c] transition-colors hover:border-slate-300 hover:bg-white"
                   >
-                    <Mail className="w-3.5 h-3.5 text-accent-gold" />
+                    <Mail className={`h-3.5 w-3.5 ${isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'}`} />
                     <span className="truncate">{siteConfig.contact.email}</span>
                   </a>
                 </div>

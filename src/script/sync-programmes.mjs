@@ -112,6 +112,9 @@ function generateProgrammeObject(p) {
   if (p.description) {
     lines.push(`    description: ${quote(p.description)},`);
   }
+  if (p.image) {
+    lines.push(`    image: ${quote(p.image)},`);
+  }
   if (Array.isArray(p.entryRequirements) && p.entryRequirements.length) {
     lines.push(`    entryRequirements: ${quoteList(p.entryRequirements)},`);
   }

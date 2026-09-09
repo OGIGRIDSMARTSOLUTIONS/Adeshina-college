@@ -28,34 +28,40 @@ export interface AdmissionInfo {
 }
 
 export const admissionInfo: AdmissionInfo = {
-  session: '2024/2025 & 2025/2026 Academic Sessions',
+  session: '2025/2026 & 2026/2027 Academic Sessions',
   applicationOpen: true,
   generalNotice: 'Applications are currently invited from suitably qualified candidates for admission into various accredited Diploma, NCE, and Certificate programmes at Adeshina College of Health Technology and Adeshina College of Education, Share, Kwara State.',
   steps: [
     {
       step: '01',
-      title: 'Select Your Academic Programme',
-      description: 'Review our programmes directory to determine whether your qualifications match your desired department in Health Technology or Education.',
-      details: 'Check specific subject combinations required for Diploma in CHEW, Medical Lab, Pharmacy Tech, or NCE Teaching subjects.',
+      title: 'Personal Information',
+      description:
+        'Enter your name, contact details, date of birth, gender, state of origin, and home address on the online application form.',
     },
     {
       step: '02',
-      title: 'Prepare Your O\'Level Credentials',
-      description: 'Ensure you have valid SSCE / WAEC / NECO / NABTEB result slips with at least 5 credit passes (including English and Mathematics) in relevant subjects.',
-      details: 'Awaiting results (AR) candidates can also apply, provided their certified statement of result is ready prior to matriculation.',
+      title: 'Programme Selection',
+      description:
+        'Choose your preferred programme for this college and confirm the intake session you are applying for.',
     },
     {
       step: '03',
-      title: 'Obtain & Complete the Application Form',
-      description: 'Purchase and complete the official application form online via the portal or physically at the Admissions Registry on campus in Share.',
-      details: 'Attach certified passport photographs, birth certificate/declaration of age, and local government identification certificate.',
+      title: 'Academic Background',
+      description:
+        'Provide your O’Level exam type, sittings, school name, year of result, and subject grades (WAEC, NECO, or NABTEB).',
     },
     {
       step: '04',
-      title: 'Entrance Verification & Induction',
-      description: 'Attend the scheduled document verification and academic screening at the main campus, followed by registration and orientation.',
-      details: 'Successful candidates receive their official Provisional Letter of Admission with registration guidelines.',
-    }
+      title: 'Document Upload',
+      description:
+        'Upload your O’Level result slip and passport photograph so the Admissions Registry can verify your credentials.',
+    },
+    {
+      step: '05',
+      title: 'Review & Submit',
+      description:
+        'Check your application summary carefully, accept the terms, and submit to receive your application reference.',
+    },
   ],
   requirements: [
     {
