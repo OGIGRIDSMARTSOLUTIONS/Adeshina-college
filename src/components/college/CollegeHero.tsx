@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Stethoscope } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, Stethoscope } from 'lucide-react';
 import { College } from '@/types/college';
 import { Container } from '@/components/common/Container';
 
@@ -43,7 +43,16 @@ export function CollegeHero({ college }: CollegeHeroProps) {
 
       <Container size="wide" className="relative z-10 py-16 sm:py-20 lg:py-24">
         <div className="max-w-2xl">
-          <div className="mb-5 sm:mb-6">
+          <div className="mb-5 sm:mb-6 flex flex-wrap items-center gap-3">
+            <Link
+              to="/"
+              className="group inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-2 text-xs font-bold text-white/90 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white hover:text-[#05264c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8c56a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05264c]"
+              aria-label="Back to Adeshina Group of Colleges home page"
+            >
+              <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
+              <span>Back to Adeshina Group</span>
+            </Link>
+
             <span
               className={`type-label inline-flex items-center gap-2 px-4 py-2 rounded-md ${
                 isHealth
