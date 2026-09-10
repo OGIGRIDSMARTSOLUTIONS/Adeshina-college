@@ -17,11 +17,30 @@ import { siteConfig } from '@/data/siteConfig';
 import { Container } from '@/components/common/Container';
 import { GroupContact } from '@/components/group/GroupContact';
 import { useScopedPath } from '@/context/CollegeContext';
+import { HealthSupportPage } from '@/components/college/health/HealthSupportPage';
 
 export function ContactPage() {
   const { college, path, isGroup } = useScopedPath();
   const collegeId = college?.collegeId;
-  const isHealth = collegeId === 'health-technology';
+
+  if (isGroup) {
+    return <GroupContact />;
+  }
+
+  if (collegeId === 'health-technology') {
+    return <HealthSupportPage />;
+  }
+
+  return <EducationContactPage college={college} path={path} />;
+}
+
+function EducationContactPage({
+  college,
+  path,
+}: {
+  college: ReturnType<typeof useScopedPath>['college'];
+  path: ReturnType<typeof useScopedPath>['path'];
+}) {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -38,9 +57,8 @@ export function ContactPage() {
     setSubmitted(true);
   };
 
-  if (isGroup) {
-    return <GroupContact />;
-  }
+  const isHealth = false;
+  const isGroup = false;
 
   const quickHelp = [
     {

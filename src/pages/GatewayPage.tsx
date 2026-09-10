@@ -170,7 +170,7 @@ export function GatewayPage() {
                         <div className="overflow-hidden">
                           <p className="mt-3 max-w-xl text-sm leading-6 text-white/70">{college.tagline}</p>
                           <div className="mt-3 flex flex-wrap gap-2">
-                            {college.trainingFoci.slice(0, 2).map((focus) => (
+                            {(college.trainingFoci ?? []).slice(0, 2).map((focus) => (
                               <span key={focus} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-medium text-white/65">
                                 {focus}
                               </span>

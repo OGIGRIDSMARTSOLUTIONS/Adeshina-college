@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowRight,
   Award,
-  BookOpen,
   Building2,
   CheckCircle2,
   Eye,
@@ -15,7 +14,6 @@ import {
   Stethoscope,
   Target,
 } from 'lucide-react';
-import { siteConfig } from '@/data/siteConfig';
 import { colleges } from '@/data/colleges';
 import { collegePath, CollegeId } from '@/lib/collegePaths';
 import { Container } from '@/components/common/Container';

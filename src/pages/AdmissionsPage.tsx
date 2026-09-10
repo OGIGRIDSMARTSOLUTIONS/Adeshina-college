@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -19,6 +19,7 @@ import { siteConfig } from '@/data/siteConfig';
 import { colleges } from '@/data/colleges';
 import { Container } from '@/components/common/Container';
 import { useOptionalCollege } from '@/context/CollegeContext';
+import { HealthAdmissionsPage } from '@/components/college/health/HealthAdmissionsPage';
 
 const stepIcons = [UserRound, ClipboardCheck, GraduationCap, FileText, ShieldCheck];
 
@@ -40,6 +41,11 @@ export function AdmissionsPage() {
   const applyHref = isCollegePage && path ? path('apply') : '/apply';
   const contactHref = isCollegePage && path ? path('contact') : '/contact';
   const homeHref = isCollegePage && path ? path() : '/';
+
+  // Health keeps its dedicated admissions experience
+  if (collegeId === 'health-technology') {
+    return <HealthAdmissionsPage />;
+  }
 
   return (
     <div className="min-h-screen bg-[#f7f9fc] text-[#05264c]">
@@ -83,10 +89,12 @@ export function AdmissionsPage() {
             </div>
 
             <h1 className="type-hero mt-6 max-w-4xl text-white">
-              {isCollegePage ? `Begin your journey at ${college.shortName}` : 'Your next chapter starts at Adeshina.'}
+              {isCollegePage && college
+                ? `Begin your journey at ${college.shortName}`
+                : 'Your next chapter starts at Adeshina.'}
             </h1>
             <p className="type-body-lg mt-5 max-w-2xl text-white/80">
-              {isCollegePage
+              {isCollegePage && college
                 ? `Explore requirements, application steps and programme guidance for ${college.name}, Share.`
                 : admissionInfo.generalNotice}
             </p>
@@ -115,7 +123,7 @@ export function AdmissionsPage() {
         <Container size="wide" className="py-7">
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              ['01', 'Choose your pathway', 'Health Technology or Education — start with the college that fits your ambition.'],
+              ['01', 'Choose your pathway', 'Health Technology or Education ΓÇö start with the college that fits your ambition.'],
               ['02', 'Prepare your credentials', 'Have your O’Level details and supporting documents ready before you begin.'],
               ['03', 'Apply with confidence', 'Complete the form carefully and keep your application reference safe.'],
             ].map(([number, title, text]) => (
@@ -210,7 +218,9 @@ export function AdmissionsPage() {
           <div className="max-w-2xl">
             <span className="type-label text-[#c68a18]">Entry requirements</span>
             <h2 className="type-section mt-3 text-[#05264c]">
-              {isCollegePage ? `What you need for ${college.shortName}` : 'Prepare the right credentials.'}
+              {isCollegePage && college
+                ? `What you need for ${college.shortName}`
+                : 'Prepare the right credentials.'}
             </h2>
             <p className="mt-4 type-body text-slate-600">
               {isCollegePage

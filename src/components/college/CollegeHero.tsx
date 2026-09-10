@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, BookOpen, Stethoscope } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { College } from '@/types/college';
 import { Container } from '@/components/common/Container';
 
@@ -12,11 +12,6 @@ export function CollegeHero({ college }: CollegeHeroProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const isHealth = college.id === 'health-technology';
 
-  const headline = isHealth
-    ? 'Build your future in health sciences and technology'
-    : 'Build your future as a classroom-ready teacher';
-
-  // Prefer campus photography (same treatment as Group homepage hero)
   const heroImage = isHealth
     ? '/images/health-technology/health-campus-1.jpg'
     : '/images/education/campus-gate.jpg';
@@ -34,54 +29,35 @@ export function CollegeHero({ college }: CollegeHeroProps) {
           imageLoaded ? 'opacity-100' : 'opacity-0'
         }`}
       />
-      {/* Homepage-style colour overlay — photography stays visible */}
       <div className="absolute inset-0 bg-[#05264c]/35" aria-hidden="true" />
       <div
-        className="absolute inset-0 bg-gradient-to-r from-[#041c36]/80 via-[#05264c]/50 to-[#05264c]/15"
+        className="absolute inset-0 bg-gradient-to-r from-[#041c36]/85 via-[#05264c]/55 to-[#05264c]/20"
         aria-hidden="true"
       />
 
       <Container size="wide" className="relative z-10 py-16 sm:py-20 lg:py-24">
         <div className="max-w-2xl">
-          <div className="mb-5 sm:mb-6 flex flex-wrap items-center gap-3">
-            <Link
-              to="/"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-2 text-xs font-bold text-white/90 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-white/50 hover:bg-white hover:text-[#05264c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8c56a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#05264c]"
-              aria-label="Back to Adeshina Group of Colleges home page"
-            >
-              <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
-              <span>Back to Adeshina Group</span>
-            </Link>
+          <p className="type-meta text-white/70">
+            Adeshina Group of Colleges · Share, Kwara
+          </p>
 
-            <span
-              className={`type-label inline-flex items-center gap-2 px-4 py-2 rounded-md ${
-                isHealth
-                  ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-400/35'
-                  : 'bg-sky-500/20 text-sky-200 border border-sky-400/35'
-              }`}
-            >
-              {isHealth ? <Stethoscope className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
-              <span>{college.name.toUpperCase()}</span>
-            </span>
-          </div>
-
-          <h1 className="type-hero text-white">
-            {headline}
+          <h1 className="type-hero mt-4 text-white">
+            {college.shortName}
           </h1>
 
           <p className="type-body-lg mt-6 text-white/85 max-w-xl">
-            {college.description}
+            {college.tagline}
           </p>
 
           <div className="mt-9 flex flex-col sm:flex-row gap-3.5">
             <Link
               to={`/colleges/${college.id}/apply`}
-              className="type-button group relative inline-flex items-center justify-center overflow-hidden rounded-md bg-[#05264c] px-8 py-3.5 text-white shadow-[0_12px_28px_-12px_rgba(0,0,0,0.55)] ring-1 ring-[#c68a18]/70 transition-all duration-300 hover:bg-[#041830] hover:ring-[#e8c56a]"
+              className={`type-button group inline-flex items-center justify-center rounded-md px-8 py-3.5 text-white transition-colors duration-300 ${
+                isHealth
+                  ? 'bg-[#10a37f] hover:bg-[#0a7a5c] shadow-[0_12px_28px_-12px_rgba(16,163,127,0.55)]'
+                  : 'bg-[#02509e] hover:bg-[#013a75] shadow-[0_12px_28px_-12px_rgba(2,80,158,0.45)]'
+              }`}
             >
-              <span
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e8c56a] to-transparent"
-                aria-hidden="true"
-              />
               <span>Apply Now</span>
               <ArrowRight className="w-0 h-4 opacity-0 overflow-hidden transition-all duration-300 group-hover:ml-2 group-hover:w-4 group-hover:opacity-100" />
             </Link>

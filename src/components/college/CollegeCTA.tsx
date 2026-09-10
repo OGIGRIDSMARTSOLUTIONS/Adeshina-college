@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { Compass, ShieldCheck } from 'lucide-react';
 import { College } from '@/types/college';
 import { Container } from '@/components/common/Container';
 
@@ -8,54 +7,51 @@ interface CollegeCTAProps {
 }
 
 export function CollegeCTA({ college }: CollegeCTAProps) {
+  const isHealth = college.id === 'health-technology';
+
   return (
-    <section className="py-20 lg:py-24 bg-navy text-white relative overflow-hidden" aria-labelledby="college-cta-heading">
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy via-navy to-navy-dark pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-adeshina-blue/20 rounded-full blur-3xl pointer-events-none" />
-
+    <section
+      className="py-20 lg:py-24 bg-[#05264c] text-white relative overflow-hidden"
+      aria-labelledby="college-cta-heading"
+    >
       <Container size="default" className="relative z-10 text-center">
-        {/* Eyebrow badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 text-blue-200 border border-white/15 mb-6 backdrop-blur-sm">
-          <Compass className="w-3.5 h-3.5 text-accent-gold" />
-          <span>Adeshina Group of Colleges · Share Campus</span>
-        </div>
+        <p className="type-meta text-white/60">Adeshina Group of Colleges · Share Campus</p>
 
-        {/* Heading */}
         <h2
           id="college-cta-heading"
-          className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black tracking-tight text-white leading-tight max-w-2xl mx-auto"
+          className="type-section-lg mt-4 text-white max-w-2xl mx-auto"
         >
-          Begin Your Career at {college.shortName}
+          Begin at {college.shortName}
         </h2>
 
-        {/* Copy */}
-        <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed">
-          Applications for the upcoming academic session are currently open. Join a disciplined, student-focused academic environment dedicated to your future.
+        <p className="type-body-lg mt-5 text-white/75 max-w-xl mx-auto">
+          Applications for the upcoming academic session are open. Join a disciplined,
+          student-focused environment built for workplace readiness.
         </p>
 
-        {/* Actions */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5">
           <Link
             to={`/colleges/${college.id}/apply`}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-white text-navy hover:bg-navy hover:text-white active:bg-navy-dark font-bold text-sm shadow-md hover:shadow-xl transition-all duration-200"
+            className={`type-button w-full sm:w-auto inline-flex items-center justify-center rounded-md px-8 py-3.5 text-white transition-colors duration-300 ${
+              isHealth
+                ? 'bg-[#10a37f] hover:bg-[#0a7a5c]'
+                : 'bg-[#02509e] hover:bg-[#013a75]'
+            }`}
           >
-            Apply to {college.shortName}
+            Apply Now
           </Link>
 
           <Link
-            to={`/colleges/${college.id}/contact`}
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-transparent text-white border border-white/30 hover:bg-white/10 font-bold text-sm transition-all"
+            to={`/colleges/${college.id}/admissions`}
+            className="type-button w-full sm:w-auto inline-flex items-center justify-center rounded-md border border-white/30 bg-white/5 px-8 py-3.5 text-white transition-colors duration-300 hover:bg-white/10 hover:border-white/45"
           >
-            Contact Admissions Desk
+            Admissions
           </Link>
         </div>
 
-        {/* Assurance */}
-        <div className="mt-12 pt-8 border-t border-white/10 flex items-center justify-center gap-2 text-xs text-slate-300">
-          <ShieldCheck className="w-4 h-4 text-accent-gold" />
-          <span>Professional Training · Disciplined Academic Environment · Share, Kwara State</span>
-        </div>
+        <p className="mt-12 pt-8 border-t border-white/10 text-[13px] text-white/55">
+          Professional training · Disciplined academic environment · Share, Kwara State
+        </p>
       </Container>
     </section>
   );
