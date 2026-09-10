@@ -17,7 +17,7 @@ interface EducationLeadProps {
 /** Lead with lined-paper atmosphere + feature cards (Education motion, not Health). */
 export function EducationLead({ college }: EducationLeadProps) {
   const reduceMotion = useReducedMotion();
-  const cards = college.features.slice(0, 3);
+  const cards = (college.features ?? []).slice(0, 3);
 
   return (
     <section

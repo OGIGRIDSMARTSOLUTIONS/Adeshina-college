@@ -22,7 +22,7 @@ export const siteConfig: SiteConfig = {
     },
     applyNow: {
       label: 'Apply Now',
-      path: '/',
+      path: '/apply',
     },
   },
   contact: {

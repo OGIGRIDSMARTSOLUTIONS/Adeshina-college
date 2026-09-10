@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { College } from '@/types/college';
 import { Container } from '@/components/common/Container';

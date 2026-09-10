@@ -25,6 +25,8 @@ export function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/admissions" element={<AdmissionsPage />} />
+          <Route path="/apply" element={<ApplyPage />} />
         </Route>
 
         <Route path="/colleges/:collegeId" element={<CollegeLayout />}>
@@ -40,8 +42,6 @@ export function App() {
 
         <Route path="/colleges" element={<Navigate to="/#colleges" replace />} />
         <Route path="/programmes" element={<Navigate to="/#colleges" replace />} />
-        <Route path="/admissions" element={<Navigate to="/#colleges" replace />} />
-        <Route path="/apply" element={<Navigate to="/#colleges" replace />} />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
