@@ -57,25 +57,17 @@ export function CollegeHeader() {
 
   const navItemClass = (active: boolean) =>
     `type-nav inline-flex items-center px-2.5 py-2 rounded-md transition-all duration-200 ${
-      isHealth
-        ? active
-          ? 'text-[#0f7a5f] bg-[#0f7a5f]/10'
-          : 'text-[#5c6570] hover:text-[#0f7a5f] hover:bg-[#0f7a5f]/08'
-        : active
-          ? 'text-[#02509e] bg-[#e2eefb]'
-          : 'text-slate-600 hover:text-[#02509e] hover:bg-[#e2eefb]'
+      active
+        ? 'text-[#02509e] bg-[#e2eefb]'
+        : 'text-slate-600 hover:text-[#02509e] hover:bg-[#e2eefb]'
     }`;
 
   return (
     <header
       className={`sticky top-0 z-50 border-b transition-[background-color,box-shadow,border-color] duration-300 ${
-        isHealth
-          ? isScrolled
-            ? 'bg-[#f4efe6]/95 border-[#041c36]/10 shadow-[0_10px_40px_-18px_rgba(4,28,54,0.18)]'
-            : 'bg-[#f4efe6] border-transparent'
-          : isScrolled
-            ? 'bg-white/95 backdrop-blur-md border-slate-200/80 shadow-[0_10px_40px_-18px_rgba(5,38,76,0.28)]'
-            : 'bg-white border-transparent shadow-[0_6px_24px_-14px_rgba(5,38,76,0.16)]'
+        isScrolled
+          ? 'bg-white/95 backdrop-blur-md border-slate-200/80 shadow-[0_10px_40px_-18px_rgba(5,38,76,0.28)]'
+          : 'bg-white border-transparent shadow-[0_6px_24px_-14px_rgba(5,38,76,0.16)]'
       }`}
     >
       <Container size="wide">
@@ -151,9 +143,9 @@ export function CollegeHeader() {
               </Link>
               <Link
                 to="/portal"
-                className="inline-flex h-9 items-center gap-1.5 whitespace-nowrap rounded-md border border-slate-200 bg-slate-50 px-3 text-[12px] font-semibold tracking-[0.03em] text-[#05264c] transition-colors duration-200 hover:border-slate-300 hover:bg-slate-100"
+                className="inline-flex h-9 items-center gap-1.5 whitespace-nowrap rounded-md bg-[#05264c] px-3 text-[12px] font-semibold tracking-[0.03em] text-white ring-1 ring-[#c68a18]/55 transition-colors duration-200 hover:bg-[#02509e] hover:ring-[#02509e]"
               >
-                <GraduationCap className="w-3.5 h-3.5 text-slate-500" />
+                <GraduationCap className="w-3.5 h-3.5 text-[#e8c56a]" />
                 <span>Portal</span>
               </Link>
 
@@ -240,13 +232,7 @@ export function CollegeHeader() {
       </Container>
 
       {mobileMenuOpen && (
-        <div
-          className={`xl:hidden border-t max-h-[min(70vh,32rem)] overflow-y-auto ${
-            isHealth
-              ? 'border-[#041c36]/10 bg-[#f4efe6]'
-              : 'border-slate-100 bg-white/98 backdrop-blur-sm'
-          }`}
-        >
+        <div className="xl:hidden border-t border-slate-100 bg-white/98 backdrop-blur-sm max-h-[min(70vh,32rem)] overflow-y-auto">
           <Container size="wide" className="py-5 space-y-1">
             <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
               Colleges
@@ -293,9 +279,9 @@ export function CollegeHeader() {
             </Link>
             <Link
               to="/portal"
-              className="mt-2 flex items-center justify-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-[14px] font-semibold text-[#05264c] transition-colors hover:border-slate-300 hover:bg-slate-100"
+              className="mt-2 flex items-center justify-center gap-2 rounded-md px-4 py-3 text-[14px] font-semibold text-white bg-[#05264c] ring-1 ring-[#c68a18]/55"
             >
-              <GraduationCap className="w-4 h-4 text-slate-500" />
+              <GraduationCap className="w-4 h-4 text-[#e8c56a]" />
               Student Portal
             </Link>
           </Container>

@@ -80,13 +80,9 @@ export function CollegeOverview({ college }: CollegeOverviewProps) {
       <Container size="wide">
         <div className="max-w-3xl mb-12 md:mb-16">
           <h2 className="type-section-lg text-[#05264c]">
-            {isHealth ? 'Why Health Technology' : 'About the College of Education'}
+            {isHealth ? 'About Health Technology' : 'About the College of Education'}
           </h2>
-          <p
-            className={`type-subtitle mt-4 ${
-              isHealth ? 'text-[#0b6b54]' : 'text-[#02509e]'
-            }`}
-          >
+          <p className="type-subtitle mt-4 text-[#02509e]">
             {isHealth
               ? 'Training skilled health workers for Nigeria’s frontline services'
               : 'Preparing teachers for Nigerian classrooms with strong subject mastery and practical pedagogy'}
@@ -111,22 +107,25 @@ export function CollegeOverview({ college }: CollegeOverviewProps) {
           )}
         </div>
 
-        <div className="mb-12 md:mb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+        <div className="mb-12 md:mb-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {whyCards.map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="border-t border-slate-200/90 pt-6">
+              <div
+                key={item.title}
+                className="rounded-lg bg-white p-6 ring-1 ring-slate-200/90 shadow-[0_8px_24px_-12px_rgba(5,38,76,0.16)]"
+              >
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-md ${
-                    isHealth
-                      ? 'bg-emerald-50 text-[#0b6b54]'
-                      : 'bg-[#05264c] text-[#e8c56a]'
+                  className={`flex h-11 w-11 items-center justify-center rounded-md bg-[#05264c] ${
+                    isHealth ? 'text-[#10a37f]' : 'text-[#e8c56a]'
                   }`}
                 >
                   <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="type-card-title mt-5 text-[#05264c]">{item.title}</h3>
-                <p className="type-body-sm mt-3 text-slate-600">{item.description}</p>
+                  <h3 className="type-card-title mt-5 text-[#05264c]">
+                    {item.title}
+                  </h3>
+                  <p className="type-body-sm mt-3 text-slate-600">{item.description}</p>
               </div>
             );
           })}

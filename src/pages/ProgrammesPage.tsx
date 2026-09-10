@@ -13,25 +13,9 @@ import { programmes } from '@/data/programmes';
 import { Container } from '@/components/common/Container';
 import { Programme } from '@/types/programme';
 import { useCollege } from '@/context/CollegeContext';
-import { HealthProgrammesPage } from '@/components/college/health/HealthProgrammesPage';
 
 export function ProgrammesPage() {
   const { collegeId, path } = useCollege();
-
-  if (collegeId === 'health-technology') {
-    return <HealthProgrammesPage />;
-  }
-
-  return <EducationProgrammesPage path={path} collegeId={collegeId} />;
-}
-
-function EducationProgrammesPage({
-  path,
-  collegeId,
-}: {
-  path: ReturnType<typeof useCollege>['path'];
-  collegeId: string;
-}) {
   const [selectedLevel, setSelectedLevel] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeProgramme, setActiveProgramme] = useState<Programme | null>(null);
@@ -60,8 +44,11 @@ function EducationProgrammesPage({
     });
   }, [collegeProgrammes, selectedLevel, searchQuery]);
 
-  const applyClass = 'bg-[#02509e] hover:bg-[#013a75]';
-  const accentText = 'text-[#02509e]';
+  const isHealth = collegeId === 'health-technology';
+  const applyClass = isHealth
+    ? 'bg-[#10a37f] hover:bg-[#0a7a5c]'
+    : 'bg-[#02509e] hover:bg-[#013a75]';
+  const accentText = isHealth ? 'text-[#0a7a5c]' : 'text-[#02509e]';
 
   const clearFilters = () => {
     setSelectedLevel('all');
@@ -73,7 +60,11 @@ function EducationProgrammesPage({
       {/* Page hero */}
       <section className="relative overflow-hidden bg-[#05264c] text-white">
         <img
-          src="/images/education/campus-gate.jpg"
+          src={
+            isHealth
+              ? '/images/health-technology/health-campus-1.jpg'
+              : '/images/education/campus-gate.jpg'
+          }
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
         />
@@ -90,12 +81,18 @@ function EducationProgrammesPage({
               Back to College Home
             </Link>
 
-            <h1 className="type-hero mt-6 text-white">NCE programmes</h1>
-            <p className="type-subtitle mt-4 text-[#e8c56a]">Teacher education pathways</p>
+            <h1 className="type-hero mt-6 text-white">
+              {isHealth ? 'Health Technology programmes' : 'NCE programmes'}
+            </h1>
+            <p className="type-subtitle mt-4 text-[#e8c56a]">
+              {isHealth
+                ? 'Diploma & Certificate pathways'
+                : 'Teacher education pathways'}
+            </p>
             <p className="type-body-lg mt-5 text-white/85 max-w-2xl">
-              Nigeria Certificate in Education pathways in primary education, early childhood, sciences,
-              languages, social studies, and related teaching combinations at Adeshina College of Education,
-              Share.
+              {isHealth
+                ? 'Diploma and Certificate pathways in community health, laboratory science, pharmacy technology, and related health fields at Adeshina College of Health Technology, Share.'
+                : 'Nigeria Certificate in Education pathways in primary education, early childhood, sciences, languages, social studies, and related teaching combinations at Adeshina College of Education, Share.'}
             </p>
 
             <div className="mt-8">
@@ -201,8 +198,13 @@ function EducationProgrammesPage({
                   className="group flex flex-col overflow-hidden rounded-lg border border-slate-300 bg-white shadow-[0_10px_28px_-12px_rgba(5,38,76,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-12px_rgba(5,38,76,0.34)]"
                 >
                   <div className="relative aspect-[16/10] bg-[#041c36]">
-                      <img
-                      src={prog.image || '/images/education/campus-gate.jpg'}
+                    <img
+                      src={
+                        prog.image ||
+                        (isHealth
+                          ? '/images/health-technology/health-campus-1.jpg'
+                          : '/images/education/campus-gate.jpg')
+                      }
                       alt=""
                       className="absolute inset-0 h-full w-full object-cover"
                     />
@@ -341,7 +343,9 @@ function EducationProgrammesPage({
                   {activeProgramme.entryRequirements.map((req) => (
                     <li key={req} className="flex items-start gap-2.5 text-[14px] text-slate-600">
                       <span
-                        className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#02509e]"
+                        className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
+                          isHealth ? 'bg-[#10a37f]' : 'bg-[#02509e]'
+                        }`}
                       />
                       <span className="leading-relaxed">{req}</span>
                     </li>

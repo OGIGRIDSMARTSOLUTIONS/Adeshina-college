@@ -9,7 +9,7 @@ export const gatewayNavItems: NavItem[] = [
 ];
 
 export function getCollegeNavItems(collegeId: CollegeId): NavItem[] {
-  const items: NavItem[] = [
+  return [
     { label: 'Home', path: collegePath(collegeId) },
     { label: 'About', path: collegePath(collegeId, 'about') },
     { label: 'Programmes', path: collegePath(collegeId, 'programmes') },
@@ -17,30 +17,18 @@ export function getCollegeNavItems(collegeId: CollegeId): NavItem[] {
     { label: 'News', path: collegePath(collegeId, 'news') },
     { label: 'Contact', path: collegePath(collegeId, 'contact') },
   ];
-
-  // Health: hide News from chrome for now (route still exists)
-  if (collegeId === 'health-technology') {
-    return items.filter((item) => item.label !== 'News');
-  }
-
-  return items;
 }
 
 export function getCollegeFooterSections(collegeId: CollegeId): FooterSection[] {
-  const exploreItems: NavItem[] = [
-    { label: 'About the College', path: collegePath(collegeId, 'about') },
-    { label: 'Programmes', path: collegePath(collegeId, 'programmes') },
-    { label: 'Admissions', path: collegePath(collegeId, 'admissions') },
-    { label: 'News & Updates', path: collegePath(collegeId, 'news') },
-  ];
-
   return [
     {
       title: 'Explore',
-      items:
-        collegeId === 'health-technology'
-          ? exploreItems.filter((item) => item.label !== 'News & Updates')
-          : exploreItems,
+      items: [
+        { label: 'About the College', path: collegePath(collegeId, 'about') },
+        { label: 'Programmes', path: collegePath(collegeId, 'programmes') },
+        { label: 'Admissions', path: collegePath(collegeId, 'admissions') },
+        { label: 'News & Updates', path: collegePath(collegeId, 'news') },
+      ],
     },
     {
       title: 'Quick Links',
