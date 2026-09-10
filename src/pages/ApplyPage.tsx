@@ -14,10 +14,11 @@ import {
   X,
 } from 'lucide-react';
 import { programmes } from '@/data/programmes';
+import { colleges } from '@/data/colleges';
 import { siteConfig } from '@/data/siteConfig';
 import { Container } from '@/components/common/Container';
-import { useCollege } from '@/context/CollegeContext';
-import { CollegeId } from '@/lib/collegePaths';
+import { useOptionalCollege } from '@/context/CollegeContext';
+import { CollegeId, collegePath } from '@/lib/collegePaths';
 import { EducationGeometricBg } from '@/components/college/education/EducationGeometricBg';
 
 interface SubjectGrade {
@@ -47,7 +48,6 @@ const COMMON_SUBJECTS = [
 ];
 
 const GRADE_OPTIONS = [
-  'Grade',
   'A1',
   'B2',
   'B3',
@@ -60,9 +60,138 @@ const GRADE_OPTIONS = [
   'AR (Awaiting Result)',
 ];
 
+const NAME_RE = /^[A-Za-z][A-Za-z\s'-]{1,59}$/;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_RE = /^(?:\+?234|0)[789][01]\d{8}$/;
+const YEAR_RE = /^(19|20)\d{2}$/;
+
+function normalizePhone(value: string) {
+  return value.replace(/[\s\-()]/g, '');
+}
+
+function isValidDob(value: string) {
+  if (!value) return false;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return false;
+  const now = new Date();
+  const age =
+    (now.getTime() - date.getTime()) / (365.25 * 24 * 60 * 60 * 1000);
+  return age >= 15 && age <= 65 && date < now;
+}
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null;
+  return <p className="mt-1 font-sans text-[12px] font-medium text-red-600">{message}</p>;
+}
+function CollegeApplyPicker() {
+  return (
+    <div className="relative min-h-[calc(100vh-5rem)] overflow-hidden bg-[#f4f7fb] py-14 sm:py-20">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0 bg-[linear-gradient(160deg,#eef4fb_0%,#f7f9fc_42%,#fff8e8_100%)]" />
+        <div className="absolute -left-24 top-0 h-[28rem] w-[28rem] rounded-full bg-[#3d8fd1]/15 blur-3xl" />
+        <div className="absolute -right-20 bottom-0 h-[26rem] w-[26rem] rounded-full bg-[#e8c56a]/25 blur-3xl" />
+        <div
+          className="absolute right-0 top-0 h-72 w-72 bg-[#041c36]/[0.07] sm:h-96 sm:w-96"
+          style={{ clipPath: 'polygon(42% 0, 100% 0, 100% 100%, 0 58%)' }}
+        />
+        <div
+          className="absolute bottom-10 left-0 h-56 w-56 bg-[#3d8fd1]/[0.12] sm:h-72 sm:w-72"
+          style={{ clipPath: 'polygon(0 18%, 78% 0, 100% 72%, 0 100%)' }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(5,38,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(5,38,76,0.04) 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+            maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 78%)',
+          }}
+        />
+      </div>
+
+      <Container size="wide" className="relative z-10">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#02509e]">
+            Start an application
+          </p>
+          <h1 className="mt-3 font-serif text-3xl font-semibold tracking-[-0.03em] text-[#05264c] sm:text-4xl">
+            Choose your college
+          </h1>
+          <p className="mt-3 font-sans text-base leading-relaxed text-slate-600">
+            Applications are college-specific. Select Health Technology or Education to continue.
+          </p>
+        </div>
+        <div className="mx-auto mt-12 grid w-full gap-6 sm:grid-cols-2 lg:gap-8">
+          {colleges.map((c) => {
+            const id = c.id as CollegeId;
+            const isHealthCollege = id === 'health-technology';
+            return (
+              <Link
+                key={c.id}
+                to={collegePath(id, 'apply')}
+                className={`group relative flex min-h-[280px] flex-col overflow-hidden rounded-3xl border bg-white/95 px-10 py-10 text-left shadow-[0_22px_50px_-28px_rgba(5,38,76,0.5)] backdrop-blur-sm transition-all hover:-translate-y-1 hover:shadow-xl sm:min-h-[320px] sm:px-12 sm:py-12 ${
+                  isHealthCollege
+                    ? 'border-[#3d8fd1]/25 hover:border-[#3d8fd1]/55'
+                    : 'border-[#c9a227]/30 hover:border-[#c9a227]/60'
+                }`}
+              >
+                <span
+                  className={`absolute inset-y-0 left-0 w-1.5 ${
+                    isHealthCollege ? 'bg-[#041c36]' : 'bg-[#c9a227]'
+                  }`}
+                  aria-hidden="true"
+                />
+                <span
+                  className={`pointer-events-none absolute -right-8 -top-10 h-40 w-40 ${
+                    isHealthCollege ? 'bg-[#3d8fd1]/10' : 'bg-[#e8c56a]/20'
+                  }`}
+                  style={{ clipPath: 'polygon(35% 0, 100% 0, 100% 100%, 0 55%)' }}
+                  aria-hidden="true"
+                />
+                <span
+                  className={`relative font-sans text-xs font-bold uppercase tracking-[0.16em] ${
+                    isHealthCollege ? 'text-[#2a73ad]' : 'text-[#a8861a]'
+                  }`}
+                >
+                  {isHealthCollege ? 'Health sciences' : 'Educator training'}
+                </span>
+                <h2 className="relative mt-4 font-serif text-2xl font-semibold tracking-[-0.02em] text-[#05264c] group-hover:text-[#02509e] sm:text-3xl">
+                  {c.shortName}
+                </h2>
+                <p className="relative mt-4 max-w-md flex-1 font-sans text-base leading-relaxed text-slate-600">
+                  {c.tagline}
+                </p>
+                <span className="relative mt-8 inline-flex items-center gap-2 font-sans text-base font-bold text-[#02509e]">
+                  Continue to apply
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+        <p className="mt-8 text-center">
+          <Link to="/#colleges" className="font-sans text-sm font-semibold text-slate-500 hover:text-[#05264c]">
+            Back to colleges overview
+          </Link>
+        </p>
+      </Container>
+    </div>
+  );
+}
+
 export function ApplyPage() {
+  const collegeCtx = useOptionalCollege();
+  if (!collegeCtx) return <CollegeApplyPicker />;
+  return <CollegeApplyForm collegeCtx={collegeCtx} />;
+}
+
+function CollegeApplyForm({
+  collegeCtx,
+}: {
+  collegeCtx: NonNullable<ReturnType<typeof useOptionalCollege>>;
+}) {
   const navigate = useNavigate();
-  const { college, collegeId, path } = useCollege();
+  const { college, collegeId, path } = collegeCtx;
   const isHealth = collegeId === 'health-technology';
   const isEducation = collegeId === 'education';
   /** Single-column college shells — not the Grandplus-style sidebar layout. */
@@ -84,6 +213,7 @@ export function ApplyPage() {
     : isEducation
       ? `w-full rounded-2xl border border-[#0c2340]/12 bg-white px-4 py-3 font-sans text-[14px] text-[#0c2340] outline-none transition-colors placeholder:text-[#5a6570]/70 ${focusRing}`
       : `w-full rounded-md border border-slate-300 bg-white px-4 py-2.5 text-[14px] text-[#05264c] outline-none transition-colors placeholder:text-slate-400 ${focusRing}`;
+  const inputErrorExtra = ' !border-red-500 !ring-1 !ring-red-200';
   const labelClass = isCollegeShell
     ? 'mb-1.5 block font-sans text-[12px] font-semibold uppercase tracking-[0.1em] text-[#4a5560]'
     : 'mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500';
@@ -100,6 +230,7 @@ export function ApplyPage() {
   const accentIcon = isHealth ? 'text-[#3d8fd1]' : isEducation ? 'text-[#3d8fd1]' : 'text-[#02509e]';
   const titleColor = isCollegeShell ? 'text-[#041c36]' : 'text-[#05264c]';
   const [currentStep, setCurrentStep] = useState<number>(1);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   // Step 1: Personal Info
   const [firstName, setFirstName] = useState('');
@@ -107,37 +238,28 @@ export function ApplyPage() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [dob, setDob] = useState('');
-  const [gender, setGender] = useState('Male');
+  const [gender, setGender] = useState('');
   const [stateOfOrigin, setStateOfOrigin] = useState('');
   const [address, setAddress] = useState('');
+  const [ndpaConsent, setNdpaConsent] = useState(false);
 
   // Step 2: Programme Selection — college locked by route
   const selectedCollege = collegeId as CollegeId;
   const [selectedProgramme, setSelectedProgramme] = useState('');
-  const [intakePeriod, setIntakePeriod] = useState('2025/2026 Academic Session');
+  const [intakePeriod, setIntakePeriod] = useState('');
 
   // Step 3: Academic Background
-  const [examType, setExamType] = useState('WAEC (SSCE)');
-  const [sittings, setSittings] = useState('1 Sitting');
+  const [examType, setExamType] = useState('');
+  const [sittings, setSittings] = useState('');
   const [schoolName, setSchoolName] = useState('');
-  const [yearOfResult, setYearOfResult] = useState('2024');
-  const [subjects, setSubjects] = useState<SubjectGrade[]>(
-    collegeId === 'education'
-      ? [
-          { id: '1', subject: 'English Language', grade: 'C4' },
-          { id: '2', subject: 'Mathematics', grade: 'C5' },
-          { id: '3', subject: 'Government', grade: 'B3' },
-          { id: '4', subject: 'Literature in English', grade: 'C4' },
-          { id: '5', subject: 'Economics', grade: 'C6' },
-        ]
-      : [
-          { id: '1', subject: 'English Language', grade: 'C4' },
-          { id: '2', subject: 'Mathematics', grade: 'C5' },
-          { id: '3', subject: 'Biology', grade: 'B3' },
-          { id: '4', subject: 'Chemistry', grade: 'C4' },
-          { id: '5', subject: 'Physics', grade: 'C6' },
-        ]
-  );
+  const [yearOfResult, setYearOfResult] = useState('');
+  const [subjects, setSubjects] = useState<SubjectGrade[]>([
+    { id: '1', subject: 'English Language', grade: '' },
+    { id: '2', subject: 'Mathematics', grade: '' },
+    { id: '3', subject: '', grade: '' },
+    { id: '4', subject: '', grade: '' },
+    { id: '5', subject: '', grade: '' },
+  ]);
 
   // Step 4: Documents
   const [olevelFileName, setOlevelFileName] = useState<string | null>(null);
@@ -151,39 +273,119 @@ export function ApplyPage() {
 
   const availableProgrammes = programmes.filter((p) => p.collegeId === selectedCollege);
 
+  const clearError = (key: string) => {
+    setFieldErrors((prev) => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
+
+  const validateStep = (step: number): boolean => {
+    const errors: Record<string, string> = {};
+
+    if (step === 1) {
+      if (!firstName.trim()) errors.firstName = 'First name is required.';
+      else if (!NAME_RE.test(firstName.trim())) errors.firstName = 'Enter a valid first name.';
+
+      if (!lastName.trim()) errors.lastName = 'Last name is required.';
+      else if (!NAME_RE.test(lastName.trim())) errors.lastName = 'Enter a valid last name.';
+
+      if (!email.trim()) errors.email = 'Email address is required.';
+      else if (!EMAIL_RE.test(email.trim())) errors.email = 'Enter a valid email address.';
+
+      const phoneNorm = normalizePhone(phone);
+      if (!phone.trim()) errors.phone = 'Phone number is required.';
+      else if (!PHONE_RE.test(phoneNorm)) {
+        errors.phone = 'Enter a valid Nigerian phone number (e.g. 0803… or +234…).';
+      }
+
+      if (!dob) errors.dob = 'Date of birth is required.';
+      else if (!isValidDob(dob)) errors.dob = 'Enter a valid date of birth (age 15–65).';
+
+      if (!gender) errors.gender = 'Select your gender.';
+
+      if (!stateOfOrigin.trim()) errors.stateOfOrigin = 'State of origin is required.';
+      else if (stateOfOrigin.trim().length < 3) errors.stateOfOrigin = 'Enter a valid state of origin.';
+
+      if (!address.trim()) errors.address = 'Residential address is required.';
+      else if (address.trim().length < 8) errors.address = 'Enter a complete residential address.';
+
+      if (!ndpaConsent) {
+        errors.ndpaConsent = 'You must accept the NDPA data-rights notice to continue.';
+      }
+    }
+
+    if (step === 2) {
+      if (!selectedProgramme) errors.selectedProgramme = 'Select a programme of study.';
+      if (!intakePeriod) errors.intakePeriod = 'Select an intake session.';
+    }
+
+    if (step === 3) {
+      if (!examType) errors.examType = 'Select examination type.';
+      if (!sittings) errors.sittings = 'Select number of sittings.';
+      if (!schoolName.trim()) errors.schoolName = 'Secondary school name is required.';
+      else if (schoolName.trim().length < 3) errors.schoolName = 'Enter a valid school name.';
+
+      if (!yearOfResult.trim()) errors.yearOfResult = 'Year of result is required.';
+      else if (!YEAR_RE.test(yearOfResult.trim())) errors.yearOfResult = 'Enter a valid year (e.g. 2024).';
+      else {
+        const y = Number(yearOfResult.trim());
+        const maxY = new Date().getFullYear() + 1;
+        if (y < 1990 || y > maxY) errors.yearOfResult = `Year must be between 1990 and ${maxY}.`;
+      }
+
+      if (subjects.length < 5) errors.subjects = 'Provide at least five O’Level subjects.';
+      subjects.forEach((s, index) => {
+        if (!s.subject.trim()) errors[`subject-${s.id}`] = `Subject ${index + 1} is required.`;
+        if (!s.grade) {
+          errors[`grade-${s.id}`] = `Select a grade for subject ${index + 1}.`;
+        }
+      });
+      const filledSubjects = subjects.map((s) => s.subject.trim().toLowerCase()).filter(Boolean);
+      if (new Set(filledSubjects).size !== filledSubjects.length) {
+        errors.subjects = 'Each subject can only be entered once.';
+      }
+    }
+
+    if (step === 4) {
+      if (!olevelFileName) errors.olevelFile = 'Upload your O’Level result slip.';
+      if (!passportFileName) errors.passportFile = 'Upload your passport photograph.';
+    }
+
+    if (step === 5) {
+      if (!ndpaConsent) errors.ndpaConsent = 'NDPA data-rights consent is required.';
+      if (!termsAccepted) errors.termsAccepted = 'You must certify that your information is accurate.';
+    }
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleAddSubject = () => {
     const nextId = String(Date.now());
-    setSubjects((prev) => [
-      ...prev,
-      { id: nextId, subject: '', grade: 'Grade' }
-    ]);
+    setSubjects((prev) => [...prev, { id: nextId, subject: '', grade: '' }]);
   };
 
   const handleRemoveSubject = (id: string) => {
-    if (subjects.length <= 2) return;
+    if (subjects.length <= 5) return;
     setSubjects((prev) => prev.filter((s) => s.id !== id));
   };
 
   const handleSubjectChange = (id: string, field: 'subject' | 'grade', value: string) => {
-    setSubjects((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, [field]: value } : s))
-    );
+    setSubjects((prev) => prev.map((s) => (s.id === id ? { ...s, [field]: value } : s)));
+    clearError(field === 'subject' ? `subject-${id}` : `grade-${id}`);
+    clearError('subjects');
   };
 
   const handleNextStep = () => {
-    if (currentStep === 1) {
-      if (!firstName || !lastName || !phone) {
-        alert('Please fill in your first name, last name, and phone number.');
-        return;
-      }
-    }
-    if (currentStep === 2) {
-      if (!selectedProgramme) {
-        alert('Please select your desired programme of study.');
-        return;
-      }
+    if (!validateStep(currentStep)) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
     }
     if (currentStep < 5) {
+      setFieldErrors({});
       setCurrentStep((prev) => prev + 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -191,6 +393,7 @@ export function ApplyPage() {
 
   const handlePrevStep = () => {
     if (currentStep > 1) {
+      setFieldErrors({});
       setCurrentStep((prev) => prev - 1);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -198,10 +401,14 @@ export function ApplyPage() {
 
   const handleFinalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!termsAccepted) {
-      alert('Please certify that your information is true and accurate.');
-      return;
+    for (const step of [1, 2, 3, 4, 5] as const) {
+      if (!validateStep(step)) {
+        setCurrentStep(step);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
     }
+
     setIsSubmitting(true);
     setTimeout(() => {
       const collegeCode = selectedCollege === 'health-technology' ? 'HT' : 'COE';
@@ -680,6 +887,14 @@ export function ApplyPage() {
                   />
                 ) : null}
                 <div className={isHealth ? 'relative' : undefined}>
+                {Object.keys(fieldErrors).length > 0 ? (
+                  <div
+                    role="alert"
+                    className="mb-4 rounded-md border border-red-200 bg-red-50 px-3.5 py-2.5 font-sans text-[13px] font-medium text-red-700"
+                  >
+                    Please correct the highlighted fields before continuing.
+                  </div>
+                ) : null}
                 {/* -------------------------------------------------- */}
                 {/* STEP 1: Personal Information                       */}
                 {/* -------------------------------------------------- */}
@@ -692,12 +907,17 @@ export function ApplyPage() {
                         </label>
                         <input
                           type="text"
-                          required
+                          autoComplete="given-name"
                           placeholder="Enter first name"
                           value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setFirstName(e.target.value);
+                            clearError('firstName');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.firstName)}
+                          className={`${inputClass}${fieldErrors.firstName ? inputErrorExtra : ''}`}
                         />
+                        <FieldError message={fieldErrors.firstName} />
                       </div>
                       <div>
                         <label className={labelClass}>
@@ -705,26 +925,37 @@ export function ApplyPage() {
                         </label>
                         <input
                           type="text"
-                          required
+                          autoComplete="family-name"
                           placeholder="Enter last name"
                           value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setLastName(e.target.value);
+                            clearError('lastName');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.lastName)}
+                          className={`${inputClass}${fieldErrors.lastName ? inputErrorExtra : ''}`}
                         />
+                        <FieldError message={fieldErrors.lastName} />
                       </div>
                     </div>
 
                     <div>
                       <label className={labelClass}>
-                        Email Address
+                        Email Address <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="email"
-                        placeholder="example@college.edu"
+                        autoComplete="email"
+                        placeholder="example@email.com"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={inputClass}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          clearError('email');
+                        }}
+                        aria-invalid={Boolean(fieldErrors.email)}
+                        className={`${inputClass}${fieldErrors.email ? inputErrorExtra : ''}`}
                       />
+                      <FieldError message={fieldErrors.email} />
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -734,69 +965,130 @@ export function ApplyPage() {
                         </label>
                         <input
                           type="tel"
-                          required
-                          placeholder="+234 803 000 0000"
+                          autoComplete="tel"
+                          placeholder="0803 000 0000"
                           value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setPhone(e.target.value);
+                            clearError('phone');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.phone)}
+                          className={`${inputClass}${fieldErrors.phone ? inputErrorExtra : ''}`}
                         />
+                        <FieldError message={fieldErrors.phone} />
                       </div>
                       <div>
                         <label className={labelClass}>
-                          Gender
+                          Gender <span className="text-red-500">*</span>
                         </label>
                         <select
                           value={gender}
-                          onChange={(e) => setGender(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setGender(e.target.value);
+                            clearError('gender');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.gender)}
+                          className={`${inputClass}${fieldErrors.gender ? inputErrorExtra : ''}${!gender ? ' text-slate-400' : ''}`}
                         >
+                          <option value="">Select gender</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
                         </select>
+                        <FieldError message={fieldErrors.gender} />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className={labelClass}>
-                          Date of Birth
+                          Date of Birth <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="date"
                           value={dob}
-                          onChange={(e) => setDob(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setDob(e.target.value);
+                            clearError('dob');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.dob)}
+                          className={`${inputClass}${fieldErrors.dob ? inputErrorExtra : ''}`}
                         />
-                        <span className="text-[10px] text-slate-400 mt-1 block">Use Day / Month / Year format</span>
+                        <FieldError message={fieldErrors.dob} />
                       </div>
                       <div>
                         <label className={labelClass}>
-                          State of Origin
+                          State of Origin <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="text"
                           placeholder="e.g. Kwara State"
                           value={stateOfOrigin}
-                          onChange={(e) => setStateOfOrigin(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setStateOfOrigin(e.target.value);
+                            clearError('stateOfOrigin');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.stateOfOrigin)}
+                          className={`${inputClass}${fieldErrors.stateOfOrigin ? inputErrorExtra : ''}`}
                         />
+                        <FieldError message={fieldErrors.stateOfOrigin} />
                       </div>
                     </div>
 
                     <div>
                       <label className={labelClass}>
-                        Permanent Residential Address
+                        Permanent Residential Address <span className="text-red-500">*</span>
                       </label>
                       <input
                         type="text"
                         placeholder="Street name, City, State"
                         value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        className={inputClass}
+                        onChange={(e) => {
+                          setAddress(e.target.value);
+                          clearError('address');
+                        }}
+                        aria-invalid={Boolean(fieldErrors.address)}
+                        className={`${inputClass}${fieldErrors.address ? inputErrorExtra : ''}`}
                       />
+                      <FieldError message={fieldErrors.address} />
                     </div>
 
-                    <div className="mt-4 flex items-start gap-2.5 rounded-md border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-600">
+                    <div
+                      className={`rounded-md border p-3.5 ${
+                        fieldErrors.ndpaConsent
+                          ? 'border-red-300 bg-red-50'
+                          : 'border-slate-200 bg-slate-50'
+                      }`}
+                    >
+                      <label className="flex cursor-pointer items-start gap-3">
+                        <input
+                          type="checkbox"
+                          checked={ndpaConsent}
+                          onChange={(e) => {
+                            setNdpaConsent(e.target.checked);
+                            clearError('ndpaConsent');
+                          }}
+                          className={`mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 ${
+                            isHealth
+                              ? 'text-[#3d8fd1] focus:ring-[#3d8fd1]'
+                              : isEducation
+                                ? 'text-[#c9a227] focus:ring-[#c9a227]'
+                                : 'text-[#02509e] focus:ring-[#02509e]'
+                          }`}
+                        />
+                        <span className="text-xs leading-relaxed text-slate-600">
+                          <span className="font-semibold text-[#05264c]">
+                            Nigeria Data Protection Act (NDPA) consent.{' '}
+                          </span>
+                          I consent to Adeshina College collecting and processing my personal data for
+                          admissions. I understand my rights to access, correct, or request deletion of
+                          my data under the NDPA.
+                          <span className="text-red-500"> *</span>
+                        </span>
+                      </label>
+                      <FieldError message={fieldErrors.ndpaConsent} />
+                    </div>
+
+                    <div className="flex items-start gap-2.5 rounded-md border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-600">
                       <ShieldCheck className={`mt-0.5 h-4 w-4 shrink-0 ${accentIcon}`} />
                       <span>Please ensure your details match your government-issued ID or birth certificate. You will present original copies for screening.</span>
                     </div>
@@ -845,8 +1137,12 @@ export function ApplyPage() {
                       </label>
                       <select
                         value={selectedProgramme}
-                        onChange={(e) => setSelectedProgramme(e.target.value)}
-                        className={inputClass}
+                        onChange={(e) => {
+                          setSelectedProgramme(e.target.value);
+                          clearError('selectedProgramme');
+                        }}
+                        aria-invalid={Boolean(fieldErrors.selectedProgramme)}
+                        className={`${inputClass}${fieldErrors.selectedProgramme ? inputErrorExtra : ''}${!selectedProgramme ? ' text-slate-400' : ''}`}
                       >
                         <option value="">-- Select Programme ({availableProgrammes.length} Available) --</option>
                         {availableProgrammes.map((p) => (
@@ -855,16 +1151,20 @@ export function ApplyPage() {
                           </option>
                         ))}
                       </select>
+                      <FieldError message={fieldErrors.selectedProgramme} />
                     </div>
 
                     <div>
                       <label className={labelClass}>
-                        Intake Period / Session
+                        Intake Period / Session <span className="text-red-500">*</span>
                       </label>
                       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                         <button
                           type="button"
-                          onClick={() => setIntakePeriod('2025/2026 Academic Session')}
+                          onClick={() => {
+                            setIntakePeriod('2025/2026 Academic Session');
+                            clearError('intakePeriod');
+                          }}
                           className={`rounded-2xl border px-4 py-3 text-left text-[13px] font-semibold transition-colors ${
                             intakePeriod === '2025/2026 Academic Session'
                               ? isEducation
@@ -873,13 +1173,16 @@ export function ApplyPage() {
                               : isEducation
                                 ? 'border-[#0c2340]/12 bg-white text-[#0c2340] hover:border-[#3d8fd1] hover:bg-[#eaf4fb]'
                                 : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
-                          }`}
+                          }${fieldErrors.intakePeriod && !intakePeriod ? ' !border-red-400' : ''}`}
                         >
                           2025/2026 Academic Session
                         </button>
                         <button
                           type="button"
-                          onClick={() => setIntakePeriod('2026/2027 Academic Session')}
+                          onClick={() => {
+                            setIntakePeriod('2026/2027 Academic Session');
+                            clearError('intakePeriod');
+                          }}
                           className={`rounded-2xl border px-4 py-3 text-left text-[13px] font-semibold transition-colors ${
                             intakePeriod === '2026/2027 Academic Session'
                               ? isEducation
@@ -888,11 +1191,12 @@ export function ApplyPage() {
                               : isEducation
                                 ? 'border-[#0c2340]/12 bg-white text-[#0c2340] hover:border-[#3d8fd1] hover:bg-[#eaf4fb]'
                                 : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
-                          }`}
+                          }${fieldErrors.intakePeriod && !intakePeriod ? ' !border-red-400' : ''}`}
                         >
                           2026/2027 Academic Session
                         </button>
                       </div>
+                      <FieldError message={fieldErrors.intakePeriod} />
                     </div>
                   </div>
                 )}
@@ -905,60 +1209,83 @@ export function ApplyPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className={labelClass}>
-                          Examination Type
+                          Examination Type <span className="text-red-500">*</span>
                         </label>
                         <select
                           value={examType}
-                          onChange={(e) => setExamType(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setExamType(e.target.value);
+                            clearError('examType');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.examType)}
+                          className={`${inputClass}${fieldErrors.examType ? inputErrorExtra : ''}${!examType ? ' text-slate-400' : ''}`}
                         >
+                          <option value="">Select examination type</option>
                           <option value="WAEC (SSCE)">WAEC (SSCE)</option>
                           <option value="NECO (SSCE)">NECO (SSCE)</option>
                           <option value="NABTEB">NABTEB</option>
                           <option value="GCE (O'Level)">GCE (O'Level)</option>
                           <option value="Combined Results">Combined Results</option>
                         </select>
+                        <FieldError message={fieldErrors.examType} />
                       </div>
 
                       <div>
                         <label className={labelClass}>
-                          Number of Sittings
+                          Number of Sittings <span className="text-red-500">*</span>
                         </label>
                         <select
                           value={sittings}
-                          onChange={(e) => setSittings(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setSittings(e.target.value);
+                            clearError('sittings');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.sittings)}
+                          className={`${inputClass}${fieldErrors.sittings ? inputErrorExtra : ''}${!sittings ? ' text-slate-400' : ''}`}
                         >
+                          <option value="">Select sittings</option>
                           <option value="1 Sitting">1 Sitting</option>
                           <option value="2 Sittings">2 Sittings</option>
                         </select>
+                        <FieldError message={fieldErrors.sittings} />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       <div className="sm:col-span-2">
                         <label className={labelClass}>
-                          Name of Secondary School Attended
+                          Name of Secondary School Attended <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="text"
                           placeholder="Enter secondary school name"
                           value={schoolName}
-                          onChange={(e) => setSchoolName(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setSchoolName(e.target.value);
+                            clearError('schoolName');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.schoolName)}
+                          className={`${inputClass}${fieldErrors.schoolName ? inputErrorExtra : ''}`}
                         />
+                        <FieldError message={fieldErrors.schoolName} />
                       </div>
                       <div>
                         <label className={labelClass}>
-                          Year of Result
+                          Year of Result <span className="text-red-500">*</span>
                         </label>
                         <input
                           type="text"
+                          inputMode="numeric"
                           placeholder="e.g. 2024"
                           value={yearOfResult}
-                          onChange={(e) => setYearOfResult(e.target.value)}
-                          className={inputClass}
+                          onChange={(e) => {
+                            setYearOfResult(e.target.value);
+                            clearError('yearOfResult');
+                          }}
+                          aria-invalid={Boolean(fieldErrors.yearOfResult)}
+                          className={`${inputClass}${fieldErrors.yearOfResult ? inputErrorExtra : ''}`}
                         />
+                        <FieldError message={fieldErrors.yearOfResult} />
                       </div>
                     </div>
 
@@ -966,69 +1293,84 @@ export function ApplyPage() {
                     <div className="pt-2">
                       <div className="mb-2">
                         <label className={labelClass}>
-                          O'Level Subjects & Grades
+                          O'Level Subjects & Grades <span className="text-red-500">*</span>
                         </label>
                         <span className="text-[11px] text-slate-500">
                           Minimum of five credit passes, including English Language and Mathematics, obtained in not more than two sittings.
                         </span>
+                        <FieldError message={fieldErrors.subjects} />
                       </div>
 
                       <div className="mt-3 space-y-2">
                         {subjects.map((item, index) => {
                           const isMandatory = index < 2;
+                          const subjectErr = fieldErrors[`subject-${item.id}`];
+                          const gradeErr = fieldErrors[`grade-${item.id}`];
                           return (
-                            <div key={item.id} className="flex items-center gap-2.5">
-                              <div className="flex-grow">
-                                {isMandatory ? (
-                                  <input
-                                    type="text"
-                                    disabled
-                                    value={item.subject}
-                                    className="w-full rounded-md border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-[13px] font-medium text-slate-700"
-                                  />
-                                ) : (
+                            <div key={item.id} className="space-y-1">
+                              <div className="flex items-center gap-2.5">
+                                <div className="flex-grow">
+                                  {isMandatory ? (
+                                    <input
+                                      type="text"
+                                      disabled
+                                      value={item.subject}
+                                      className="w-full rounded-md border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-[13px] font-medium text-slate-700"
+                                    />
+                                  ) : (
+                                    <select
+                                      value={item.subject}
+                                      onChange={(e) => handleSubjectChange(item.id, 'subject', e.target.value)}
+                                      aria-invalid={Boolean(subjectErr)}
+                                      className={`${inputClass}${subjectErr ? inputErrorExtra : ''}${!item.subject ? ' text-slate-400' : ''}`}
+                                    >
+                                      <option value="">Select Subject...</option>
+                                      {COMMON_SUBJECTS.map((sub) => (
+                                        <option key={sub} value={sub}>{sub}</option>
+                                      ))}
+                                    </select>
+                                  )}
+                                </div>
+
+                                <div className="w-28 shrink-0 sm:w-36">
                                   <select
-                                    value={item.subject}
-                                    onChange={(e) => handleSubjectChange(item.id, 'subject', e.target.value)}
-                                    className={inputClass}
+                                    value={item.grade}
+                                    onChange={(e) => handleSubjectChange(item.id, 'grade', e.target.value)}
+                                    aria-invalid={Boolean(gradeErr)}
+                                    className={`${inputClass}${gradeErr ? inputErrorExtra : ''}${
+                                      !item.grade ? ' text-slate-400' : ''
+                                    }`}
                                   >
-                                    <option value="">Select Subject...</option>
-                                    {COMMON_SUBJECTS.map((sub) => (
-                                      <option key={sub} value={sub}>{sub}</option>
+                                    <option value="">Select grade</option>
+                                    {GRADE_OPTIONS.map((gr) => (
+                                      <option key={gr} value={gr}>
+                                        {gr}
+                                      </option>
                                     ))}
                                   </select>
-                                )}
-                              </div>
+                                </div>
 
-                              <div className="w-28 shrink-0 sm:w-36">
-                                <select
-                                  value={item.grade}
-                                  onChange={(e) => handleSubjectChange(item.id, 'grade', e.target.value)}
-                                  className={`${inputClass} ${
-                                    item.grade === 'Grade' || !item.grade ? 'text-slate-400' : ''
-                                  }`}
-                                >
-                                  {GRADE_OPTIONS.map((gr) => (
-                                    <option key={gr} value={gr}>{gr}</option>
-                                  ))}
-                                </select>
+                                <div className="flex w-8 shrink-0 items-center justify-center">
+                                  {!isMandatory ? (
+                                    <button
+                                      type="button"
+                                      onClick={() => handleRemoveSubject(item.id)}
+                                      className="rounded p-1 text-red-500 transition-colors hover:bg-red-50 hover:text-red-700"
+                                      title="Remove subject"
+                                      aria-label="Remove subject"
+                                    >
+                                      <X className="h-4 w-4 stroke-[2.5]" />
+                                    </button>
+                                  ) : (
+                                    <span className="w-4" />
+                                  )}
+                                </div>
                               </div>
-
-                              <div className="flex w-8 shrink-0 items-center justify-center">
-                                {!isMandatory ? (
-                                  <button
-                                    type="button"
-                                    onClick={() => handleRemoveSubject(item.id)}
-                                    className="rounded p-1 text-red-500 transition-colors hover:bg-red-50 hover:text-red-700"
-                                    title="Remove subject"
-                                    aria-label="Remove subject"
-                                  >
-                                    <X className="h-4 w-4 stroke-[2.5]" />
-                                  </button>
-                                ) : (
-                                  <span className="w-4" />
-                                )}
-                              </div>
+                              {(subjectErr || gradeErr) && (
+                                <p className="font-sans text-[12px] font-medium text-red-600">
+                                  {[subjectErr, gradeErr].filter(Boolean).join(' ')}
+                                </p>
+                              )}
                             </div>
                           );
                         })}
@@ -1060,9 +1402,13 @@ export function ApplyPage() {
                     {/* Transcript / O'Level Slip */}
                     <div>
                       <label className={labelClass}>
-                        Transcript / O'Level Result Slip
+                        Transcript / O'Level Result Slip <span className="text-red-500">*</span>
                       </label>
-                      <div className="flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-slate-300 bg-slate-50/80 p-5 sm:flex-row">
+                      <div
+                        className={`flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed bg-slate-50/80 p-5 sm:flex-row ${
+                          fieldErrors.olevelFile ? 'border-red-400 bg-red-50/50' : 'border-slate-300'
+                        }`}
+                      >
                         <div className="flex items-center gap-3">
                           <div
                             className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${
@@ -1093,20 +1439,26 @@ export function ApplyPage() {
                             onChange={(e) => {
                               if (e.target.files && e.target.files[0]) {
                                 setOlevelFileName(e.target.files[0].name);
+                                clearError('olevelFile');
                               }
                             }}
                             className="hidden"
                           />
                         </label>
                       </div>
+                      <FieldError message={fieldErrors.olevelFile} />
                     </div>
 
                     {/* Passport / ID Copy */}
                     <div>
                       <label className={labelClass}>
-                        Passport / Identity Document
+                        Passport / Identity Document <span className="text-red-500">*</span>
                       </label>
-                      <div className="flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-slate-300 bg-slate-50/80 p-5 sm:flex-row">
+                      <div
+                        className={`flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed bg-slate-50/80 p-5 sm:flex-row ${
+                          fieldErrors.passportFile ? 'border-red-400 bg-red-50/50' : 'border-slate-300'
+                        }`}
+                      >
                         <div className="flex items-center gap-3">
                           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-slate-200/80 text-slate-600">
                             <Upload className="h-5 w-5" />
@@ -1129,17 +1481,19 @@ export function ApplyPage() {
                             onChange={(e) => {
                               if (e.target.files && e.target.files[0]) {
                                 setPassportFileName(e.target.files[0].name);
+                                clearError('passportFile');
                               }
                             }}
                             className="hidden"
                           />
                         </label>
                       </div>
+                      <FieldError message={fieldErrors.passportFile} />
                     </div>
 
                     <div className="flex items-start gap-2 rounded-md border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-600">
                       <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-500" />
-                      <span>Ensure all text and stamps are clearly legible before submitting. Document upload is optional during online pre-registration and can be verified physically on campus.</span>
+                      <span>Ensure all text and stamps are clearly legible. Both documents are required to continue. Originals will be verified on campus.</span>
                     </div>
                   </div>
                 )}
@@ -1187,13 +1541,54 @@ export function ApplyPage() {
                       </div>
                     </div>
 
-                    <div className="border-t border-slate-100 pt-2">
-                      <label className="flex cursor-pointer items-start gap-3">
+                    <div className="space-y-3 border-t border-slate-100 pt-2">
+                      <div
+                        className={`rounded-md border p-3.5 ${
+                          fieldErrors.ndpaConsent
+                            ? 'border-red-300 bg-red-50'
+                            : 'border-slate-200 bg-slate-50'
+                        }`}
+                      >
+                        <label className="flex cursor-pointer items-start gap-3">
+                          <input
+                            type="checkbox"
+                            checked={ndpaConsent}
+                            onChange={(e) => {
+                              setNdpaConsent(e.target.checked);
+                              clearError('ndpaConsent');
+                            }}
+                            className={`mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 ${
+                              isHealth
+                                ? 'text-[#3d8fd1] focus:ring-[#3d8fd1]'
+                                : isEducation
+                                  ? 'text-[#c9a227] focus:ring-[#c9a227]'
+                                  : 'text-[#02509e] focus:ring-[#02509e]'
+                            }`}
+                          />
+                          <span className="text-xs leading-relaxed text-slate-600">
+                            <span className="font-semibold text-[#05264c]">NDPA confirmation. </span>
+                            I reaffirm consent under the Nigeria Data Protection Act for processing my
+                            application data, and I understand my data-subject rights.
+                            <span className="text-red-500"> *</span>
+                          </span>
+                        </label>
+                        <FieldError message={fieldErrors.ndpaConsent} />
+                      </div>
+
+                      <label
+                        className={`flex cursor-pointer items-start gap-3 rounded-md border p-3.5 ${
+                          fieldErrors.termsAccepted
+                            ? 'border-red-300 bg-red-50'
+                            : 'border-transparent'
+                        }`}
+                      >
                         <input
                           type="checkbox"
-                          required
                           checked={termsAccepted}
-                          onChange={(e) => setTermsAccepted(e.target.checked)}
+                          onChange={(e) => {
+                            setTermsAccepted(e.target.checked);
+                            clearError('termsAccepted');
+                          }}
                           className={`mt-0.5 h-4 w-4 rounded border-slate-300 ${
                             isHealth
                               ? 'text-[#3d8fd1] focus:ring-[#3d8fd1]'
@@ -1204,14 +1599,16 @@ export function ApplyPage() {
                         />
                         <span className="text-xs leading-relaxed text-slate-600">
                           I hereby certify that all information supplied above is complete, accurate, and represents my true academic and personal records.
+                          <span className="text-red-500"> *</span>
                         </span>
                       </label>
+                      <FieldError message={fieldErrors.termsAccepted} />
                     </div>
 
                     <div className="flex flex-col items-center pt-2">
                       <button
                         type="submit"
-                        disabled={isSubmitting || !termsAccepted}
+                        disabled={isSubmitting || !termsAccepted || !ndpaConsent}
                         className={`flex w-full items-center justify-center gap-2 rounded-md px-6 py-3.5 text-[14px] font-semibold text-white transition-colors disabled:opacity-50 ${primaryBtn}`}
                       >
                         {isSubmitting ? (

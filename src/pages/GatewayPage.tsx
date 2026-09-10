@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
@@ -46,8 +46,16 @@ const accordionItems = [
 type AccordionId = (typeof accordionItems)[number]['id'];
 
 export function GatewayPage() {
+  const { hash } = useLocation();
   const [activeSection, setActiveSection] = useState<AccordionId | null>('about');
   const [hoveredCollege, setHoveredCollege] = useState<CollegeId>('health-technology');
+
+  useEffect(() => {
+    const id = hash.replace(/^#/, '');
+    if (id === 'colleges' || id === 'discover') {
+      if (id === 'colleges') setActiveSection('colleges');
+    }
+  }, [hash]);
 
   const toggleSection = (id: AccordionId) => {
     setActiveSection((current) => (current === id ? null : id));
@@ -211,7 +219,11 @@ export function GatewayPage() {
               const open = activeSection === item.id;
 
               return (
-                <div key={item.id} className={index > 0 ? 'border-t border-slate-200' : ''}>
+                <div
+                  key={item.id}
+                  id={item.id === 'colleges' ? 'colleges' : undefined}
+                  className={`${item.id === 'colleges' ? 'scroll-mt-24' : ''} ${index > 0 ? 'border-t border-slate-200' : ''}`}
+                >
                   <button
                     type="button"
                     onClick={() => toggleSection(item.id)}
@@ -268,7 +280,7 @@ export function GatewayPage() {
                             </div>
                             <div className="mt-6 flex flex-wrap items-center gap-4 rounded-2xl bg-[#05264c] p-5 text-white sm:p-6">
                               <div className="flex-1"><p className="font-serif text-lg font-semibold">Applications are currently open.</p><p className="mt-1 text-sm text-white/65">{admissionInfo.session}</p></div>
-                              <Link to="/colleges/health-technology/apply" className="inline-flex items-center gap-2 rounded-full bg-[#e8c56a] px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#05264c] hover:bg-white">Start an application <ArrowRight className="h-4 w-4" /></Link>
+                              <Link to="/apply" className="inline-flex items-center gap-2 rounded-full bg-[#e8c56a] px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#05264c] hover:bg-white">Start an application <ArrowRight className="h-4 w-4" /></Link>
                             </div>
                           </div>
                         )}
@@ -337,7 +349,7 @@ export function GatewayPage() {
             <p className="text-[10px] font-bold uppercase tracking-[.2em] text-[#e8c56a]">Adeshina Group of Colleges</p>
             <h2 className="mt-3 max-w-3xl font-serif text-3xl font-semibold tracking-[-.02em] sm:text-4xl">Build knowledge. Build character. Build your future.</h2>
           </div>
-          <Link to="#discover" className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-bold backdrop-blur transition-colors hover:bg-white hover:text-[#05264c]">Explore the school <ArrowRight className="h-4 w-4" /></Link>
+          <a href="#discover" className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3.5 text-sm font-bold backdrop-blur transition-colors hover:bg-white hover:text-[#05264c]">Explore the school <ArrowRight className="h-4 w-4" /></a>
         </Container>
       </section>
     </div>

@@ -281,7 +281,14 @@ export function GatewayHeader() {
 
           <div className="hidden items-center gap-5 xl:flex">
             <nav className="flex items-center gap-0.5" aria-label="Group navigation">
-              <button type="button" onMouseEnter={openOverview} onFocus={openOverview} onClick={() => setOverviewOpen((open) => !open)} className={`${linkClass(false)} inline-flex items-center gap-1.5`} aria-expanded={overviewOpen} aria-controls="overview-panel">
+              <button
+                type="button"
+                onMouseEnter={openOverview}
+                onClick={() => setOverviewOpen((open) => !open)}
+                className={`${linkClass(false)} inline-flex items-center gap-1.5`}
+                aria-expanded={overviewOpen}
+                aria-controls="overview-panel"
+              >
                 Overview
                 <ChevronDown className={`h-3.5 w-3.5 transition-transform ${overviewOpen ? 'rotate-180' : ''}`} />
               </button>
