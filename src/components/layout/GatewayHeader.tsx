@@ -86,7 +86,7 @@ export function GatewayHeader() {
 
             <Link
               to={siteConfig.portals.studentPortal.path}
-              className="type-button-sm border border-white/25 px-3.5 py-2 text-white/85 transition-colors hover:border-white/50 hover:bg-white/5 hover:text-white"
+              className="type-button-sm border border-white/20 bg-white/10 px-3.5 py-2 text-white transition-colors hover:border-white/35 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Portal
             </Link>
@@ -126,7 +126,7 @@ export function GatewayHeader() {
             </Link>
             <Link
               to="/portal"
-              className="mt-2 block border border-white/20 px-3 py-3 text-center text-[15px] font-semibold text-white/90 hover:bg-white/5"
+              className="type-button mt-3 block border border-white/20 bg-white/10 px-3 py-3.5 text-center text-white transition-colors hover:border-white/35 hover:bg-white/15"
             >
               Student Portal
             </Link>

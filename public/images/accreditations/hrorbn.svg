@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="HRORBN">
+  <rect width="120" height="120" rx="12" fill="#3a2a55"/>
+  <rect x="36" y="30" width="48" height="36" rx="3" fill="none" stroke="#c4b0e8" stroke-width="3"/>
+  <path d="M44 42h32M44 52h20" stroke="#c4b0e8" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="60" y="100" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#ffffff">HRORBN</text>
+</svg>

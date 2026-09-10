@@ -31,15 +31,14 @@ export function GatewayPage() {
 
   return (
     <div className="relative flex flex-col bg-white">
-      {/* Hero — Option A: Editorial split (refined) */}
+      {/* Hero — Option A craft polish */}
       <section
         id="colleges"
         className="scroll-mt-24 bg-[#041c36]"
         aria-label="Adeshina Group of Colleges"
       >
         <div className="grid min-h-[min(88vh,840px)] grid-cols-1 lg:grid-cols-2">
-          {/* Brand + pathways */}
-          <div className="relative flex flex-col justify-center px-6 py-16 sm:px-10 sm:py-20 lg:px-14 xl:px-16">
+          <div className="relative flex flex-col justify-center px-6 py-16 sm:px-10 sm:py-20 lg:px-12 xl:px-16">
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -47,14 +46,11 @@ export function GatewayPage() {
               className="max-w-xl"
             >
               <p className="type-label text-[#e8c56a]">Share, Kwara State · Nigeria</p>
-              <h1 className="mt-5 font-serif text-[2.55rem] font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.4rem]">
+              <h1 className="mt-5 font-serif text-[2.55rem] font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.35rem]">
                 Adeshina Group of Colleges
               </h1>
-              <p className="mt-5 font-sans text-lg leading-relaxed text-white/75 sm:text-xl">
+              <p className="mt-5 max-w-md font-sans text-lg leading-relaxed text-white/78 sm:text-xl">
                 Two colleges. One institution.
-              </p>
-              <p className="mt-4 max-w-md font-sans text-[15px] leading-relaxed text-white/60 sm:text-base">
-                Professional pathways into health technology and teaching — on one Share campus.
               </p>
             </motion.div>
 
@@ -62,30 +58,33 @@ export function GatewayPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.12 }}
-              className="mt-12 space-y-0 border-t border-white/15"
+              className="mt-14 border-t border-white/15"
               aria-label="Choose your college"
             >
               {colleges.map((college) => {
                 const id = college.id as CollegeId;
                 const isHealth = id === 'health-technology';
-                const accent = isHealth ? '#10a37f' : '#5ba3e0';
+                const accent = isHealth ? '#10a37f' : '#02509e';
 
                 return (
                   <Link
                     key={college.id}
                     to={collegePath(id)}
-                    className="group flex items-center justify-between gap-4 border-b border-white/15 py-5 transition-colors hover:bg-white/[0.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:py-6"
+                    className="group flex items-center justify-between gap-5 border-b border-white/15 py-6 transition-colors hover:bg-white/[0.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:py-7"
                   >
                     <span className="min-w-0">
-                      <span className="type-label block" style={{ color: accent }}>
+                      <span
+                        className="type-label block"
+                        style={{ color: isHealth ? '#7ddec0' : '#9ec5f0' }}
+                      >
                         {isHealth ? 'Health sciences' : 'Educator training'}
                       </span>
-                      <span className="mt-1.5 block font-serif text-xl font-semibold tracking-[-0.02em] text-white sm:text-[1.35rem]">
+                      <span className="mt-2 block font-serif text-[1.35rem] font-semibold leading-snug tracking-[-0.02em] text-white sm:text-2xl">
                         {isHealth ? 'College of Health Technology' : 'College of Education'}
                       </span>
                     </span>
                     <span
-                      className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:scale-105"
+                      className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:scale-[1.04]"
                       style={{ backgroundColor: accent }}
                       aria-hidden="true"
                     >
@@ -97,9 +96,8 @@ export function GatewayPage() {
             </motion.nav>
           </div>
 
-          {/* Framed campus photographs — fill panel height */}
-          <div className="relative min-h-[440px] sm:min-h-[520px] lg:min-h-full">
-            <div className="absolute inset-0 grid grid-cols-2 gap-2 p-2 sm:gap-3 sm:p-3 lg:gap-4 lg:p-4">
+          <div className="relative min-h-[480px] sm:min-h-[560px] lg:min-h-full">
+            <div className="absolute inset-0 grid grid-cols-2 gap-1.5 p-1.5 sm:gap-2 sm:p-2 lg:gap-2.5 lg:p-2.5">
               {colleges.map((college, index) => {
                 const id = college.id as CollegeId;
                 const isHealth = id === 'health-technology';
@@ -126,10 +124,12 @@ export function GatewayPage() {
                             ? 'Adeshina College of Health Technology campus'
                             : 'Adeshina College of Education campus gate'
                         }
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                        className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${
+                          isHealth ? 'object-[center_40%]' : 'object-[center_32%]'
+                        }`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#041c36]/85 via-[#041c36]/10 to-transparent" />
-                      <span className="absolute bottom-4 left-4 right-4 font-serif text-sm font-semibold leading-snug text-white sm:text-base lg:text-lg">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#041c36]/90 via-[#041c36]/15 to-transparent" />
+                      <span className="absolute bottom-4 left-4 right-4 font-serif text-sm font-semibold leading-snug tracking-[-0.01em] text-white/95 sm:bottom-5 sm:left-5 sm:text-base">
                         {isHealth ? 'Health Technology' : 'Education'}
                       </span>
                     </Link>
@@ -141,7 +141,6 @@ export function GatewayPage() {
         </div>
       </section>
 
-      {/* Why */}
       <section
         className="border-b border-slate-200 bg-[#f7f9fc] py-20 lg:py-28"
         aria-labelledby="about-group-heading"
@@ -178,7 +177,6 @@ export function GatewayPage() {
         </Container>
       </section>
 
-      {/* B — How to join */}
       <section
         className="border-b border-slate-200 bg-white py-20 lg:py-24"
         aria-labelledby="how-to-join-heading"

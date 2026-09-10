@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowLeft, Compass, ShieldCheck, Award, Users, Microscope } from 'lucide-react';
 import { Container } from '@/components/common/Container';
 import { GroupAbout } from '@/components/group/GroupAbout';
+import { HealthAboutPage } from '@/components/college/health/HealthAboutPage';
 import { useScopedPath } from '@/context/CollegeContext';
 
 export function AboutPage() {
@@ -14,11 +15,14 @@ export function AboutPage() {
 
   const collegeId = scope?.collegeId;
   const isHealth = collegeId === 'health-technology';
+
+  if (isHealth) {
+    return <HealthAboutPage />;
+  }
+
   const isEducation = collegeId === 'education';
-  const accent = isHealth ? '#10a37f' : '#e8c56a';
-  const hoverRingClass = isHealth
-    ? 'hover:ring-[#10a37f]/40'
-    : 'hover:ring-[#02509e]/35';
+  const accent = '#e8c56a';
+  const hoverRingClass = 'hover:ring-[#02509e]/35';
 
   const trainingFocusItems = isHealth
     ? [

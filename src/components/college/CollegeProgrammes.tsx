@@ -21,7 +21,11 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
             <h2 className="font-serif font-semibold text-4xl sm:text-5xl text-[#05264c] tracking-[-0.02em] leading-[1.12]">
               Our programmes
             </h2>
-            <p className="mt-4 text-xl sm:text-2xl font-serif text-[#02509e] leading-snug tracking-[-0.01em]">
+            <p
+              className={`mt-4 text-xl sm:text-2xl font-serif leading-snug tracking-[-0.01em] ${
+                isHealth ? 'text-[#0b6b54]' : 'text-[#02509e]'
+              }`}
+            >
               {isHealth
                 ? 'Health training pathways for clinical and community practice'
                 : 'Teacher education pathways for classroom leadership'}
@@ -35,7 +39,11 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
 
           <Link
             to={`/colleges/${college.id}/programmes`}
-            className="inline-flex items-center justify-center rounded-md bg-[#05264c] px-6 py-3.5 text-[14px] font-semibold text-white transition-colors duration-300 hover:bg-[#02509e] shrink-0 self-start md:self-auto"
+            className={`inline-flex items-center justify-center rounded-md px-6 py-3.5 text-[14px] font-semibold text-white transition-colors duration-300 shrink-0 self-start md:self-auto ${
+              isHealth
+                ? 'bg-[#10a37f] hover:bg-[#0a7a5c]'
+                : 'bg-[#05264c] hover:bg-[#02509e]'
+            }`}
           >
             View all programmes
           </Link>
@@ -46,7 +54,9 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
             <Link
               key={prog.id}
               to={`/colleges/${college.id}/programmes`}
-              className="group flex h-full flex-col overflow-hidden rounded-lg bg-white ring-1 ring-slate-200/90 shadow-[0_10px_28px_-12px_rgba(5,38,76,0.28)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgba(5,38,76,0.35)] hover:ring-[#02509e]/45"
+              className={`group flex h-full flex-col overflow-hidden rounded-lg bg-white ring-1 ring-slate-200/90 shadow-[0_10px_28px_-12px_rgba(5,38,76,0.28)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-14px_rgba(5,38,76,0.35)] ${
+                isHealth ? 'hover:ring-[#10a37f]/45' : 'hover:ring-[#02509e]/45'
+              }`}
             >
               <div className="relative aspect-[16/10] bg-[#041c36]">
                 <img
@@ -83,7 +93,11 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
                   <span className="text-[12px] font-medium text-slate-500">{prog.duration}</span>
                 </div>
 
-                <h3 className="mt-4 font-serif font-semibold text-xl sm:text-[1.35rem] text-[#05264c] leading-snug transition-colors group-hover:text-[#02509e]">
+                <h3
+                  className={`mt-4 font-serif font-semibold text-xl sm:text-[1.35rem] text-[#05264c] leading-snug transition-colors ${
+                    isHealth ? 'group-hover:text-[#0b6b54]' : 'group-hover:text-[#02509e]'
+                  }`}
+                >
                   {prog.name}
                 </h3>
                 {prog.description && (
@@ -93,7 +107,11 @@ export function CollegeProgrammes({ college }: CollegeProgrammesProps) {
                 )}
 
                 <div className="mt-auto pt-6">
-                  <span className="text-[14px] font-semibold text-[#02509e] transition-colors group-hover:text-[#05264c]">
+                  <span
+                    className={`text-[14px] font-semibold transition-colors group-hover:text-[#05264c] ${
+                      isHealth ? 'text-[#0b6b54]' : 'text-[#02509e]'
+                    }`}
+                  >
                     Programme details
                   </span>
                 </div>

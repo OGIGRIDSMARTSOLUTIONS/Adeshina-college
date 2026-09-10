@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="EHCON">
+  <rect width="120" height="120" rx="12" fill="#2d5a27"/>
+  <path d="M40 62c8-18 20-28 20-28s12 10 20 28c-8 6-14 10-20 10s-12-4-20-10z" fill="none" stroke="#a8d89a" stroke-width="3"/>
+  <circle cx="60" cy="48" r="5" fill="#a8d89a"/>
+  <text x="60" y="100" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-weight="700" fill="#ffffff">EHCON</text>
+</svg>
