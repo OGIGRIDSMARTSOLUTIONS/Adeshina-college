@@ -6,20 +6,17 @@ const reasons = [
   {
     title: 'Learn by doing',
     body: 'Labs, clinical simulation, and supervised community postings — before you enter the workplace.',
-    accent: 'bg-[#3d8fd1]',
-    soft: 'bg-[#eaf5fc]',
+    wash: 'from-[#041c36]/[0.14] via-[#3d8fd1]/[0.1] to-transparent',
   },
   {
     title: 'Clear career pathways',
     body: 'Programmes map to real roles in community health, laboratory science, pharmacy support, and related services.',
-    accent: 'bg-[#0f7a5f]',
-    soft: 'bg-[#e8f6f1]',
+    wash: 'from-[#2a73ad]/[0.16] via-[#041c36]/[0.08] to-transparent',
   },
   {
     title: 'A campus built for focus',
     body: 'Study in Share, Ifelodun LGA — a calm setting for discipline, character, and practical skill.',
-    accent: 'bg-[#c68a18]',
-    soft: 'bg-[#fbf4e6]',
+    wash: 'from-[#041c36]/[0.16] via-transparent to-[#3d8fd1]/[0.12]',
   },
 ];
 
@@ -28,22 +25,25 @@ export function HealthWhy() {
 
   return (
     <section
-      className="relative overflow-hidden border-b border-[#041c36]/10 py-16 lg:py-20"
+      className="relative overflow-hidden border-b border-[#041c36]/10 bg-[#e8edf2] py-16 lg:py-20"
       aria-labelledby="health-why-heading"
-      style={{
-        backgroundColor: '#eef6fb',
-        backgroundImage: `
-          radial-gradient(circle at 10% 20%, rgba(91,168,217,0.35) 0 8%, transparent 9%),
-          radial-gradient(circle at 88% 18%, rgba(125,211,176,0.28) 0 7%, transparent 8%),
-          radial-gradient(circle at 70% 85%, rgba(246,196,107,0.28) 0 8%, transparent 9%),
-          linear-gradient(160deg, #eaf5fc 0%, #f7f3ea 55%, #eef6fb 100%)
-        `,
-      }}
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <span className="absolute -left-6 top-10 h-24 w-36 rotate-[-10deg] rounded-[1.5rem] bg-[#5ba8d9]/25" />
-        <span className="absolute right-8 top-16 h-16 w-16 rounded-full bg-[#7dd3b0]/30" />
-        <span className="absolute bottom-8 left-1/3 h-12 w-20 rotate-[12deg] rounded-xl bg-[#f6c46b]/25" />
+        <div className="absolute inset-0 bg-[#dde4ec]" />
+        <div
+          className="absolute inset-y-[-8%] left-[-6%] w-[48%] bg-[#041c36]/[0.16]"
+          style={{ clipPath: 'polygon(0 0, 100% 0, 62% 100%, 0 100%)' }}
+        />
+        <div
+          className="absolute -right-[10%] top-0 h-full w-[52%] bg-[#3d8fd1]/22"
+          style={{ clipPath: 'polygon(30% 0, 100% 0, 100% 100%, 0 100%)' }}
+        />
+        <div
+          className="absolute right-[8%] top-[-15%] h-[70%] w-[28%] bg-[#041c36]/[0.12]"
+          style={{ clipPath: 'polygon(45% 0, 100% 0, 70% 100%, 0 100%)' }}
+        />
+        <div className="absolute inset-y-[8%] right-[28%] w-[2px] bg-[#041c36]/30" style={{ transform: 'skewX(-12deg)' }} />
+        <div className="absolute inset-y-[8%] right-[14%] w-[2px] bg-[#3d8fd1]/50" style={{ transform: 'skewX(-12deg)' }} />
       </div>
 
       <Container size="wide" className="relative">
@@ -55,7 +55,7 @@ export function HealthWhy() {
         >
           <motion.div variants={healthFadeUp} className="max-w-2xl">
             <p className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#2a73ad]">
-              Why Adeshina Health Tech
+              Why Adeshina Health Technology
             </p>
             <h2
               id="health-why-heading"
@@ -73,20 +73,37 @@ export function HealthWhy() {
               <motion.li
                 key={reason.title}
                 variants={healthCardIn}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white/95 p-6 shadow-[0_18px_40px_-28px_rgba(4,28,54,0.35)] ring-1 ring-[#041c36]/8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_-22px_rgba(61,143,209,0.4)] hover:ring-[#3d8fd1]/35 sm:p-7"
+                className="group relative flex h-full flex-col overflow-hidden rounded-md bg-[#f7f9fb] ring-1 ring-[#041c36]/12 transition-all duration-300 hover:-translate-y-1 hover:ring-[#041c36]/25"
               >
-                <span className={`mb-5 block h-1.5 w-12 rounded-full ${reason.accent}`} aria-hidden="true" />
+                <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                  <div className={`absolute inset-0 bg-gradient-to-br ${reason.wash}`} />
+                  <div
+                    className="absolute -right-4 -top-8 h-44 w-44 bg-[#041c36]/[0.14]"
+                    style={{ clipPath: 'polygon(38% 0, 100% 0, 100% 100%, 0 52%)' }}
+                  />
+                  <div
+                    className="absolute -right-2 bottom-[-10%] h-28 w-28 bg-[#3d8fd1]/20"
+                    style={{ clipPath: 'polygon(0 30%, 100% 0, 100% 100%, 0 100%)' }}
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-[#041c36]/[0.08] to-transparent" />
+                </div>
+
                 <span
-                  className={`inline-flex h-10 w-10 items-center justify-center rounded-xl font-serif text-lg tabular-nums text-[#041c36] ${reason.soft}`}
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <h3 className="mt-5 font-serif text-xl font-semibold leading-snug tracking-[-0.015em] text-[#041c36] sm:text-[1.35rem]">
-                  {reason.title}
-                </h3>
-                <p className="mt-3 flex-1 font-sans text-[15px] leading-relaxed text-[#5c6570]">
-                  {reason.body}
-                </p>
+                  className="absolute inset-y-0 left-0 w-1 bg-[#041c36] transition-colors duration-300 group-hover:bg-[#3d8fd1]"
+                  aria-hidden="true"
+                />
+
+                <div className="relative flex h-full flex-col p-6 pl-7 sm:p-7 sm:pl-8">
+                  <span className="inline-flex h-9 w-9 items-center justify-center bg-[#041c36] font-serif text-[13px] font-semibold tabular-nums tracking-wide text-white">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="mt-5 font-serif text-xl font-semibold leading-snug tracking-[-0.015em] text-[#041c36] sm:text-[1.35rem]">
+                    {reason.title}
+                  </h3>
+                  <p className="mt-3 flex-1 font-sans text-[15px] leading-relaxed text-[#4a5560]">
+                    {reason.body}
+                  </p>
+                </div>
               </motion.li>
             ))}
           </motion.ul>

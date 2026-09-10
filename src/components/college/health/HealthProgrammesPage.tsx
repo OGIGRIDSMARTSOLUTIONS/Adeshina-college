@@ -62,7 +62,10 @@ export function HealthProgrammesPage() {
   return (
     <div className="bg-[#f7f3ea] text-[#1a2332]">
       {/* Hero — pulls under floating header */}
-      <section className="relative -mt-[5.5rem] overflow-hidden border-b border-[#041c36]/10 bg-[#041c36] sm:-mt-[6rem]">
+      <section
+        data-college-hero
+        className="relative overflow-hidden border-b border-[#041c36]/10 bg-[#041c36] lg:-mt-[6rem]"
+      >
         <img
           src="/images/health-technology/programmes-hero.jpg"
           alt=""
@@ -76,7 +79,7 @@ export function HealthProgrammesPage() {
           className="absolute inset-0 bg-gradient-to-t from-[#041c36]/50 via-transparent to-[#041c36]/25"
           aria-hidden="true"
         />
-        <Container size="wide" className="relative z-10 pb-14 pt-[7.5rem] sm:pb-16 sm:pt-[8.25rem] lg:pb-20">
+        <Container size="wide" className="relative z-10 pb-14 pt-12 sm:pb-16 lg:pb-20 lg:pt-[8.25rem]">
           <motion.div
             variants={healthStagger}
             initial={reduceMotion ? false : 'hidden'}

@@ -8,7 +8,7 @@ export function EducationCampus() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#0f2744]"
+      className="relative overflow-hidden bg-[#0c2340]"
       aria-labelledby="education-campus-heading"
     >
       <div className="relative min-h-[min(52vh,420px)]">
@@ -22,7 +22,7 @@ export function EducationCampus() {
           transition={{ duration: 1.1, ease: educationEase }}
         />
         <div
-          className="absolute inset-0 bg-gradient-to-t from-[#0f2744]/90 via-[#0f2744]/35 to-[#0f2744]/15"
+          className="absolute inset-0 bg-gradient-to-t from-[#0c2340]/90 via-[#0c2340]/35 to-[#0c2340]/15"
           aria-hidden="true"
         />
 
@@ -36,7 +36,7 @@ export function EducationCampus() {
           >
             <motion.p
               variants={educationFadeUp}
-              className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#e85d3b]"
+              className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#c9a227]"
             >
               Share, Kwara State
             </motion.p>

@@ -7,10 +7,11 @@ import { colleges } from '@/data/colleges';
 import { useCollege } from '@/context/CollegeContext';
 import { collegePath, CollegeId } from '@/lib/collegePaths';
 import { Container } from '@/components/common/Container';
+import { CollegeMobileNav } from '@/components/layout/CollegeMobileNav';
 
 export function CollegeHeader() {
   const { college, collegeId, path } = useCollege();
-  const navItems = getCollegeNavItems(collegeId);
+  const navItems = getCollegeNavItems(collegeId).filter((item) => item.label !== 'Home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [collegesOpen, setCollegesOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,6 +19,7 @@ export function CollegeHeader() {
   const location = useLocation();
   const isHealth = collegeId === 'health-technology';
   const accent = isHealth ? '#10a37f' : '#02509e';
+  const otherColleges = colleges.filter((c) => c.id !== collegeId);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 8);
@@ -177,17 +179,14 @@ export function CollegeHeader() {
                     <p className="px-4 pb-2 pt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
                       Switch college
                     </p>
-                    {colleges.map((c) => {
+                    {otherColleges.map((c) => {
                       const id = c.id as CollegeId;
                       const Icon = id === 'health-technology' ? Stethoscope : BookOpen;
-                      const current = id === collegeId;
                       return (
                         <Link
                           key={c.id}
                           to={collegePath(id)}
-                          className={`mx-2 flex items-start gap-3 rounded-md px-3 py-3 transition-colors ${
-                            current ? 'bg-[#f4f8fc]' : 'hover:bg-[#f4f8fc]'
-                          }`}
+                          className="mx-2 flex items-start gap-3 rounded-md px-3 py-3 transition-colors hover:bg-[#f4f8fc]"
                         >
                           <span
                             className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md ${
@@ -201,11 +200,6 @@ export function CollegeHeader() {
                           <span>
                             <span className="flex items-center gap-2 text-[13px] font-semibold text-[#05264c]">
                               {c.shortName}
-                              {current && (
-                                <span className="rounded bg-slate-200/80 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-500">
-                                  Current
-                                </span>
-                              )}
                             </span>
                             <span className="mt-1 block text-[12px] leading-relaxed text-slate-500">
                               {c.tagline}
@@ -239,68 +233,16 @@ export function CollegeHeader() {
         </div>
       </Container>
 
-      {mobileMenuOpen && (
-        <div
-          className={`xl:hidden border-t max-h-[min(70vh,32rem)] overflow-y-auto ${
-            isHealth
-              ? 'border-[#041c36]/10 bg-[#f4efe6]'
-              : 'border-slate-100 bg-white/98 backdrop-blur-sm'
-          }`}
-        >
-          <Container size="wide" className="py-5 space-y-1">
-            <p className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">
-              Colleges
-            </p>
-            {colleges.map((c) => (
-              <Link
-                key={c.id}
-                to={collegePath(c.id as CollegeId)}
-                className={`block rounded-md px-3 py-3 text-[16px] font-medium ${
-                  c.id === collegeId
-                    ? 'bg-[#eef5fc] text-[#02509e]'
-                    : 'text-[#05264c] hover:bg-[#f0f7ff] hover:text-[#02509e]'
-                }`}
-              >
-                {c.shortName}
-              </Link>
-            ))}
-            <Link
-              to="/"
-              className="block rounded-md px-3 py-3 text-[16px] font-medium text-[#05264c] hover:bg-[#f0f7ff] hover:text-[#02509e]"
-            >
-              All Colleges home
-            </Link>
-            <div className="border-t border-slate-100 my-3" />
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`block rounded-md px-3 py-3 text-[16px] font-medium ${
-                  isActive(item.path)
-                    ? 'text-[#02509e] bg-[#eef5fc]'
-                    : 'text-[#05264c] hover:bg-[#f0f7ff] hover:text-[#02509e]'
-                }`}
-              >
-                {item.label === 'Contact' ? 'Support' : item.label}
-              </Link>
-            ))}
-            <Link
-              to={path('apply')}
-              className="mt-4 block rounded-md px-4 py-3.5 text-center text-[14px] font-semibold text-white"
-              style={{ backgroundColor: accent }}
-            >
-              Apply Now
-            </Link>
-            <Link
-              to="/portal"
-              className="mt-2 flex items-center justify-center gap-2 rounded-md border border-slate-200 bg-slate-50 px-4 py-3 text-[14px] font-semibold text-[#05264c] transition-colors hover:border-slate-300 hover:bg-slate-100"
-            >
-              <GraduationCap className="w-4 h-4 text-slate-500" />
-              Student Portal
-            </Link>
-          </Container>
-        </div>
-      )}
+      <CollegeMobileNav
+        open={mobileMenuOpen}
+        collegeId={collegeId}
+        collegeTitle={college.name}
+        navItems={navItems}
+        applyHref={path('apply')}
+        isActive={isActive}
+        onClose={() => setMobileMenuOpen(false)}
+        theme={isHealth ? 'health' : 'education'}
+      />
     </header>
   );
 }

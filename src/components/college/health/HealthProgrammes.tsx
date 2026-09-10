@@ -18,10 +18,28 @@ export function HealthProgrammes({ college }: HealthProgrammesProps) {
   return (
     <section
       id="programmes"
-      className="scroll-mt-24 border-b border-[#041c36]/10 bg-[#eaf5fc] py-16 lg:py-20"
+      className="relative scroll-mt-24 overflow-hidden border-b border-[#041c36]/10 bg-[#e8edf2] py-16 lg:py-20"
       aria-labelledby="health-programmes-heading"
     >
-      <Container size="wide">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0 bg-[#dde4ec]" />
+        <div
+          className="absolute inset-y-[-8%] right-[-8%] w-[54%] bg-[#041c36]/[0.15]"
+          style={{ clipPath: 'polygon(26% 0, 100% 0, 100% 100%, 0 100%)' }}
+        />
+        <div
+          className="absolute inset-y-[-8%] right-[4%] w-[36%] bg-[#3d8fd1]/24"
+          style={{ clipPath: 'polygon(38% 0, 100% 0, 78% 100%, 5% 100%)' }}
+        />
+        <div
+          className="absolute left-[-8%] bottom-[-20%] h-[55%] w-[40%] bg-[#041c36]/[0.1]"
+          style={{ clipPath: 'polygon(0 20%, 100% 0, 80% 100%, 0 100%)' }}
+        />
+        <div className="absolute inset-y-[8%] left-[36%] w-[2px] bg-[#041c36]/28" style={{ transform: 'skewX(-12deg)' }} />
+        <div className="absolute inset-y-[8%] left-[48%] w-[2px] bg-[#3d8fd1]/45" style={{ transform: 'skewX(-12deg)' }} />
+      </div>
+
+      <Container size="wide" className="relative">
         <motion.div
           variants={healthStagger}
           initial={reduceMotion ? false : 'hidden'}
@@ -39,7 +57,7 @@ export function HealthProgrammes({ college }: HealthProgrammesProps) {
               >
                 Find your path in health
               </h2>
-              <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-[#5c6570]">
+              <p className="mt-4 max-w-xl font-sans text-base leading-relaxed text-[#4a5560]">
                 Pathways into community health, laboratory science, pharmacy support, and more.
               </p>
             </motion.div>
@@ -47,7 +65,7 @@ export function HealthProgrammes({ college }: HealthProgrammesProps) {
             <motion.div variants={healthFadeUp}>
               <Link
                 to={`/colleges/${college.id}/programmes`}
-                className="inline-flex items-center gap-2 rounded-2xl bg-[#041c36] px-5 py-3.5 font-sans text-[14px] font-semibold text-white transition-colors hover:bg-[#2a73ad]"
+                className="inline-flex items-center gap-2 bg-[#041c36] px-5 py-3.5 font-sans text-[14px] font-semibold text-white transition-colors hover:bg-[#2a73ad]"
               >
                 View all programmes
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -63,17 +81,34 @@ export function HealthProgrammes({ college }: HealthProgrammesProps) {
               <motion.li key={prog.id} variants={healthCardIn}>
                 <Link
                   to={`/colleges/${college.id}/programmes`}
-                  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-[#041c36]/8 transition-all duration-300 hover:-translate-y-1 hover:ring-[#3d8fd1]/45 hover:shadow-[0_24px_50px_-20px_rgba(61,143,209,0.4)]"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-md bg-[#f7f9fb] ring-1 ring-[#041c36]/12 transition-all duration-300 hover:-translate-y-1 hover:ring-[#041c36]/25"
                 >
+                  <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#041c36]/[0.12] via-transparent to-[#3d8fd1]/[0.1]" />
+                    <div
+                      className="absolute -right-6 bottom-0 h-40 w-40 bg-[#041c36]/[0.14]"
+                      style={{ clipPath: 'polygon(35% 0, 100% 0, 100% 100%, 0 70%)' }}
+                    />
+                    <div
+                      className="absolute right-0 top-0 h-24 w-24 bg-[#3d8fd1]/18"
+                      style={{ clipPath: 'polygon(40% 0, 100% 0, 100% 100%)' }}
+                    />
+                  </div>
+
+                  <span
+                    className="absolute inset-y-0 left-0 z-10 w-1 bg-[#041c36] transition-colors duration-300 group-hover:bg-[#3d8fd1]"
+                    aria-hidden="true"
+                  />
+
                   <div className="relative aspect-[16/9] overflow-hidden bg-[#041c36] sm:aspect-[2/1]">
                     <img
                       src={prog.image || '/images/health-technology/health-campus-1.jpg'}
                       alt=""
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#041c36]/55 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#041c36]/70 via-[#041c36]/15 to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:p-5">
-                      <span className="rounded-full border border-white/80 bg-white/95 px-3 py-1 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-[#041c36]">
+                      <span className="bg-[#041c36] px-2.5 py-1 font-sans text-[11px] font-bold uppercase tracking-[0.08em] text-white">
                         {prog.level}
                       </span>
                       <span className="font-sans text-[12px] font-semibold text-white/90">
@@ -82,17 +117,17 @@ export function HealthProgrammes({ college }: HealthProgrammesProps) {
                     </div>
                   </div>
 
-                  <div className="flex flex-1 flex-col p-5 sm:p-6">
+                  <div className="relative flex flex-1 flex-col p-5 pl-6 sm:p-6 sm:pl-7">
                     <div className="flex items-start justify-between gap-3">
                       <h3 className="font-serif text-xl font-semibold leading-snug tracking-[-0.015em] text-[#041c36] transition-colors group-hover:text-[#2a73ad] sm:text-[1.35rem]">
                         {prog.name}
                       </h3>
-                      <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eaf5fc] text-[#3d8fd1] transition-colors group-hover:bg-[#3d8fd1] group-hover:text-white">
+                      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center bg-[#041c36] text-white transition-colors group-hover:bg-[#3d8fd1]">
                         <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                       </span>
                     </div>
                     {prog.description && (
-                      <p className="mt-3 line-clamp-2 font-sans text-[14px] leading-relaxed text-[#5c6570] sm:text-[15px]">
+                      <p className="mt-3 line-clamp-2 font-sans text-[14px] leading-relaxed text-[#4a5560] sm:text-[15px]">
                         {prog.description}
                       </p>
                     )}
@@ -105,7 +140,7 @@ export function HealthProgrammes({ college }: HealthProgrammesProps) {
           {collegeProgrammes.length > preview.length && (
             <motion.p
               variants={healthFadeUp}
-              className="mt-8 font-sans text-sm text-[#5c6570]"
+              className="mt-8 font-sans text-sm text-[#4a5560]"
               transition={{ ease: healthEase }}
             >
               Showing {preview.length} of {collegeProgrammes.length} programmes.

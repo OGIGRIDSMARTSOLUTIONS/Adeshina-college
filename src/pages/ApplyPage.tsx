@@ -1,23 +1,24 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { 
-  Phone, 
-  Mail, 
-  Upload, 
-  FileText, 
-  Plus, 
-  ArrowRight, 
-  ArrowLeft, 
-  ShieldCheck, 
-  Printer, 
+import {
+  Phone,
+  Mail,
+  Upload,
+  FileText,
+  Plus,
+  ArrowRight,
+  ArrowLeft,
+  ShieldCheck,
+  Printer,
   Check,
-  X
+  X,
 } from 'lucide-react';
 import { programmes } from '@/data/programmes';
 import { siteConfig } from '@/data/siteConfig';
 import { Container } from '@/components/common/Container';
 import { useCollege } from '@/context/CollegeContext';
 import { CollegeId } from '@/lib/collegePaths';
+import { EducationGeometricBg } from '@/components/college/education/EducationGeometricBg';
 
 interface SubjectGrade {
   id: string;
@@ -42,28 +43,62 @@ const COMMON_SUBJECTS = [
   'Civic Education',
   'Geography',
   'Computer Studies',
-  'Health Science'
+  'Health Science',
 ];
 
-const GRADE_OPTIONS = ['Grade', 'A1', 'B2', 'B3', 'C4', 'C5', 'C6', 'D7', 'E8', 'F9', 'AR (Awaiting Result)'];
+const GRADE_OPTIONS = [
+  'Grade',
+  'A1',
+  'B2',
+  'B3',
+  'C4',
+  'C5',
+  'C6',
+  'D7',
+  'E8',
+  'F9',
+  'AR (Awaiting Result)',
+];
 
 export function ApplyPage() {
   const navigate = useNavigate();
   const { college, collegeId, path } = useCollege();
   const isHealth = collegeId === 'health-technology';
+  const isEducation = collegeId === 'education';
+  /** Single-column college shells — not the Grandplus-style sidebar layout. */
+  const isCollegeShell = isHealth || isEducation;
+
   const primaryBtn = isHealth
-    ? 'bg-[#10a37f] hover:bg-[#0a7a5c]'
-    : 'bg-[#02509e] hover:bg-[#013a75]';
-  const progressBar = isHealth ? 'bg-[#10a37f]' : 'bg-[#02509e]';
+    ? 'rounded-md bg-[#041c36] text-white hover:bg-[#2a73ad]'
+    : isEducation
+      ? 'bg-gradient-to-br from-[#dfc04a] via-[#c9a227] to-[#a8861a] text-[#0c2340] shadow-[0_14px_32px_-12px_rgba(201,162,39,0.55)] hover:brightness-[1.03]'
+      : 'bg-[#02509e] hover:bg-[#013a75] text-white';
+  const progressBar = isHealth ? 'bg-[#3d8fd1]' : isEducation ? 'bg-[#c9a227]' : 'bg-[#02509e]';
   const focusRing = isHealth
-    ? 'focus:border-[#10a37f] focus:ring-1 focus:ring-[#10a37f]'
-    : 'focus:border-[#02509e] focus:ring-1 focus:ring-[#02509e]';
-  const inputClass = `w-full rounded-md border border-slate-300 bg-white px-4 py-2.5 text-[14px] text-[#05264c] outline-none transition-colors placeholder:text-slate-400 ${focusRing}`;
-  const labelClass =
-    'mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500';
-  const outlineBtn =
-    'inline-flex items-center gap-2 rounded-md border border-[#05264c]/20 bg-white px-4 py-2.5 text-[13px] font-semibold text-[#05264c] transition-colors hover:border-[#05264c]/40 hover:bg-slate-50';
-  const cardClass = 'rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8';
+    ? 'focus:border-[#3d8fd1] focus:ring-2 focus:ring-[#3d8fd1]/25'
+    : isEducation
+      ? 'focus:border-[#3d8fd1] focus:ring-2 focus:ring-[#3d8fd1]/25'
+      : 'focus:border-[#02509e] focus:ring-1 focus:ring-[#02509e]';
+  const inputClass = isHealth
+    ? `w-full rounded-md border border-[#041c36]/15 bg-white px-4 py-3 font-sans text-[14px] text-[#041c36] outline-none transition-colors placeholder:text-[#4a5560]/70 ${focusRing}`
+    : isEducation
+      ? `w-full rounded-2xl border border-[#0c2340]/12 bg-white px-4 py-3 font-sans text-[14px] text-[#0c2340] outline-none transition-colors placeholder:text-[#5a6570]/70 ${focusRing}`
+      : `w-full rounded-md border border-slate-300 bg-white px-4 py-2.5 text-[14px] text-[#05264c] outline-none transition-colors placeholder:text-slate-400 ${focusRing}`;
+  const labelClass = isCollegeShell
+    ? 'mb-1.5 block font-sans text-[12px] font-semibold uppercase tracking-[0.1em] text-[#4a5560]'
+    : 'mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-500';
+  const outlineBtn = isHealth
+    ? 'inline-flex items-center gap-2 rounded-md border border-[#041c36]/15 bg-white px-4 py-2.5 font-sans text-[13px] font-semibold text-[#041c36] transition-colors hover:border-[#3d8fd1] hover:bg-[#eaf5fc]'
+    : isEducation
+      ? 'inline-flex items-center gap-2 rounded-2xl border border-[#0c2340]/15 bg-white px-4 py-2.5 font-sans text-[13px] font-semibold text-[#0c2340] transition-colors hover:border-[#3d8fd1] hover:bg-[#eaf4fb]'
+      : 'inline-flex items-center gap-2 rounded-md border border-[#05264c]/20 bg-white px-4 py-2.5 text-[13px] font-semibold text-[#05264c] transition-colors hover:border-[#05264c]/40 hover:bg-slate-50';
+  const cardClass = isHealth
+    ? 'relative overflow-hidden rounded-md bg-[#f7f9fb] p-6 ring-1 ring-[#041c36]/12 sm:p-8'
+    : isEducation
+      ? 'relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_4px_0_0_#c9a227,0_20px_40px_-20px_rgba(12,35,64,0.35)] ring-1 ring-[#0c2340]/10 sm:p-8'
+      : 'rounded-lg border border-slate-200 bg-white p-6 shadow-sm sm:p-8';
+  const accentIcon = isHealth ? 'text-[#3d8fd1]' : isEducation ? 'text-[#3d8fd1]' : 'text-[#02509e]';
+  const titleColor = isCollegeShell ? 'text-[#041c36]' : 'text-[#05264c]';
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   // Step 1: Personal Info
@@ -86,13 +121,23 @@ export function ApplyPage() {
   const [sittings, setSittings] = useState('1 Sitting');
   const [schoolName, setSchoolName] = useState('');
   const [yearOfResult, setYearOfResult] = useState('2024');
-  const [subjects, setSubjects] = useState<SubjectGrade[]>([
-    { id: '1', subject: 'English Language', grade: 'C4' },
-    { id: '2', subject: 'Mathematics', grade: 'C5' },
-    { id: '3', subject: 'Biology', grade: 'B3' },
-    { id: '4', subject: 'Chemistry', grade: 'C4' },
-    { id: '5', subject: 'Physics', grade: 'C6' },
-  ]);
+  const [subjects, setSubjects] = useState<SubjectGrade[]>(
+    collegeId === 'education'
+      ? [
+          { id: '1', subject: 'English Language', grade: 'C4' },
+          { id: '2', subject: 'Mathematics', grade: 'C5' },
+          { id: '3', subject: 'Government', grade: 'B3' },
+          { id: '4', subject: 'Literature in English', grade: 'C4' },
+          { id: '5', subject: 'Economics', grade: 'C6' },
+        ]
+      : [
+          { id: '1', subject: 'English Language', grade: 'C4' },
+          { id: '2', subject: 'Mathematics', grade: 'C5' },
+          { id: '3', subject: 'Biology', grade: 'B3' },
+          { id: '4', subject: 'Chemistry', grade: 'C4' },
+          { id: '5', subject: 'Physics', grade: 'C6' },
+        ]
+  );
 
   // Step 4: Documents
   const [olevelFileName, setOlevelFileName] = useState<string | null>(null);
@@ -191,7 +236,7 @@ export function ApplyPage() {
       case 2:
         return { main: 'Choose Programme', sub: 'Step 2: Programme Selection' };
       case 3:
-        return { main: 'Education', sub: 'Step 3: Academic Background' };
+        return { main: 'Academic Background', sub: 'Step 3: O’Level results' };
       case 4:
         return { main: 'Verify Identity', sub: 'Step 4: Document Upload' };
       case 5:
@@ -202,8 +247,89 @@ export function ApplyPage() {
   };
 
   return (
-    <div className="bg-[#f8fafc] min-h-screen py-10 sm:py-14">
-      <Container size="wide">
+    <div
+      className={`min-h-screen ${
+        isHealth
+          ? 'relative bg-[#e8edf2]'
+          : isEducation
+            ? 'relative bg-[#eaf4fb]'
+            : 'bg-[#f8fafc] py-10 sm:py-14'
+      }`}
+    >
+      {isCollegeShell && !submittedRef ? (
+        <section
+          data-college-hero={isHealth ? '' : undefined}
+          className="relative overflow-hidden border-b border-[#041c36]/10 bg-[#041c36]"
+        >
+          <img
+            src={
+              isHealth
+                ? '/images/health-technology/health-campus-1.jpg'
+                : '/images/education/campus-gate.jpg'
+            }
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-[48%_40%] opacity-35 saturate-[0.9]"
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-r from-[#041c36] via-[#041c36]/92 to-[#041c36]/55"
+            aria-hidden="true"
+          />
+          <Container size="wide" className="relative z-10 py-10 sm:py-12">
+            <p
+              className={`font-sans text-[11px] font-bold uppercase tracking-[0.16em] ${
+                isHealth ? 'text-[#5ba8d9]' : 'text-[#c9a227]'
+              }`}
+            >
+              {isHealth ? 'Health Technology application' : 'NCE application'}
+            </p>
+            <h1 className="mt-2 font-serif text-3xl font-semibold tracking-[-0.03em] text-white sm:text-4xl">
+              {isHealth
+                ? 'Apply to Adeshina College of Health Technology'
+                : 'Apply to Adeshina College of Education'}
+            </h1>
+            <p className="mt-3 max-w-xl font-sans text-base leading-relaxed text-white/80">
+              Complete the five steps below. Your details stay with the Share campus registry for
+              screening.
+            </p>
+          </Container>
+        </section>
+      ) : null}
+
+      <div className={isCollegeShell ? 'relative' : undefined}>
+        {isCollegeShell && !submittedRef ? (
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            {isEducation ? <EducationGeometricBg tone="paper" /> : null}
+            {isHealth ? (
+              <>
+                <div className="absolute inset-0 bg-[#dde4ec]" />
+                <div
+                  className="absolute inset-y-[-8%] right-[-8%] w-[52%] bg-[#041c36]/[0.14]"
+                  style={{ clipPath: 'polygon(26% 0, 100% 0, 100% 100%, 0 100%)' }}
+                />
+                <div
+                  className="absolute inset-y-[-8%] right-[4%] w-[34%] bg-[#3d8fd1]/24"
+                  style={{ clipPath: 'polygon(38% 0, 100% 0, 78% 100%, 5% 100%)' }}
+                />
+                <div
+                  className="absolute left-[-10%] top-[-20%] h-[65%] w-[42%] bg-[#041c36]/[0.1]"
+                  style={{ clipPath: 'polygon(0 0, 78% 0, 42% 100%, 0 100%)' }}
+                />
+                <div
+                  className="absolute inset-y-[10%] right-[28%] w-[2px] bg-[#041c36]/28"
+                  style={{ transform: 'skewX(-12deg)' }}
+                />
+                <div
+                  className="absolute inset-y-[10%] right-[14%] w-[2px] bg-[#3d8fd1]/50"
+                  style={{ transform: 'skewX(-12deg)' }}
+                />
+              </>
+            ) : null}
+          </div>
+        ) : null}
+        <Container
+          size="wide"
+          className={`relative ${isCollegeShell ? 'py-10 sm:py-12' : ''}`}
+        >
         {submittedRef ? (
           /* ============================================================ */
           /* OFFICIAL INSTITUTIONAL PRINTABLE SLIP VIEW                   */
@@ -212,7 +338,7 @@ export function ApplyPage() {
             {/* Top Action Bar (hidden in print) */}
             <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm print:hidden">
               <div className="flex items-center gap-2">
-                <span className={`h-2.5 w-2.5 rounded-full ${isHealth ? 'bg-[#10a37f]' : 'bg-emerald-500'}`} />
+                <span className={`h-2.5 w-2.5 rounded-full ${isHealth ? 'bg-[#3d8fd1]' : 'bg-emerald-500'}`} />
                 <span className="text-[13px] font-semibold text-slate-700">
                   Application slip ready
                 </span>
@@ -251,7 +377,7 @@ export function ApplyPage() {
                   <div>
                     <span
                       className={`block text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-[11px] ${
-                        isHealth ? 'text-[#0a7a5c]' : 'text-[#02509e]'
+                        isHealth ? 'text-[#2a73ad]' : 'text-[#02509e]'
                       }`}
                     >
                       Official Admission Registry
@@ -278,7 +404,7 @@ export function ApplyPage() {
               <div
                 className={`flex flex-col items-center justify-between gap-4 rounded-md border px-4 py-3 sm:flex-row ${
                   isHealth
-                    ? 'border-[#10a37f]/25 bg-[#10a37f]/5'
+                    ? 'border-[#3d8fd1]/25 bg-[#3d8fd1]/5'
                     : 'border-[#02509e]/20 bg-[#02509e]/5'
                 }`}
               >
@@ -296,7 +422,7 @@ export function ApplyPage() {
                   </span>
                   <span
                     className={`font-mono text-base tracking-widest sm:text-lg ${
-                      isHealth ? 'font-semibold text-[#0a7a5c]' : 'font-semibold text-[#02509e]'
+                      isHealth ? 'font-semibold text-[#2a73ad]' : 'font-semibold text-[#02509e]'
                     }`}
                   >
                     {submittedRef}
@@ -382,7 +508,7 @@ export function ApplyPage() {
                         <tr key={sub.id}>
                           <td className="px-3 py-2 text-center font-mono text-slate-400">{idx + 1}</td>
                           <td className="px-3 py-2 font-medium text-[#05264c]">{sub.subject || 'Not Specified'}</td>
-                          <td className={`px-3 py-2 text-center font-mono font-semibold ${isHealth ? 'text-[#0a7a5c]' : 'text-[#02509e]'}`}>
+                          <td className={`px-3 py-2 text-center font-mono font-semibold ${isHealth ? 'text-[#2a73ad]' : 'text-[#02509e]'}`}>
                             {sub.grade}
                           </td>
                         </tr>
@@ -394,7 +520,7 @@ export function ApplyPage() {
 
               <div className="space-y-2 rounded-md border border-slate-200 bg-slate-50 p-4 text-xs">
                 <div className="flex items-center gap-2 font-semibold text-[#05264c]">
-                  <ShieldCheck className={`h-4 w-4 ${isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'}`} />
+                  <ShieldCheck className={`h-4 w-4 ${accentIcon}`} />
                   <span>Important Instructions for Physical Verification & Screening</span>
                 </div>
                 <p className="leading-relaxed text-slate-600">
@@ -419,7 +545,7 @@ export function ApplyPage() {
           </div>
         ) : (
           /* ============================================================ */
-          /* 5-STEP APPLICATION WIZARD (Matching Reference Layout)        */
+          /* APPLICATION WIZARD                                           */
           /* ============================================================ */
           <div className="space-y-6">
             {/* Top Back Navigation Bar */}
@@ -433,31 +559,99 @@ export function ApplyPage() {
                 <span>{currentStep > 1 ? 'Previous Step' : 'Back to Admissions'}</span>
               </button>
 
-              <Link to={path()} className={`${outlineBtn} border-transparent bg-transparent hover:bg-slate-100`}>
+              <Link
+                to={path()}
+                className={`${outlineBtn} ${isCollegeShell ? '' : 'border-transparent bg-transparent hover:bg-slate-100'}`}
+              >
                 College Home
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+            {isCollegeShell ? (
+              <ol
+                className={`grid grid-cols-5 gap-2 p-3 ring-1 sm:gap-3 sm:p-4 ${
+                  isHealth
+                    ? 'rounded-md bg-[#f7f9fb] ring-[#041c36]/12'
+                    : 'rounded-2xl bg-white/80 shadow-[0_4px_0_0_#c9a227,0_14px_28px_-18px_rgba(12,35,64,0.3)] ring-[#0c2340]/10'
+                }`}
+              >
+                {stepsList.map((step) => {
+                  const isPassed = currentStep > step.num;
+                  const isCurrent = currentStep === step.num;
+                  return (
+                    <li key={step.num} className="min-w-0 text-center">
+                      <div
+                        className={`mx-auto flex h-9 w-9 items-center justify-center font-sans text-[13px] font-bold transition-colors ${
+                          isHealth ? 'rounded-md' : 'rounded-full'
+                        } ${
+                          isPassed
+                            ? isHealth
+                              ? 'bg-[#3d8fd1] text-white'
+                              : 'bg-[#c9a227] text-[#0c2340]'
+                            : isCurrent
+                              ? 'bg-[#041c36] text-white'
+                              : isHealth
+                                ? 'bg-[#e8edf2] text-[#4a5560]'
+                                : 'bg-[#eaf4fb] text-[#5a6570]'
+                        }`}
+                      >
+                        {isPassed ? <Check className="h-4 w-4 stroke-[3]" /> : step.num}
+                      </div>
+                      <p
+                        className={`mt-2 truncate font-sans text-[10px] font-semibold sm:text-[11px] ${
+                          isCurrent ? 'text-[#041c36]' : 'text-[#4a5560]'
+                        }`}
+                      >
+                        {step.title}
+                      </p>
+                    </li>
+                  );
+                })}
+              </ol>
+            ) : null}
+
+            <div
+              className={`grid grid-cols-1 gap-8 ${
+                isCollegeShell ? 'lg:grid-cols-1 lg:gap-8' : 'lg:grid-cols-12 lg:gap-10'
+              }`}
+            >
             {/* Left Column: Active Form Step */}
-            <div className="lg:col-span-8">
+            <div className={isCollegeShell ? 'mx-auto w-full max-w-3xl' : 'lg:col-span-8'}>
               {/* Header Title & Progress Counter */}
               <div className="mb-6">
                 <div className="flex items-end justify-between gap-4">
                   <div>
-                    <h1 className="font-serif text-2xl font-semibold tracking-tight text-[#05264c] sm:text-3xl">
+                    <h1
+                      className={`font-serif text-2xl font-semibold tracking-tight sm:text-3xl ${titleColor}`}
+                    >
                       {getStepTitle().main}
                     </h1>
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p
+                      className={`mt-1 text-sm ${
+                        isCollegeShell ? 'text-[#4a5560]' : 'text-slate-500'
+                      }`}
+                    >
                       {getStepTitle().sub}
                     </p>
                   </div>
-                  <p className="shrink-0 text-sm font-semibold text-slate-500">
+                  <p
+                    className={`shrink-0 text-sm font-semibold ${
+                      isHealth
+                        ? 'text-[#2a73ad]'
+                        : isEducation
+                          ? 'text-[#a8861a]'
+                          : 'text-slate-500'
+                    }`}
+                  >
                     Step {currentStep} of 5
                   </p>
                 </div>
 
-                <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-slate-200">
+                <div
+                  className={`mt-4 h-1.5 w-full overflow-hidden rounded-full ${
+                    isCollegeShell ? 'bg-[#d7e8f5]' : 'bg-slate-200'
+                  }`}
+                >
                   <div
                     className={`h-full transition-all duration-300 ${progressBar}`}
                     style={{ width: `${(currentStep / 5) * 100}%` }}
@@ -467,6 +661,25 @@ export function ApplyPage() {
 
               {/* Main Step Form Card */}
               <div className={cardClass}>
+                {isHealth ? (
+                  <>
+                    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#041c36]/[0.08] via-transparent to-[#3d8fd1]/[0.08]" />
+                      <div
+                        className="absolute -right-4 -top-8 h-40 w-40 bg-[#041c36]/[0.12]"
+                        style={{ clipPath: 'polygon(38% 0, 100% 0, 100% 100%, 0 52%)' }}
+                      />
+                    </div>
+                    <span className="absolute inset-y-0 left-0 w-1 bg-[#041c36]" aria-hidden="true" />
+                  </>
+                ) : null}
+                {isEducation ? (
+                  <span
+                    className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent"
+                    aria-hidden="true"
+                  />
+                ) : null}
+                <div className={isHealth ? 'relative' : undefined}>
                 {/* -------------------------------------------------- */}
                 {/* STEP 1: Personal Information                       */}
                 {/* -------------------------------------------------- */}
@@ -584,7 +797,7 @@ export function ApplyPage() {
                     </div>
 
                     <div className="mt-4 flex items-start gap-2.5 rounded-md border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-600">
-                      <ShieldCheck className={`mt-0.5 h-4 w-4 shrink-0 ${isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'}`} />
+                      <ShieldCheck className={`mt-0.5 h-4 w-4 shrink-0 ${accentIcon}`} />
                       <span>Please ensure your details match your government-issued ID or birth certificate. You will present original copies for screening.</span>
                     </div>
                   </div>
@@ -600,20 +813,26 @@ export function ApplyPage() {
                         Academic College
                       </label>
                       <div
-                        className={`rounded-md border p-4 text-left ${
+                        className={`rounded-2xl border p-4 text-left ${
                           isHealth
-                            ? 'border-[#10a37f]/40 bg-[#10a37f]/5'
-                            : 'border-[#02509e]/35 bg-[#02509e]/5'
+                            ? 'border-[#3d8fd1]/40 bg-[#3d8fd1]/5'
+                            : isEducation
+                              ? 'border-[#c9a227]/45 bg-[#fff8e8]'
+                              : 'border-[#02509e]/35 bg-[#02509e]/5'
                         }`}
                       >
                         <span
                           className={`mb-1 block text-[11px] font-semibold uppercase tracking-[0.12em] ${
-                            isHealth ? 'text-[#0a7a5c]' : 'text-[#02509e]'
+                            isHealth
+                              ? 'text-[#2a73ad]'
+                              : isEducation
+                                ? 'text-[#a8861a]'
+                                : 'text-[#02509e]'
                           }`}
                         >
                           Applying to
                         </span>
-                        <span className="block font-serif text-base font-semibold text-[#05264c]">
+                        <span className={`block font-serif text-base font-semibold ${titleColor}`}>
                           {college.name}
                         </span>
                         <span className="mt-1 block text-xs text-slate-500">{college.tagline}</span>
@@ -646,10 +865,14 @@ export function ApplyPage() {
                         <button
                           type="button"
                           onClick={() => setIntakePeriod('2025/2026 Academic Session')}
-                          className={`rounded-md border px-4 py-3 text-left text-[13px] font-semibold transition-colors ${
+                          className={`rounded-2xl border px-4 py-3 text-left text-[13px] font-semibold transition-colors ${
                             intakePeriod === '2025/2026 Academic Session'
-                              ? 'border-[#05264c] bg-[#05264c] text-white'
-                              : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                              ? isEducation
+                                ? 'border-[#0c2340] bg-[#0c2340] text-white'
+                                : 'border-[#05264c] bg-[#05264c] text-white'
+                              : isEducation
+                                ? 'border-[#0c2340]/12 bg-white text-[#0c2340] hover:border-[#3d8fd1] hover:bg-[#eaf4fb]'
+                                : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                           }`}
                         >
                           2025/2026 Academic Session
@@ -657,10 +880,14 @@ export function ApplyPage() {
                         <button
                           type="button"
                           onClick={() => setIntakePeriod('2026/2027 Academic Session')}
-                          className={`rounded-md border px-4 py-3 text-left text-[13px] font-semibold transition-colors ${
+                          className={`rounded-2xl border px-4 py-3 text-left text-[13px] font-semibold transition-colors ${
                             intakePeriod === '2026/2027 Academic Session'
-                              ? 'border-[#05264c] bg-[#05264c] text-white'
-                              : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
+                              ? isEducation
+                                ? 'border-[#0c2340] bg-[#0c2340] text-white'
+                                : 'border-[#05264c] bg-[#05264c] text-white'
+                              : isEducation
+                                ? 'border-[#0c2340]/12 bg-white text-[#0c2340] hover:border-[#3d8fd1] hover:bg-[#eaf4fb]'
+                                : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50'
                           }`}
                         >
                           2026/2027 Academic Session
@@ -810,10 +1037,12 @@ export function ApplyPage() {
                       <button
                         type="button"
                         onClick={handleAddSubject}
-                        className={`mt-3.5 inline-flex items-center gap-1.5 rounded-md border border-dashed px-3 py-2 text-[12px] font-semibold transition-colors ${
+                        className={`mt-3.5 inline-flex items-center gap-1.5 rounded-2xl border border-dashed px-3 py-2 text-[12px] font-semibold transition-colors ${
                           isHealth
-                            ? 'border-[#10a37f]/40 text-[#0a7a5c] hover:border-[#10a37f] hover:bg-[#10a37f]/5'
-                            : 'border-[#02509e]/35 text-[#02509e] hover:border-[#02509e] hover:bg-[#02509e]/5'
+                            ? 'border-[#3d8fd1]/40 text-[#2a73ad] hover:border-[#3d8fd1] hover:bg-[#3d8fd1]/5'
+                            : isEducation
+                              ? 'border-[#c9a227]/50 text-[#a8861a] hover:border-[#c9a227] hover:bg-[#fff8e8]'
+                              : 'border-[#02509e]/35 text-[#02509e] hover:border-[#02509e] hover:bg-[#02509e]/5'
                         }`}
                       >
                         <Plus className="h-3.5 w-3.5" />
@@ -836,8 +1065,12 @@ export function ApplyPage() {
                       <div className="flex flex-col items-center justify-between gap-4 rounded-lg border border-dashed border-slate-300 bg-slate-50/80 p-5 sm:flex-row">
                         <div className="flex items-center gap-3">
                           <div
-                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-md ${
-                              isHealth ? 'bg-[#10a37f]/15 text-[#0a7a5c]' : 'bg-[#02509e]/10 text-[#02509e]'
+                            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${
+                              isHealth
+                                ? 'bg-[#3d8fd1]/15 text-[#2a73ad]'
+                                : isEducation
+                                  ? 'bg-[#eaf4fb] text-[#3d8fd1]'
+                                  : 'bg-[#02509e]/10 text-[#02509e]'
                             }`}
                           >
                             <FileText className="h-5 w-5" />
@@ -962,7 +1195,11 @@ export function ApplyPage() {
                           checked={termsAccepted}
                           onChange={(e) => setTermsAccepted(e.target.checked)}
                           className={`mt-0.5 h-4 w-4 rounded border-slate-300 ${
-                            isHealth ? 'text-[#10a37f] focus:ring-[#10a37f]' : 'text-[#02509e] focus:ring-[#02509e]'
+                            isHealth
+                              ? 'text-[#3d8fd1] focus:ring-[#3d8fd1]'
+                              : isEducation
+                                ? 'text-[#c9a227] focus:ring-[#c9a227]'
+                                : 'text-[#02509e] focus:ring-[#02509e]'
                           }`}
                         />
                         <span className="text-xs leading-relaxed text-slate-600">
@@ -1018,28 +1255,22 @@ export function ApplyPage() {
                     </button>
                   </div>
                 )}
+                </div>
               </div>
             </div>
 
-            {/* Right Column: Steps Progress & Support */}
+            {/* Right Column: default / non-college shell only */}
+            {!isCollegeShell ? (
             <div className="space-y-6 lg:col-span-4">
               <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-slate-200 bg-[#05264c] shadow-sm">
                 <img
-                  src={
-                    collegeId === 'health-technology'
-                      ? '/images/health-technology/health-campus-1.jpg'
-                      : '/images/education/campus-gate.jpg'
-                  }
+                  src="/images/education/campus-gate.jpg"
                   alt=""
                   className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 flex items-end bg-gradient-to-t from-[#05264c] via-[#05264c]/45 to-transparent p-4 text-white">
                   <div>
-                    <span
-                      className={`mb-0.5 block text-[10px] font-semibold uppercase tracking-[0.14em] ${
-                        isHealth ? 'text-[#b8f0dc]' : 'text-amber-200'
-                      }`}
-                    >
+                    <span className="mb-0.5 block text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-200">
                       Campus Enrollment
                     </span>
                     <span className="font-serif text-sm font-semibold">{college.name}</span>
@@ -1062,9 +1293,7 @@ export function ApplyPage() {
                         <div
                           className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors ${
                             isPassed
-                              ? isHealth
-                                ? 'bg-[#10a37f] text-white'
-                                : 'bg-[#02509e] text-white'
+                              ? 'bg-[#02509e] text-white'
                               : isCurrent
                               ? 'bg-[#05264c] text-white'
                               : 'bg-slate-100 text-slate-400'
@@ -1102,7 +1331,7 @@ export function ApplyPage() {
                     href="tel:08135131503"
                     className="flex items-center justify-center gap-2 rounded-md border border-slate-200 bg-slate-50 p-2.5 text-xs font-semibold text-[#05264c] transition-colors hover:border-slate-300 hover:bg-white"
                   >
-                    <Phone className={`h-3.5 w-3.5 ${isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'}`} />
+                    <Phone className="h-3.5 w-3.5 text-[#02509e]" />
                     <span>0813 513 1503</span>
                   </a>
 
@@ -1110,16 +1339,82 @@ export function ApplyPage() {
                     href={`mailto:${siteConfig.contact.email}`}
                     className="flex items-center justify-center gap-2 truncate rounded-md border border-slate-200 bg-slate-50 p-2.5 text-xs font-semibold text-[#05264c] transition-colors hover:border-slate-300 hover:bg-white"
                   >
-                    <Mail className={`h-3.5 w-3.5 ${isHealth ? 'text-[#10a37f]' : 'text-[#02509e]'}`} />
+                    <Mail className="h-3.5 w-3.5 text-[#02509e]" />
                     <span className="truncate">{siteConfig.contact.email}</span>
                   </a>
                 </div>
               </div>
             </div>
+            ) : isHealth ? (
+              <div className="mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-2">
+                <a
+                  href="tel:08135131503"
+                  className="group relative flex items-center gap-3 overflow-hidden rounded-md bg-[#f7f9fb] px-4 py-4 ring-1 ring-[#041c36]/12 transition-colors hover:ring-[#041c36]/25"
+                >
+                  <span className="absolute inset-y-0 left-0 w-1 bg-[#041c36]" aria-hidden="true" />
+                  <Phone className="relative h-4 w-4 text-[#3d8fd1]" />
+                  <span className="relative">
+                    <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[#4a5560]">
+                      Registry phone
+                    </span>
+                    <span className="font-sans text-[14px] font-semibold text-[#041c36]">
+                      0813 513 1503
+                    </span>
+                  </span>
+                </a>
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="group relative flex items-center gap-3 overflow-hidden rounded-md bg-[#f7f9fb] px-4 py-4 ring-1 ring-[#041c36]/12 transition-colors hover:ring-[#041c36]/25"
+                >
+                  <span className="absolute inset-y-0 left-0 w-1 bg-[#041c36]" aria-hidden="true" />
+                  <Mail className="relative h-4 w-4 text-[#3d8fd1]" />
+                  <span className="relative min-w-0">
+                    <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[#4a5560]">
+                      Registry email
+                    </span>
+                    <span className="block truncate font-sans text-[14px] font-semibold text-[#041c36]">
+                      {siteConfig.contact.email}
+                    </span>
+                  </span>
+                </a>
+              </div>
+            ) : (
+              <div className="mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-2">
+                <a
+                  href="tel:08135131503"
+                  className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-[0_4px_0_0_#0c2340,0_14px_28px_-18px_rgba(12,35,64,0.3)] ring-1 ring-[#0c2340]/10 transition-colors hover:bg-[#f3f8fc]"
+                >
+                  <Phone className="h-4 w-4 text-[#c9a227]" />
+                  <span>
+                    <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[#5a6570]">
+                      Registry phone
+                    </span>
+                    <span className="font-sans text-[14px] font-semibold text-[#0c2340]">
+                      0813 513 1503
+                    </span>
+                  </span>
+                </a>
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-[0_4px_0_0_#c9a227,0_14px_28px_-18px_rgba(12,35,64,0.3)] ring-1 ring-[#0c2340]/10 transition-colors hover:bg-[#f3f8fc]"
+                >
+                  <Mail className="h-4 w-4 text-[#3d8fd1]" />
+                  <span className="min-w-0">
+                    <span className="block font-sans text-[11px] font-bold uppercase tracking-[0.12em] text-[#5a6570]">
+                      Registry email
+                    </span>
+                    <span className="block truncate font-sans text-[14px] font-semibold text-[#0c2340]">
+                      {siteConfig.contact.email}
+                    </span>
+                  </span>
+                </a>
+              </div>
+            )}
           </div>
           </div>
         )}
-      </Container>
+        </Container>
+      </div>
     </div>
   );
 }

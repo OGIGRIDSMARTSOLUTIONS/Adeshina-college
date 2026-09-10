@@ -5,13 +5,39 @@ import { admissionInfo } from '@/data/admissions';
 import { siteConfig } from '@/data/siteConfig';
 import { useCollege } from '@/context/CollegeContext';
 import { Container } from '@/components/common/Container';
-import { healthFadeUp, healthStagger } from '@/components/college/health/healthMotion';
+import {
+  healthCardIn,
+  healthFadeUp,
+  healthStagger,
+} from '@/components/college/health/healthMotion';
 import { htBtnNavy } from '@/components/college/health/healthTheme';
 import { HealthApplyButton } from '@/components/college/health/HealthApplyButton';
 
 const healthFaqs = admissionInfo.faqs.filter(
   (faq) => !faq.question.toLowerCase().includes('nce')
 );
+
+function SectionGeometry() {
+  return (
+    <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div className="absolute inset-0 bg-[#dde4ec]" />
+      <div
+        className="absolute inset-y-[-8%] right-[-8%] w-[52%] bg-[#041c36]/[0.14]"
+        style={{ clipPath: 'polygon(26% 0, 100% 0, 100% 100%, 0 100%)' }}
+      />
+      <div
+        className="absolute inset-y-[-8%] right-[4%] w-[34%] bg-[#3d8fd1]/24"
+        style={{ clipPath: 'polygon(38% 0, 100% 0, 78% 100%, 5% 100%)' }}
+      />
+      <div
+        className="absolute left-[-10%] top-[-20%] h-[65%] w-[42%] bg-[#041c36]/[0.1]"
+        style={{ clipPath: 'polygon(0 0, 78% 0, 42% 100%, 0 100%)' }}
+      />
+      <div className="absolute inset-y-[10%] right-[28%] w-[2px] bg-[#041c36]/28" style={{ transform: 'skewX(-12deg)' }} />
+      <div className="absolute inset-y-[10%] right-[14%] w-[2px] bg-[#3d8fd1]/50" style={{ transform: 'skewX(-12deg)' }} />
+    </div>
+  );
+}
 
 /** Health Technology Admissions — short guide. */
 export function HealthAdmissionsPage() {
@@ -22,9 +48,11 @@ export function HealthAdmissionsPage() {
   );
 
   return (
-    <div className="bg-[#f7f3ea] text-[#1a2332]">
-      {/* Hero — pulls under floating header */}
-      <section className="relative -mt-[5.5rem] overflow-hidden border-b border-[#041c36]/10 bg-[#041c36] sm:-mt-[6rem]">
+    <div className="bg-[#e8edf2] text-[#1a2332]">
+      <section
+        data-college-hero
+        className="relative overflow-hidden border-b border-[#041c36]/10 bg-[#041c36] lg:-mt-[6rem]"
+      >
         <img
           src="/images/health-technology/admissions-hero.jpg"
           alt=""
@@ -38,7 +66,7 @@ export function HealthAdmissionsPage() {
           className="absolute inset-0 bg-gradient-to-t from-[#041c36]/50 via-transparent to-[#041c36]/25"
           aria-hidden="true"
         />
-        <Container size="wide" className="relative z-10 pb-14 pt-[7.5rem] sm:pb-16 sm:pt-[8.25rem] lg:pb-20">
+        <Container size="wide" className="relative z-10 pb-14 pt-12 sm:pb-16 lg:pb-20 lg:pt-[8.25rem]">
           <motion.div
             variants={healthStagger}
             initial={reduceMotion ? false : 'hidden'}
@@ -55,7 +83,7 @@ export function HealthAdmissionsPage() {
               variants={healthFadeUp}
               className="mt-3 font-serif text-[2.25rem] font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:text-5xl"
             >
-              How to join Adeshina Health Tech
+              How to join Adeshina College of Health Technology
             </motion.h1>
             <motion.p
               variants={healthFadeUp}
@@ -66,7 +94,7 @@ export function HealthAdmissionsPage() {
             </motion.p>
             <motion.div
               variants={healthFadeUp}
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm"
+              className="mt-6 inline-flex items-center gap-2 border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm"
             >
               <span className="h-2 w-2 rounded-full bg-[#5ba8d9]" aria-hidden="true" />
               <span className="font-sans text-[13px] font-semibold text-white">
@@ -83,9 +111,9 @@ export function HealthAdmissionsPage() {
         </Container>
       </section>
 
-      {/* Steps */}
-      <section className="border-b border-[#041c36]/10 bg-white py-12 lg:py-16">
-        <Container size="wide">
+      <section className="relative overflow-hidden border-b border-[#041c36]/10 bg-[#dde4ec] py-12 lg:py-16">
+        <SectionGeometry />
+        <Container size="wide" className="relative">
           <motion.div
             variants={healthStagger}
             initial={reduceMotion ? false : 'hidden'}
@@ -93,7 +121,7 @@ export function HealthAdmissionsPage() {
             viewport={{ once: true, margin: '-60px' }}
           >
             <motion.div variants={healthFadeUp} className="max-w-2xl">
-              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3d8fd1]">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[#2a73ad]">
                 How to apply
               </p>
               <h2 className="mt-3 font-serif text-3xl font-semibold tracking-[-0.02em] text-[#041c36] sm:text-[2.15rem]">
@@ -101,28 +129,45 @@ export function HealthAdmissionsPage() {
               </h2>
             </motion.div>
 
-            <ol className="mt-10 border-t border-[#041c36]/12">
+            <motion.ol
+              variants={healthStagger}
+              className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5"
+            >
               {admissionInfo.steps.map((step) => (
                 <motion.li
                   key={step.step}
-                  variants={healthFadeUp}
-                  className="grid grid-cols-1 gap-2 border-b border-[#041c36]/12 py-6 sm:grid-cols-[4rem_minmax(0,14rem)_1fr] sm:gap-8 sm:py-7"
+                  variants={healthCardIn}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-md bg-[#f7f9fb] ring-1 ring-[#041c36]/12 transition-all duration-300 hover:-translate-y-1 hover:ring-[#041c36]/25"
                 >
-                  <span className="font-serif text-2xl tabular-nums text-[#3d8fd1]">{step.step}</span>
-                  <h3 className="font-serif text-xl font-semibold leading-snug text-[#041c36]">
-                    {step.title}
-                  </h3>
-                  <p className="max-w-xl font-sans text-[15px] leading-relaxed text-[#5c6570] sm:pt-1">
-                    {step.description}
-                  </p>
+                  <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#041c36]/[0.12] via-transparent to-[#3d8fd1]/[0.1]" />
+                    <div
+                      className="absolute -right-4 -top-8 h-40 w-40 bg-[#041c36]/[0.14]"
+                      style={{ clipPath: 'polygon(38% 0, 100% 0, 100% 100%, 0 52%)' }}
+                    />
+                  </div>
+                  <span
+                    className="absolute inset-y-0 left-0 w-1 bg-[#041c36] transition-colors duration-300 group-hover:bg-[#3d8fd1]"
+                    aria-hidden="true"
+                  />
+                  <div className="relative flex h-full flex-col p-5 pl-6 sm:p-6 sm:pl-7">
+                    <span className="inline-flex h-9 w-9 items-center justify-center bg-[#041c36] font-serif text-[13px] font-semibold tabular-nums text-white">
+                      {String(step.step).padStart(2, '0')}
+                    </span>
+                    <h3 className="mt-4 font-serif text-xl font-semibold leading-snug text-[#041c36]">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 flex-1 font-sans text-[15px] leading-relaxed text-[#4a5560]">
+                      {step.description}
+                    </p>
+                  </div>
                 </motion.li>
               ))}
-            </ol>
+            </motion.ol>
           </motion.div>
         </Container>
       </section>
 
-      {/* Requirements */}
       {requirement ? (
         <section className="border-b border-[#041c36]/10 bg-[#eaf5fc] py-12 lg:py-16">
           <Container size="wide">
@@ -141,14 +186,11 @@ export function HealthAdmissionsPage() {
                 </h2>
               </motion.div>
 
-              <motion.ul
-                variants={healthFadeUp}
-                className="mt-8 flex flex-wrap gap-2"
-              >
+              <motion.ul variants={healthFadeUp} className="mt-8 flex flex-wrap gap-2">
                 {requirement.mandatorySubjects.map((subject) => (
                   <li
                     key={subject}
-                    className="rounded-full bg-white px-3.5 py-2 font-sans text-[13px] font-semibold text-[#041c36] ring-1 ring-[#041c36]/10"
+                    className="bg-white px-3.5 py-2 font-sans text-[13px] font-semibold text-[#041c36] ring-1 ring-[#041c36]/10"
                   >
                     {subject}
                   </li>
@@ -171,9 +213,9 @@ export function HealthAdmissionsPage() {
         </section>
       ) : null}
 
-      {/* FAQ */}
-      <section className="border-b border-[#041c36]/10 bg-white py-12 lg:py-16">
-        <Container size="wide">
+      <section className="relative overflow-hidden border-b border-[#041c36]/10 bg-[#dde4ec] py-12 lg:py-16">
+        <SectionGeometry />
+        <Container size="wide" className="relative">
           <motion.div
             variants={healthStagger}
             initial={reduceMotion ? false : 'hidden'}
@@ -181,7 +223,7 @@ export function HealthAdmissionsPage() {
             viewport={{ once: true, margin: '-60px' }}
           >
             <motion.div variants={healthFadeUp} className="max-w-2xl">
-              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[#3d8fd1]">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-[#2a73ad]">
                 Common questions
               </p>
               <h2 className="mt-3 font-serif text-3xl font-semibold tracking-[-0.02em] text-[#041c36] sm:text-[2.15rem]">
@@ -189,21 +231,42 @@ export function HealthAdmissionsPage() {
               </h2>
             </motion.div>
 
-            <dl className="mt-10 max-w-3xl divide-y divide-[#041c36]/12 border-t border-[#041c36]/12">
+            <motion.dl
+              variants={healthStagger}
+              className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5"
+            >
               {healthFaqs.map((faq) => (
-                <motion.div key={faq.question} variants={healthFadeUp} className="py-6">
-                  <dt className="font-serif text-lg font-semibold text-[#041c36]">{faq.question}</dt>
-                  <dd className="mt-2 font-sans text-[15px] leading-relaxed text-[#5c6570]">
-                    {faq.answer}
-                  </dd>
+                <motion.div
+                  key={faq.question}
+                  variants={healthCardIn}
+                  className="group relative overflow-hidden rounded-md bg-[#f7f9fb] ring-1 ring-[#041c36]/12 transition-all duration-300 hover:-translate-y-1 hover:ring-[#041c36]/25"
+                >
+                  <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#041c36]/[0.12] via-transparent to-[#3d8fd1]/[0.1]" />
+                    <div
+                      className="absolute -right-4 -top-8 h-40 w-40 bg-[#041c36]/[0.14]"
+                      style={{ clipPath: 'polygon(38% 0, 100% 0, 100% 100%, 0 52%)' }}
+                    />
+                  </div>
+                  <span
+                    className="absolute inset-y-0 left-0 w-1 bg-[#041c36] transition-colors duration-300 group-hover:bg-[#3d8fd1]"
+                    aria-hidden="true"
+                  />
+                  <div className="relative p-5 pl-6 sm:p-6 sm:pl-7">
+                    <dt className="font-serif text-lg font-semibold leading-snug text-[#041c36]">
+                      {faq.question}
+                    </dt>
+                    <dd className="mt-3 font-sans text-[15px] leading-relaxed text-[#4a5560]">
+                      {faq.answer}
+                    </dd>
+                  </div>
                 </motion.div>
               ))}
-            </dl>
+            </motion.dl>
           </motion.div>
         </Container>
       </section>
 
-      {/* CTA */}
       <section className="border-b border-[#041c36]/10 bg-[#eaf5fc] py-12 lg:py-14">
         <Container size="wide">
           <motion.div

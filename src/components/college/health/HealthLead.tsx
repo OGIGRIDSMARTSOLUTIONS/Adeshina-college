@@ -11,44 +11,43 @@ interface HealthLeadProps {
   college: College;
 }
 
-const pathwayChips = ['Diploma', 'Certificate', 'Full-time'];
+const pathwayChips = [
+  { label: 'Diploma', className: 'border-[#3d8fd1]/40 text-[#2a73ad]' },
+  { label: 'Certificate', className: 'border-[#041c36]/20 text-[#041c36]' },
+  { label: 'Full-time', className: 'border-[#5ba8d9]/45 text-[#1e5f8f]' },
+];
 
-/** Conversion copy sits under the photo-led hero. */
+/** Conversion copy under the photo hero — institutional navy/sky ground. */
 export function HealthLead({ college }: HealthLeadProps) {
   const reduceMotion = useReducedMotion();
 
   return (
     <section
-      className="relative overflow-hidden border-b border-[#041c36]/10"
+      className="relative overflow-hidden border-b border-[#041c36]/10 bg-[#eaf5fc]"
       aria-labelledby="health-lead-heading"
-      style={{
-        backgroundColor: '#eef6fb',
-        backgroundImage: `
-          radial-gradient(circle at 8% 18%, rgba(91,168,217,0.55) 0 9%, transparent 10%),
-          radial-gradient(circle at 22% 72%, rgba(125,211,176,0.42) 0 7%, transparent 8%),
-          radial-gradient(circle at 78% 22%, rgba(246,196,107,0.38) 0 8%, transparent 9%),
-          radial-gradient(circle at 92% 68%, rgba(61,143,209,0.4) 0 10%, transparent 11%),
-          radial-gradient(circle at 48% 12%, rgba(167,201,232,0.55) 0 6%, transparent 7%),
-          radial-gradient(circle at 58% 88%, rgba(143,190,168,0.35) 0 8%, transparent 9%),
-          linear-gradient(135deg, #eaf5fc 0%, #f4f8f5 42%, #eef3fa 100%)
-        `,
-      }}
     >
-      {/* Soft colour blocks — abstract, not a logo pattern */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <span className="absolute -left-8 top-6 h-28 w-40 rotate-[-12deg] rounded-[1.75rem] bg-[#5ba8d9]/35" />
-        <span className="absolute left-[18%] top-1/2 h-16 w-16 -translate-y-1/2 rounded-full bg-[#7dd3b0]/40" />
-        <span className="absolute right-[12%] top-8 h-20 w-28 rotate-[18deg] rounded-2xl bg-[#f6c46b]/35" />
-        <span className="absolute bottom-4 right-[28%] h-14 w-14 rounded-full bg-[#3d8fd1]/30" />
-        <span className="absolute bottom-10 left-[42%] h-10 w-24 rotate-[-8deg] rounded-xl bg-[#a7c9e8]/45" />
-        <span className="absolute right-4 bottom-16 h-24 w-16 rotate-[8deg] rounded-[1.25rem] bg-[#8fbea8]/30" />
+        <div className="absolute inset-0 bg-[#e8eef4]" />
+        <div
+          className="absolute inset-y-[-10%] right-[-8%] w-[56%] bg-[#041c36]/[0.14]"
+          style={{ clipPath: 'polygon(26% 0, 100% 0, 100% 100%, 0 100%)' }}
+        />
+        <div
+          className="absolute inset-y-[-10%] right-[6%] w-[38%] bg-[#3d8fd1]/28"
+          style={{ clipPath: 'polygon(40% 0, 100% 0, 78% 100%, 6% 100%)' }}
+        />
+        <div
+          className="absolute left-[-12%] top-[-30%] h-[78%] w-[52%] bg-[#5ba8d9]/30"
+          style={{ clipPath: 'polygon(0 0, 78% 0, 42% 100%, 0 100%)' }}
+        />
+        <div
+          className="absolute bottom-[-20%] left-[18%] h-[48%] w-[34%] bg-[#041c36]/[0.1]"
+          style={{ clipPath: 'polygon(18% 0, 100% 22%, 82% 100%, 0 100%)' }}
+        />
+        <div className="absolute inset-y-0 right-[38%] w-[2px] bg-[#041c36]/25" style={{ transform: 'skewX(-16deg)' }} />
+        <div className="absolute inset-y-0 right-[16%] w-[2px] bg-[#3d8fd1]/55" style={{ transform: 'skewX(-16deg)' }} />
+        <div className="absolute inset-y-0 right-[52%] w-px bg-[#041c36]/18" style={{ transform: 'skewX(-16deg)' }} />
       </div>
-
-      {/* Light veil so type stays readable */}
-      <div
-        className="pointer-events-none absolute inset-0 bg-white/45 backdrop-blur-[1px]"
-        aria-hidden="true"
-      />
 
       <Container size="wide" className="relative py-12 sm:py-14 lg:py-16">
         <motion.div
@@ -63,13 +62,13 @@ export function HealthLead({ college }: HealthLeadProps) {
               variants={healthFadeUp}
               className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#2a73ad]"
             >
-              Adeshina College of Health Tech
+              Adeshina College of Health Technology
             </motion.p>
 
             {admissionInfo.applicationOpen ? (
               <motion.div
                 variants={healthFadeUp}
-                className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/95 px-3.5 py-1.5 shadow-[0_10px_28px_-14px_rgba(4,28,54,0.35)] ring-1 ring-[#3d8fd1]/25"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-3.5 py-1.5 ring-1 ring-[#041c36]/12"
               >
                 <span className="h-2 w-2 rounded-full bg-[#3d8fd1]" aria-hidden="true" />
                 <span className="font-sans text-[12px] font-semibold text-[#041c36]">
@@ -78,16 +77,16 @@ export function HealthLead({ college }: HealthLeadProps) {
               </motion.div>
             ) : null}
 
-            <motion.h1
+            <motion.h2
               id="health-lead-heading"
               variants={healthFadeUp}
-              className="mt-5 max-w-2xl font-serif text-[2.45rem] font-semibold leading-[1.06] tracking-[-0.03em] text-[#041c36] drop-shadow-[0_1px_0_rgba(255,255,255,0.65)] sm:text-5xl lg:text-[3.25rem]"
+              className="mt-5 max-w-2xl font-serif text-[2.45rem] font-semibold leading-[1.06] tracking-[-0.03em] text-[#041c36] sm:text-5xl lg:text-[3.25rem]"
             >
               Prepare for a career in healthcare.
-            </motion.h1>
+            </motion.h2>
             <motion.p
               variants={healthFadeUp}
-              className="mt-5 max-w-xl font-sans text-base leading-relaxed text-[#3d4654] sm:text-lg"
+              className="mt-5 max-w-xl font-sans text-base leading-relaxed text-[#5c6570] sm:text-lg"
             >
               Practical training for community health, clinical support, and health-technology roles
               across Kwara State and Nigeria.
@@ -98,21 +97,14 @@ export function HealthLead({ college }: HealthLeadProps) {
               className="mt-7 flex flex-wrap gap-2"
               aria-label="Study pathways"
             >
-              {pathwayChips.map((chip, index) => {
-                const tones = [
-                  'border-[#3d8fd1]/35 text-[#2a73ad]',
-                  'border-[#0f7a5f]/30 text-[#0f7a5f]',
-                  'border-[#c68a18]/35 text-[#8a6112]',
-                ];
-                return (
-                  <li
-                    key={chip}
-                    className={`rounded-full border bg-white/95 px-3.5 py-1.5 font-sans text-[12px] font-semibold shadow-[0_8px_20px_-14px_rgba(4,28,54,0.4)] ${tones[index % tones.length]}`}
-                  >
-                    {chip}
-                  </li>
-                );
-              })}
+              {pathwayChips.map((chip) => (
+                <li
+                  key={chip.label}
+                  className={`rounded-full border bg-white px-3.5 py-1.5 font-sans text-[12px] font-semibold ${chip.className}`}
+                >
+                  {chip.label}
+                </li>
+              ))}
             </motion.ul>
           </div>
 

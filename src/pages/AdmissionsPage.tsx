@@ -20,6 +20,7 @@ import { colleges } from '@/data/colleges';
 import { Container } from '@/components/common/Container';
 import { useOptionalCollege } from '@/context/CollegeContext';
 import { HealthAdmissionsPage } from '@/components/college/health/HealthAdmissionsPage';
+import { EducationAdmissionsPage } from '@/components/college/education/EducationAdmissionsPage';
 
 const stepIcons = [UserRound, ClipboardCheck, GraduationCap, FileText, ShieldCheck];
 
@@ -31,21 +32,24 @@ export function AdmissionsPage() {
   const isCollegePage = Boolean(college);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
+  if (collegeId === 'health-technology') {
+    return <HealthAdmissionsPage />;
+  }
+
+  if (collegeId === 'education') {
+    return <EducationAdmissionsPage />;
+  }
+
   const activeRequirement = collegeId
     ? admissionInfo.requirements.find((item) => item.collegeId === collegeId)
     : null;
 
   const heroImage = college?.heroImage ?? '/images/campus/campus-life-1.jpg';
-  const accent = collegeId === 'health-technology' ? '#10a37f' : '#02509e';
+  const accent = '#02509e';
 
   const applyHref = isCollegePage && path ? path('apply') : '/apply';
   const contactHref = isCollegePage && path ? path('contact') : '/contact';
   const homeHref = isCollegePage && path ? path() : '/';
-
-  // Health keeps its dedicated admissions experience
-  if (collegeId === 'health-technology') {
-    return <HealthAdmissionsPage />;
-  }
 
   return (
     <div className="min-h-screen bg-[#f7f9fc] text-[#05264c]">

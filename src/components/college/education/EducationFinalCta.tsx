@@ -4,7 +4,8 @@ import { ArrowRight } from 'lucide-react';
 import { College } from '@/types/college';
 import { Container } from '@/components/common/Container';
 import { educationFadeUp, educationStagger } from './educationMotion';
-import { edBtnCoral } from './educationTheme';
+import { edBtnGold } from './educationTheme';
+import { EducationGeometricBg } from './EducationGeometricBg';
 
 interface EducationFinalCtaProps {
   college: College;
@@ -15,8 +16,9 @@ export function EducationFinalCta({ college }: EducationFinalCtaProps) {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="bg-[#0f2744]" aria-labelledby="education-final-cta-heading">
-      <Container size="wide" className="py-16 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden" aria-labelledby="education-final-cta-heading">
+      <EducationGeometricBg tone="ink" />
+      <Container size="wide" className="relative py-16 sm:py-20 lg:py-24">
         <motion.div
           variants={educationStagger}
           initial={reduceMotion ? false : 'hidden'}
@@ -26,7 +28,7 @@ export function EducationFinalCta({ college }: EducationFinalCtaProps) {
         >
           <motion.p
             variants={educationFadeUp}
-            className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#e85d3b]"
+            className="font-sans text-[11px] font-bold uppercase tracking-[0.16em] text-[#c9a227]"
           >
             Begin here
           </motion.p>
@@ -48,13 +50,13 @@ export function EducationFinalCta({ college }: EducationFinalCtaProps) {
             variants={educationFadeUp}
             className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
           >
-            <Link to={`/colleges/${college.id}/apply`} className={edBtnCoral}>
+            <Link to={`/colleges/${college.id}/apply`} className={edBtnGold}>
               Apply now
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
             <Link
               to={`/colleges/${college.id}/contact`}
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/35 bg-transparent px-6 py-3 font-sans text-[14px] font-semibold text-white transition-colors hover:bg-white hover:text-[#0f2744]"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/35 bg-transparent px-6 py-3 font-sans text-[14px] font-semibold text-white transition-colors hover:bg-white hover:text-[#0c2340]"
             >
               Contact support
             </Link>

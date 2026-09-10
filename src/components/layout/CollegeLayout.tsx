@@ -14,7 +14,7 @@ function CollegeChrome() {
   return (
     <div
       className={`flex min-h-screen flex-col text-text ${
-        isHealth ? 'bg-[#f7f3ea]' : isEducation ? 'bg-[#fbfaf7]' : 'bg-background'
+        isHealth ? 'bg-[#f7f3ea]' : isEducation ? 'bg-[#eaf4fb]' : 'bg-background'
       }`}
     >
       {isHealth ? (
@@ -24,7 +24,7 @@ function CollegeChrome() {
       ) : (
         <CollegeHeader />
       )}
-      <main className={`flex-grow ${isHealth ? 'pt-[5.5rem] sm:pt-[6rem]' : ''}`}>
+      <main className={`flex-grow ${isHealth ? 'lg:pt-[6rem]' : ''}`}>
         <Outlet />
       </main>
       <CollegeFooter />

@@ -9,140 +9,81 @@ export function CollegeFooter() {
   const sections = getCollegeFooterSections(collegeId);
   const year = new Date().getFullYear();
   const isHealth = collegeId === 'health-technology';
+  const isEducation = collegeId === 'education';
 
-  if (isHealth) {
-    return (
-      <footer className="relative z-20 mt-auto border-t-[4px] border-[#3d8fd1] bg-[#041c36] text-white">
-        <Container size="wide" className="py-7 sm:py-8">
-          {/* Link columns — grouped toward centre */}
-          <div className="mx-auto grid max-w-3xl grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8">
-            {sections.map((section) => (
-              <div key={section.title}>
-                <h3 className="font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-[#5ba8d9]">
-                  {section.title}
-                </h3>
-                <ul className="mt-3 space-y-2">
-                  {section.items.map((item) => (
-                    <li key={item.path}>
-                      <Link
-                        to={item.path}
-                        className="font-sans text-[15px] text-white/75 transition-colors hover:text-white"
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-
-            <div className="col-span-2 sm:col-span-1">
-              <h3 className="font-sans text-[12px] font-semibold uppercase tracking-[0.14em] text-[#5ba8d9]">
-                Get in touch
-              </h3>
-              <ul className="mt-3 space-y-2 font-sans text-[15px] text-white/75">
-                <li>
-                  <Link to={path('contact')} className="transition-colors hover:text-white">
-                    Contact & campus
-                  </Link>
-                </li>
-                <li>
-                  <a href="tel:08135131503" className="transition-colors hover:text-white">
-                    0813 513 1503
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`mailto:${siteConfig.contact.email}`}
-                    className="break-all transition-colors hover:text-white"
-                  >
-                    {siteConfig.contact.email}
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Centred brand mark */}
-          <div className="mt-7 flex flex-col items-center text-center sm:mt-8">
-            <Link to={path()} className="group inline-flex flex-col items-center gap-2.5">
-              <span className="max-w-md font-serif text-base font-semibold uppercase tracking-[0.1em] text-white transition-colors group-hover:text-white/90 sm:text-lg sm:tracking-[0.12em]">
-                {college.name}
-              </span>
-              {siteConfig.brand.logoLightUrl ? (
-                <img
-                  src={siteConfig.brand.logoLightUrl}
-                  alt=""
-                  className="h-10 w-10 object-contain bg-white p-0.5 sm:h-11 sm:w-11"
-                />
-              ) : null}
-            </Link>
-            <p className="mt-2.5 font-sans text-[12px] font-medium uppercase tracking-[0.12em] text-white/55">
-              {siteConfig.location} · Kwara State
-            </p>
-          </div>
-        </Container>
-
-        <div className="border-t border-white/10 py-3.5">
-          <Container
-            size="wide"
-            className="flex flex-col items-center justify-between gap-1.5 text-center sm:flex-row sm:text-left"
-          >
-            <p className="font-sans text-[14px] text-white/55">
-              &copy; {year} {college.name}. Part of {siteConfig.institutionName}.
-            </p>
-            {siteConfig.designerUrl ? (
-              <a
-                href={siteConfig.designerUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-sans text-[13px] font-semibold tracking-wide text-[#5ba8d9] transition-colors hover:text-white sm:text-[14px]"
-              >
-                {siteConfig.designerCredit}
-              </a>
-            ) : (
-              <p className="font-sans text-[13px] font-semibold tracking-wide text-[#5ba8d9] sm:text-[14px]">
-                {siteConfig.designerCredit}
-              </p>
-            )}
-          </Container>
-        </div>
-      </footer>
-    );
-  }
+  const accent = isHealth ? 'text-[#5ba8d9]' : isEducation ? 'text-[#c9a227]' : 'text-[#e8c56a]';
+  const borderTop = isHealth
+    ? 'border-t-[3px] border-[#3d8fd1]'
+    : isEducation
+      ? 'border-t-[3px] border-[#c9a227]'
+      : '';
 
   return (
-    <footer className="relative z-20 mt-auto bg-[#041c36] text-white">
-      <Container size="wide" className="py-14 sm:py-16">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
-          <div className="space-y-4 md:col-span-5">
-            <Link to={path()} className="group inline-flex items-center gap-3">
-              {siteConfig.brand.logoLightUrl ? (
-                <img
-                  src={siteConfig.brand.logoLightUrl}
-                  alt=""
-                  className="h-12 w-12 object-contain bg-white p-0.5"
-                />
-              ) : null}
-              <div className="flex flex-col leading-tight">
-                <span className="font-serif text-xl font-semibold text-white transition-colors group-hover:text-white/90">
-                  {college.name}
-                </span>
-                <span className="mt-1.5 text-xs font-medium uppercase tracking-[0.16em] text-white/60">
-                  {siteConfig.location} · Kwara State
-                </span>
-              </div>
-            </Link>
-            <p className="max-w-sm text-[15px] leading-relaxed text-white/70">{college.tagline}</p>
-            <ul className="space-y-2 pt-1 text-[15px] text-white/75">
+    <footer className={`relative z-20 mt-auto bg-[#041c36] text-white ${borderTop}`}>
+      <Container size="wide" className="py-5 sm:py-8 lg:py-10">
+        {/* Brand — compact on mobile */}
+        <div className="flex items-center gap-3">
+          <Link to={path()} className="inline-flex min-w-0 items-center gap-2.5">
+            {siteConfig.brand.logoLightUrl ? (
+              <img
+                src={siteConfig.brand.logoLightUrl}
+                alt=""
+                className="h-9 w-9 shrink-0 object-contain bg-white p-0.5 sm:h-11 sm:w-11"
+              />
+            ) : null}
+            <span className="min-w-0">
+              <span className="block truncate font-serif text-[15px] font-semibold leading-snug text-white sm:text-lg">
+                {college.shortName}
+              </span>
+              <span className="mt-0.5 block font-sans text-[10px] font-medium uppercase tracking-[0.12em] text-white/50 sm:text-[11px]">
+                {siteConfig.location} · Kwara
+              </span>
+            </span>
+          </Link>
+        </div>
+
+        {/* Links — tight grid on mobile */}
+        <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-5 sm:mt-7 sm:grid-cols-3 sm:gap-8">
+          {sections.map((section) => (
+            <div key={section.title}>
+              <h3
+                className={`font-sans text-[10px] font-semibold uppercase tracking-[0.14em] sm:text-[11px] ${accent}`}
+              >
+                {section.title}
+              </h3>
+              <ul className="mt-2 space-y-1.5 sm:mt-3 sm:space-y-2">
+                {section.items.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      to={item.path}
+                      className="font-sans text-[13px] text-white/70 transition-colors hover:text-white sm:text-[14px]"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          <div className="col-span-2 sm:col-span-1">
+            <h3
+              className={`font-sans text-[10px] font-semibold uppercase tracking-[0.14em] sm:text-[11px] ${accent}`}
+            >
+              Get in touch
+            </h3>
+            <ul className="mt-2 space-y-1.5 font-sans text-[13px] text-white/70 sm:mt-3 sm:space-y-2 sm:text-[14px]">
               <li>
-                {siteConfig.contact.campusAddress}, {siteConfig.contact.stateCountry}
+                <Link to={path('contact')} className="transition-colors hover:text-white">
+                  Contact & campus
+                </Link>
               </li>
               <li>
                 <a href="tel:08135131503" className="transition-colors hover:text-white">
                   0813 513 1503
                 </a>
-                {' · '}
+              </li>
+              <li className="hidden sm:list-item">
                 <a
                   href={`mailto:${siteConfig.contact.email}`}
                   className="break-all transition-colors hover:text-white"
@@ -152,45 +93,29 @@ export function CollegeFooter() {
               </li>
             </ul>
           </div>
-
-          {sections.map((section) => (
-            <div key={section.title} className="space-y-3.5 md:col-span-3">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#e8c56a]">
-                {section.title}
-              </h3>
-              <ul className="space-y-3 text-[15px]">
-                {section.items.map((item) => (
-                  <li key={item.path}>
-                    <Link to={item.path} className="text-white/75 transition-colors hover:text-white">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
         </div>
       </Container>
 
-      <div className="border-t border-white/10 py-5">
+      <div className="border-t border-white/10 py-2.5 sm:py-3.5">
         <Container
           size="wide"
-          className="flex flex-col items-center justify-between gap-3 text-sm text-white/55 sm:flex-row"
+          className="flex flex-col items-center justify-between gap-1 text-center sm:flex-row sm:gap-2 sm:text-left"
         >
-          <p>
-            &copy; {year} {college.name}. Part of {siteConfig.institutionName}.
+          <p className="font-sans text-[11px] text-white/50 sm:text-[13px]">
+            &copy; {year} {college.shortName}
+            <span className="hidden sm:inline">. Part of {siteConfig.institutionName}.</span>
           </p>
           {siteConfig.designerUrl ? (
             <a
               href={siteConfig.designerUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[13px] font-semibold tracking-wide text-[#e8c56a] transition-colors duration-300 hover:text-white sm:text-sm"
+              className={`font-sans text-[11px] font-semibold tracking-wide transition-colors hover:text-white sm:text-[13px] ${accent}`}
             >
               {siteConfig.designerCredit}
             </a>
           ) : (
-            <p className="text-[13px] font-semibold tracking-wide text-[#e8c56a] sm:text-sm">
+            <p className={`font-sans text-[11px] font-semibold tracking-wide sm:text-[13px] ${accent}`}>
               {siteConfig.designerCredit}
             </p>
           )}

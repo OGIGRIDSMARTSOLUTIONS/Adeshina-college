@@ -11,10 +11,10 @@ interface EducationHomePageProps {
   college: College;
 }
 
-/** Education homepage — Editorial Oxford body under the locked hero. */
+/** Education homepage — full-bleed hero into editorial sections. */
 export function EducationHomePage({ college }: EducationHomePageProps) {
   return (
-    <div className="bg-[#fbfaf7] text-[#0f2744]">
+    <div className="bg-[#eaf4fb] text-[#0c2340]">
       <EducationHero college={college} />
       <EducationLead college={college} />
       <EducationProgrammes college={college} />

@@ -18,8 +18,8 @@ export function getCollegeNavItems(collegeId: CollegeId): NavItem[] {
     { label: 'Contact', path: collegePath(collegeId, 'contact') },
   ];
 
-  // Health: hide News from chrome for now (route still exists)
-  if (collegeId === 'health-technology') {
+  // Health & Education: hide News from chrome for now (route still exists)
+  if (collegeId === 'health-technology' || collegeId === 'education') {
     return items.filter((item) => item.label !== 'News');
   }
 
@@ -38,7 +38,7 @@ export function getCollegeFooterSections(collegeId: CollegeId): FooterSection[] 
     {
       title: 'Explore',
       items:
-        collegeId === 'health-technology'
+        collegeId === 'health-technology' || collegeId === 'education'
           ? exploreItems.filter((item) => item.label !== 'News & Updates')
           : exploreItems,
     },
